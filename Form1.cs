@@ -16,5 +16,11 @@ namespace JobApplicationLog
         {
             InitializeComponent();
         }
+
+        private void btn_edit_Click(object sender, EventArgs e)
+        {
+            var editForm = new Form2();
+            editForm.Show();
+        }
     }
 }
