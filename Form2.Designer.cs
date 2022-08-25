@@ -49,6 +49,8 @@ namespace JobApplicationLog
             this.txtBox_cons = new System.Windows.Forms.TextBox();
             this.txtBox_jobDesc = new System.Windows.Forms.TextBox();
             this.dt_applicationDate = new System.Windows.Forms.DateTimePicker();
+            this.static_lbl_applicationStatus2 = new System.Windows.Forms.Label();
+            this.txtBox_applicationStatus = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // static_lbl_companyName2
@@ -81,7 +83,7 @@ namespace JobApplicationLog
             // static_lbl_companySite2
             // 
             this.static_lbl_companySite2.AutoSize = true;
-            this.static_lbl_companySite2.Location = new System.Drawing.Point(12, 150);
+            this.static_lbl_companySite2.Location = new System.Drawing.Point(12, 205);
             this.static_lbl_companySite2.Name = "static_lbl_companySite2";
             this.static_lbl_companySite2.Size = new System.Drawing.Size(91, 17);
             this.static_lbl_companySite2.TabIndex = 3;
@@ -91,7 +93,7 @@ namespace JobApplicationLog
             // static_lbl_companyProfileApp2
             // 
             this.static_lbl_companyProfileApp2.AutoSize = true;
-            this.static_lbl_companyProfileApp2.Location = new System.Drawing.Point(12, 178);
+            this.static_lbl_companyProfileApp2.Location = new System.Drawing.Point(12, 233);
             this.static_lbl_companyProfileApp2.Name = "static_lbl_companyProfileApp2";
             this.static_lbl_companyProfileApp2.Size = new System.Drawing.Size(100, 17);
             this.static_lbl_companyProfileApp2.TabIndex = 4;
@@ -100,7 +102,7 @@ namespace JobApplicationLog
             // static_lbl_companyInfo2
             // 
             this.static_lbl_companyInfo2.AutoSize = true;
-            this.static_lbl_companyInfo2.Location = new System.Drawing.Point(12, 206);
+            this.static_lbl_companyInfo2.Location = new System.Drawing.Point(12, 261);
             this.static_lbl_companyInfo2.Name = "static_lbl_companyInfo2";
             this.static_lbl_companyInfo2.Size = new System.Drawing.Size(92, 17);
             this.static_lbl_companyInfo2.TabIndex = 5;
@@ -109,7 +111,7 @@ namespace JobApplicationLog
             // static_lbl_pros2
             // 
             this.static_lbl_pros2.AutoSize = true;
-            this.static_lbl_pros2.Location = new System.Drawing.Point(12, 234);
+            this.static_lbl_pros2.Location = new System.Drawing.Point(12, 289);
             this.static_lbl_pros2.Name = "static_lbl_pros2";
             this.static_lbl_pros2.Size = new System.Drawing.Size(36, 17);
             this.static_lbl_pros2.TabIndex = 6;
@@ -118,7 +120,7 @@ namespace JobApplicationLog
             // static_lbl_cons2
             // 
             this.static_lbl_cons2.AutoSize = true;
-            this.static_lbl_cons2.Location = new System.Drawing.Point(12, 262);
+            this.static_lbl_cons2.Location = new System.Drawing.Point(12, 317);
             this.static_lbl_cons2.Name = "static_lbl_cons2";
             this.static_lbl_cons2.Size = new System.Drawing.Size(38, 17);
             this.static_lbl_cons2.TabIndex = 7;
@@ -127,7 +129,7 @@ namespace JobApplicationLog
             // static_lbl_jobDesc2
             // 
             this.static_lbl_jobDesc2.AutoSize = true;
-            this.static_lbl_jobDesc2.Location = new System.Drawing.Point(12, 290);
+            this.static_lbl_jobDesc2.Location = new System.Drawing.Point(12, 373);
             this.static_lbl_jobDesc2.Name = "static_lbl_jobDesc2";
             this.static_lbl_jobDesc2.Size = new System.Drawing.Size(100, 17);
             this.static_lbl_jobDesc2.TabIndex = 8;
@@ -167,59 +169,77 @@ namespace JobApplicationLog
             // 
             // txtBox_companySite
             // 
-            this.txtBox_companySite.Location = new System.Drawing.Point(131, 147);
+            this.txtBox_companySite.Location = new System.Drawing.Point(131, 202);
             this.txtBox_companySite.Name = "txtBox_companySite";
             this.txtBox_companySite.Size = new System.Drawing.Size(657, 22);
             this.txtBox_companySite.TabIndex = 14;
             // 
             // txtBox_companyProfileApp
             // 
-            this.txtBox_companyProfileApp.Location = new System.Drawing.Point(131, 175);
+            this.txtBox_companyProfileApp.Location = new System.Drawing.Point(131, 230);
             this.txtBox_companyProfileApp.Name = "txtBox_companyProfileApp";
             this.txtBox_companyProfileApp.Size = new System.Drawing.Size(657, 22);
             this.txtBox_companyProfileApp.TabIndex = 15;
             // 
             // txtBox_companyInfo
             // 
-            this.txtBox_companyInfo.Location = new System.Drawing.Point(131, 203);
+            this.txtBox_companyInfo.Location = new System.Drawing.Point(131, 258);
             this.txtBox_companyInfo.Name = "txtBox_companyInfo";
             this.txtBox_companyInfo.Size = new System.Drawing.Size(657, 22);
             this.txtBox_companyInfo.TabIndex = 16;
             // 
             // txtBox_pros
             // 
-            this.txtBox_pros.Location = new System.Drawing.Point(131, 231);
+            this.txtBox_pros.Location = new System.Drawing.Point(131, 286);
             this.txtBox_pros.Name = "txtBox_pros";
             this.txtBox_pros.Size = new System.Drawing.Size(657, 22);
             this.txtBox_pros.TabIndex = 17;
             // 
             // txtBox_cons
             // 
-            this.txtBox_cons.Location = new System.Drawing.Point(131, 259);
+            this.txtBox_cons.Location = new System.Drawing.Point(131, 314);
             this.txtBox_cons.Name = "txtBox_cons";
             this.txtBox_cons.Size = new System.Drawing.Size(657, 22);
             this.txtBox_cons.TabIndex = 18;
             // 
             // txtBox_jobDesc
             // 
-            this.txtBox_jobDesc.Location = new System.Drawing.Point(132, 288);
+            this.txtBox_jobDesc.Location = new System.Drawing.Point(131, 370);
             this.txtBox_jobDesc.Multiline = true;
             this.txtBox_jobDesc.Name = "txtBox_jobDesc";
-            this.txtBox_jobDesc.Size = new System.Drawing.Size(657, 532);
+            this.txtBox_jobDesc.Size = new System.Drawing.Size(657, 493);
             this.txtBox_jobDesc.TabIndex = 19;
             // 
             // dt_applicationDate
             // 
             this.dt_applicationDate.Location = new System.Drawing.Point(131, 91);
             this.dt_applicationDate.Name = "dt_applicationDate";
-            this.dt_applicationDate.Size = new System.Drawing.Size(200, 22);
+            this.dt_applicationDate.Size = new System.Drawing.Size(238, 22);
             this.dt_applicationDate.TabIndex = 20;
+            // 
+            // static_lbl_applicationStatus2
+            // 
+            this.static_lbl_applicationStatus2.AutoSize = true;
+            this.static_lbl_applicationStatus2.Location = new System.Drawing.Point(12, 150);
+            this.static_lbl_applicationStatus2.Name = "static_lbl_applicationStatus2";
+            this.static_lbl_applicationStatus2.Size = new System.Drawing.Size(46, 17);
+            this.static_lbl_applicationStatus2.TabIndex = 21;
+            this.static_lbl_applicationStatus2.Text = "status";
+            // 
+            // txtBox_applicationStatus
+            // 
+            this.txtBox_applicationStatus.Location = new System.Drawing.Point(131, 147);
+            this.txtBox_applicationStatus.Name = "txtBox_applicationStatus";
+            this.txtBox_applicationStatus.Size = new System.Drawing.Size(657, 22);
+            this.txtBox_applicationStatus.TabIndex = 22;
             // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 832);
+            this.ClientSize = new System.Drawing.Size(800, 875);
+            this.Controls.Add(this.txtBox_applicationStatus);
+            this.Controls.Add(this.static_lbl_applicationStatus2);
             this.Controls.Add(this.dt_applicationDate);
             this.Controls.Add(this.txtBox_jobDesc);
             this.Controls.Add(this.txtBox_cons);
@@ -269,5 +289,7 @@ namespace JobApplicationLog
         private System.Windows.Forms.TextBox txtBox_cons;
         private System.Windows.Forms.TextBox txtBox_jobDesc;
         private System.Windows.Forms.DateTimePicker dt_applicationDate;
+        private System.Windows.Forms.Label static_lbl_applicationStatus2;
+        private System.Windows.Forms.TextBox txtBox_applicationStatus;
     }
 }
