@@ -47,10 +47,11 @@ namespace JobApplicationLog
             this.txtBox_companyInfo = new System.Windows.Forms.TextBox();
             this.txtBox_pros = new System.Windows.Forms.TextBox();
             this.txtBox_cons = new System.Windows.Forms.TextBox();
-            this.txtBox_jobDesc = new System.Windows.Forms.TextBox();
+            this.txtBox_jobDesc2 = new System.Windows.Forms.TextBox();
             this.dt_applicationDate = new System.Windows.Forms.DateTimePicker();
             this.static_lbl_applicationStatus2 = new System.Windows.Forms.Label();
             this.txtBox_applicationStatus = new System.Windows.Forms.TextBox();
+            this.txtBox_applicationDate = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // static_lbl_companyName2
@@ -152,6 +153,7 @@ namespace JobApplicationLog
             this.btn_save.TabIndex = 10;
             this.btn_save.Text = "save";
             this.btn_save.UseVisualStyleBackColor = true;
+            this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
             // 
             // txtBox_sourceSite
             // 
@@ -202,17 +204,17 @@ namespace JobApplicationLog
             this.txtBox_cons.Size = new System.Drawing.Size(657, 22);
             this.txtBox_cons.TabIndex = 18;
             // 
-            // txtBox_jobDesc
+            // txtBox_jobDesc2
             // 
-            this.txtBox_jobDesc.Location = new System.Drawing.Point(131, 370);
-            this.txtBox_jobDesc.Multiline = true;
-            this.txtBox_jobDesc.Name = "txtBox_jobDesc";
-            this.txtBox_jobDesc.Size = new System.Drawing.Size(657, 493);
-            this.txtBox_jobDesc.TabIndex = 19;
+            this.txtBox_jobDesc2.Location = new System.Drawing.Point(131, 370);
+            this.txtBox_jobDesc2.Multiline = true;
+            this.txtBox_jobDesc2.Name = "txtBox_jobDesc2";
+            this.txtBox_jobDesc2.Size = new System.Drawing.Size(657, 493);
+            this.txtBox_jobDesc2.TabIndex = 19;
             // 
             // dt_applicationDate
             // 
-            this.dt_applicationDate.Location = new System.Drawing.Point(131, 91);
+            this.dt_applicationDate.Location = new System.Drawing.Point(550, 91);
             this.dt_applicationDate.Name = "dt_applicationDate";
             this.dt_applicationDate.Size = new System.Drawing.Size(238, 22);
             this.dt_applicationDate.TabIndex = 20;
@@ -233,15 +235,23 @@ namespace JobApplicationLog
             this.txtBox_applicationStatus.Size = new System.Drawing.Size(657, 22);
             this.txtBox_applicationStatus.TabIndex = 22;
             // 
+            // txtBox_applicationDate
+            // 
+            this.txtBox_applicationDate.Location = new System.Drawing.Point(131, 91);
+            this.txtBox_applicationDate.Name = "txtBox_applicationDate";
+            this.txtBox_applicationDate.Size = new System.Drawing.Size(231, 22);
+            this.txtBox_applicationDate.TabIndex = 23;
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 875);
+            this.Controls.Add(this.txtBox_applicationDate);
             this.Controls.Add(this.txtBox_applicationStatus);
             this.Controls.Add(this.static_lbl_applicationStatus2);
             this.Controls.Add(this.dt_applicationDate);
-            this.Controls.Add(this.txtBox_jobDesc);
+            this.Controls.Add(this.txtBox_jobDesc2);
             this.Controls.Add(this.txtBox_cons);
             this.Controls.Add(this.txtBox_pros);
             this.Controls.Add(this.txtBox_companyInfo);
@@ -287,9 +297,10 @@ namespace JobApplicationLog
         private System.Windows.Forms.TextBox txtBox_companyInfo;
         private System.Windows.Forms.TextBox txtBox_pros;
         private System.Windows.Forms.TextBox txtBox_cons;
-        private System.Windows.Forms.TextBox txtBox_jobDesc;
+        private System.Windows.Forms.TextBox txtBox_jobDesc2;
         private System.Windows.Forms.DateTimePicker dt_applicationDate;
         private System.Windows.Forms.Label static_lbl_applicationStatus2;
         private System.Windows.Forms.TextBox txtBox_applicationStatus;
+        private System.Windows.Forms.TextBox txtBox_applicationDate;
     }
 }

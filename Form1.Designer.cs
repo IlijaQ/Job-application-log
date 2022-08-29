@@ -49,6 +49,17 @@ namespace JobApplicationLog
             this.btn_companyProfileApp = new System.Windows.Forms.Button();
             this.static_lbl_applicationStatus = new System.Windows.Forms.Label();
             this.lbl_applicationStatus = new System.Windows.Forms.Label();
+            this.txtBox_companyName = new System.Windows.Forms.TextBox();
+            this.txtBox_applicationDate = new System.Windows.Forms.TextBox();
+            this.txtBox_sourceSite = new System.Windows.Forms.TextBox();
+            this.txtBox_applicationStatus = new System.Windows.Forms.TextBox();
+            this.txtBox_companySite = new System.Windows.Forms.TextBox();
+            this.txtBox_companyProfileApp = new System.Windows.Forms.TextBox();
+            this.txtBox_companyInfo = new System.Windows.Forms.TextBox();
+            this.txtBox_pros = new System.Windows.Forms.TextBox();
+            this.txtBox_cons = new System.Windows.Forms.TextBox();
+            this.btn_back = new System.Windows.Forms.Button();
+            this.btn_save = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listbox_companies
@@ -58,7 +69,7 @@ namespace JobApplicationLog
             this.listbox_companies.Location = new System.Drawing.Point(12, 52);
             this.listbox_companies.MultiColumn = true;
             this.listbox_companies.Name = "listbox_companies";
-            this.listbox_companies.Size = new System.Drawing.Size(198, 820);
+            this.listbox_companies.Size = new System.Drawing.Size(225, 820);
             this.listbox_companies.TabIndex = 0;
             // 
             // btn_newCompany
@@ -78,6 +89,7 @@ namespace JobApplicationLog
             this.btn_openCompany.TabIndex = 2;
             this.btn_openCompany.Text = "open company";
             this.btn_openCompany.UseVisualStyleBackColor = true;
+            this.btn_openCompany.Click += new System.EventHandler(this.btn_openCompany_Click);
             // 
             // btn_edit
             // 
@@ -91,12 +103,13 @@ namespace JobApplicationLog
             // 
             // btn_companySite
             // 
-            this.btn_companySite.Location = new System.Drawing.Point(259, 213);
+            this.btn_companySite.Location = new System.Drawing.Point(259, 219);
             this.btn_companySite.Name = "btn_companySite";
             this.btn_companySite.Size = new System.Drawing.Size(310, 23);
             this.btn_companySite.TabIndex = 4;
             this.btn_companySite.Text = "company site";
             this.btn_companySite.UseVisualStyleBackColor = true;
+            this.btn_companySite.Click += new System.EventHandler(this.btn_companySite_Click);
             // 
             // static_lbl_companyName
             // 
@@ -120,12 +133,13 @@ namespace JobApplicationLog
             // 
             // btn_companyInfo
             // 
-            this.btn_companyInfo.Location = new System.Drawing.Point(699, 213);
+            this.btn_companyInfo.Location = new System.Drawing.Point(699, 219);
             this.btn_companyInfo.Name = "btn_companyInfo";
             this.btn_companyInfo.Size = new System.Drawing.Size(310, 23);
             this.btn_companyInfo.TabIndex = 7;
             this.btn_companyInfo.Text = "company info";
             this.btn_companyInfo.UseVisualStyleBackColor = true;
+            this.btn_companyInfo.Click += new System.EventHandler(this.btn_companyInfo_Click);
             // 
             // static_lbl_applicationDate
             // 
@@ -149,7 +163,7 @@ namespace JobApplicationLog
             // static_lbl_pros
             // 
             this.static_lbl_pros.AutoSize = true;
-            this.static_lbl_pros.Location = new System.Drawing.Point(256, 268);
+            this.static_lbl_pros.Location = new System.Drawing.Point(256, 277);
             this.static_lbl_pros.Name = "static_lbl_pros";
             this.static_lbl_pros.Size = new System.Drawing.Size(40, 17);
             this.static_lbl_pros.TabIndex = 12;
@@ -158,7 +172,7 @@ namespace JobApplicationLog
             // static_lbl_cons
             // 
             this.static_lbl_cons.AutoSize = true;
-            this.static_lbl_cons.Location = new System.Drawing.Point(256, 314);
+            this.static_lbl_cons.Location = new System.Drawing.Point(256, 323);
             this.static_lbl_cons.Name = "static_lbl_cons";
             this.static_lbl_cons.Size = new System.Drawing.Size(42, 17);
             this.static_lbl_cons.TabIndex = 13;
@@ -167,7 +181,7 @@ namespace JobApplicationLog
             // lbl_pros
             // 
             this.lbl_pros.AutoSize = true;
-            this.lbl_pros.Location = new System.Drawing.Point(367, 268);
+            this.lbl_pros.Location = new System.Drawing.Point(367, 277);
             this.lbl_pros.Name = "lbl_pros";
             this.lbl_pros.Size = new System.Drawing.Size(36, 17);
             this.lbl_pros.TabIndex = 14;
@@ -176,7 +190,7 @@ namespace JobApplicationLog
             // lbl_cons
             // 
             this.lbl_cons.AutoSize = true;
-            this.lbl_cons.Location = new System.Drawing.Point(367, 314);
+            this.lbl_cons.Location = new System.Drawing.Point(367, 323);
             this.lbl_cons.Name = "lbl_cons";
             this.lbl_cons.Size = new System.Drawing.Size(38, 17);
             this.lbl_cons.TabIndex = 15;
@@ -212,12 +226,13 @@ namespace JobApplicationLog
             // 
             // btn_companyProfileApp
             // 
-            this.btn_companyProfileApp.Location = new System.Drawing.Point(597, 213);
+            this.btn_companyProfileApp.Location = new System.Drawing.Point(596, 219);
             this.btn_companyProfileApp.Name = "btn_companyProfileApp";
             this.btn_companyProfileApp.Size = new System.Drawing.Size(75, 23);
             this.btn_companyProfileApp.TabIndex = 19;
             this.btn_companyProfileApp.Text = "profile";
             this.btn_companyProfileApp.UseVisualStyleBackColor = true;
+            this.btn_companyProfileApp.Click += new System.EventHandler(this.btn_companyProfileApp_Click);
             // 
             // static_lbl_applicationStatus
             // 
@@ -237,11 +252,105 @@ namespace JobApplicationLog
             this.lbl_applicationStatus.TabIndex = 21;
             this.lbl_applicationStatus.Text = "application status";
             // 
+            // txtBox_companyName
+            // 
+            this.txtBox_companyName.Location = new System.Drawing.Point(370, 57);
+            this.txtBox_companyName.Name = "txtBox_companyName";
+            this.txtBox_companyName.Size = new System.Drawing.Size(259, 22);
+            this.txtBox_companyName.TabIndex = 22;
+            // 
+            // txtBox_applicationDate
+            // 
+            this.txtBox_applicationDate.Location = new System.Drawing.Point(370, 103);
+            this.txtBox_applicationDate.Name = "txtBox_applicationDate";
+            this.txtBox_applicationDate.Size = new System.Drawing.Size(259, 22);
+            this.txtBox_applicationDate.TabIndex = 23;
+            // 
+            // txtBox_sourceSite
+            // 
+            this.txtBox_sourceSite.Location = new System.Drawing.Point(895, 103);
+            this.txtBox_sourceSite.Name = "txtBox_sourceSite";
+            this.txtBox_sourceSite.Size = new System.Drawing.Size(114, 22);
+            this.txtBox_sourceSite.TabIndex = 24;
+            // 
+            // txtBox_applicationStatus
+            // 
+            this.txtBox_applicationStatus.Location = new System.Drawing.Point(370, 152);
+            this.txtBox_applicationStatus.Name = "txtBox_applicationStatus";
+            this.txtBox_applicationStatus.Size = new System.Drawing.Size(259, 22);
+            this.txtBox_applicationStatus.TabIndex = 25;
+            // 
+            // txtBox_companySite
+            // 
+            this.txtBox_companySite.Location = new System.Drawing.Point(259, 191);
+            this.txtBox_companySite.Name = "txtBox_companySite";
+            this.txtBox_companySite.Size = new System.Drawing.Size(750, 22);
+            this.txtBox_companySite.TabIndex = 26;
+            // 
+            // txtBox_companyProfileApp
+            // 
+            this.txtBox_companyProfileApp.Location = new System.Drawing.Point(259, 247);
+            this.txtBox_companyProfileApp.Name = "txtBox_companyProfileApp";
+            this.txtBox_companyProfileApp.Size = new System.Drawing.Size(750, 22);
+            this.txtBox_companyProfileApp.TabIndex = 27;
+            // 
+            // txtBox_companyInfo
+            // 
+            this.txtBox_companyInfo.Location = new System.Drawing.Point(259, 219);
+            this.txtBox_companyInfo.Name = "txtBox_companyInfo";
+            this.txtBox_companyInfo.Size = new System.Drawing.Size(750, 22);
+            this.txtBox_companyInfo.TabIndex = 28;
+            // 
+            // txtBox_pros
+            // 
+            this.txtBox_pros.Location = new System.Drawing.Point(370, 274);
+            this.txtBox_pros.Name = "txtBox_pros";
+            this.txtBox_pros.Size = new System.Drawing.Size(639, 22);
+            this.txtBox_pros.TabIndex = 29;
+            // 
+            // txtBox_cons
+            // 
+            this.txtBox_cons.Location = new System.Drawing.Point(370, 320);
+            this.txtBox_cons.Name = "txtBox_cons";
+            this.txtBox_cons.Size = new System.Drawing.Size(639, 22);
+            this.txtBox_cons.TabIndex = 30;
+            // 
+            // btn_back
+            // 
+            this.btn_back.Location = new System.Drawing.Point(463, 12);
+            this.btn_back.Name = "btn_back";
+            this.btn_back.Size = new System.Drawing.Size(75, 23);
+            this.btn_back.TabIndex = 31;
+            this.btn_back.Text = "back";
+            this.btn_back.UseVisualStyleBackColor = true;
+            this.btn_back.Click += new System.EventHandler(this.btn_back_Click);
+            // 
+            // btn_save
+            // 
+            this.btn_save.Location = new System.Drawing.Point(730, 12);
+            this.btn_save.Name = "btn_save";
+            this.btn_save.Size = new System.Drawing.Size(75, 23);
+            this.btn_save.TabIndex = 32;
+            this.btn_save.Text = "save";
+            this.btn_save.UseVisualStyleBackColor = true;
+            this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1021, 887);
+            this.Controls.Add(this.btn_save);
+            this.Controls.Add(this.btn_back);
+            this.Controls.Add(this.txtBox_cons);
+            this.Controls.Add(this.txtBox_pros);
+            this.Controls.Add(this.txtBox_companyInfo);
+            this.Controls.Add(this.txtBox_companyProfileApp);
+            this.Controls.Add(this.txtBox_companySite);
+            this.Controls.Add(this.txtBox_applicationStatus);
+            this.Controls.Add(this.txtBox_sourceSite);
+            this.Controls.Add(this.txtBox_applicationDate);
+            this.Controls.Add(this.txtBox_companyName);
             this.Controls.Add(this.lbl_applicationStatus);
             this.Controls.Add(this.static_lbl_applicationStatus);
             this.Controls.Add(this.btn_companyProfileApp);
@@ -291,6 +400,17 @@ namespace JobApplicationLog
         private System.Windows.Forms.Button btn_companyProfileApp;
         private System.Windows.Forms.Label static_lbl_applicationStatus;
         private System.Windows.Forms.Label lbl_applicationStatus;
+        private System.Windows.Forms.TextBox txtBox_companyName;
+        private System.Windows.Forms.TextBox txtBox_applicationDate;
+        private System.Windows.Forms.TextBox txtBox_sourceSite;
+        private System.Windows.Forms.TextBox txtBox_applicationStatus;
+        private System.Windows.Forms.TextBox txtBox_companySite;
+        private System.Windows.Forms.TextBox txtBox_companyProfileApp;
+        private System.Windows.Forms.TextBox txtBox_companyInfo;
+        private System.Windows.Forms.TextBox txtBox_pros;
+        private System.Windows.Forms.TextBox txtBox_cons;
+        private System.Windows.Forms.Button btn_back;
+        private System.Windows.Forms.Button btn_save;
     }
 }
 

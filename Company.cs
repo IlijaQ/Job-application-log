@@ -9,7 +9,7 @@ namespace JobApplicationLog
     public class Company
     {
         public string CompanyName { get; set; }
-        public DateTime ApplicationDate { get; set; }
+        public string ApplicationDate { get; set; }
         public string SourceSite { get; set; }
         public string ApplicationStatus { get; set; }
         public string CompanySiteLink { get; set; }
@@ -17,7 +17,7 @@ namespace JobApplicationLog
         public string CompanyProfileAppLink { get; set; }
         public string Pros { get; set; }
         public string Cons { get; set; }
-        public List<string> JobDesccription { get; set; }
+        public List<string> JobDescription { get; set; }
 
         public Company()
         {
