@@ -80,6 +80,7 @@ namespace JobApplicationLog
             this.btn_newCompany.TabIndex = 1;
             this.btn_newCompany.Text = "new company";
             this.btn_newCompany.UseVisualStyleBackColor = true;
+            this.btn_newCompany.Click += new System.EventHandler(this.btn_newCompany_Click);
             // 
             // btn_openCompany
             // 
@@ -268,7 +269,7 @@ namespace JobApplicationLog
             // 
             // txtBox_sourceSite
             // 
-            this.txtBox_sourceSite.Location = new System.Drawing.Point(895, 103);
+            this.txtBox_sourceSite.Location = new System.Drawing.Point(898, 103);
             this.txtBox_sourceSite.Name = "txtBox_sourceSite";
             this.txtBox_sourceSite.Size = new System.Drawing.Size(114, 22);
             this.txtBox_sourceSite.TabIndex = 24;

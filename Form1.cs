@@ -35,8 +35,10 @@ namespace JobApplicationLog
         private void ReloadRecentList()
         {
             listbox_companies.Items.Clear();
-            string[] companiesList = File.ReadAllLines("CompaniesList.txt");
-            listbox_companies.Items.AddRange(companiesList);
+            string[] companiesArray = File.ReadAllLines("CompaniesList.txt");
+            Array.Reverse(companiesArray, 0, companiesArray.Length);
+            listbox_companies.Items.AddRange(companiesArray);
+            
         }
 
         Company Company1 = new Company();
@@ -50,7 +52,25 @@ namespace JobApplicationLog
             //Form2 form2 = new Form2(Company1);
             //form2.Show();
 
-            #region Replace Info with TextBoxes for data edit
+
+            ReplaceLabelsWithTextboxes();
+
+            #region Populates TextBoxes with appropriate values
+            txtBox_companyName.Text = Company1.CompanyName;
+            txtBox_applicationDate.Text = Company1.ApplicationDate;
+            txtBox_applicationStatus.Text = Company1.ApplicationStatus;
+            txtBox_sourceSite.Text = Company1.SourceSite;
+            txtBox_companySite.Text = Company1.CompanySiteLink;
+            txtBox_companyProfileApp.Text = Company1.CompanyProfileAppLink;
+            txtBox_companyInfo.Text = Company1.CompanyInfoLink;
+            txtBox_pros.Text = Company1.Pros;
+            txtBox_cons.Text = Company1.Cons;
+            #endregion
+
+        }
+
+        private void ReplaceLabelsWithTextboxes()
+        {
             lbl_companyName.Hide();
             txtBox_companyName.Show();
 
@@ -77,25 +97,11 @@ namespace JobApplicationLog
 
             lbl_cons.Hide();
             txtBox_cons.Show();
-            #endregion
-
-            #region Populates TextBoxes with appropriate values
-            txtBox_companyName.Text = Company1.CompanyName;
-            txtBox_applicationDate.Text = Company1.ApplicationDate;
-            txtBox_applicationStatus.Text = Company1.ApplicationStatus;
-            txtBox_sourceSite.Text = Company1.SourceSite;
-            txtBox_companySite.Text = Company1.CompanySiteLink;
-            txtBox_companyProfileApp.Text = Company1.CompanyProfileAppLink;
-            txtBox_companyInfo.Text = Company1.CompanyInfoLink;
-            txtBox_pros.Text = Company1.Pros;
-            txtBox_cons.Text = Company1.Cons; 
-            #endregion
-
         }
 
         private void btn_openCompany_Click(object sender, EventArgs e)
         {
-            
+            Company1.FilePath = (string)listbox_companies.SelectedItem;
 
 
             PopulateUi((string)listbox_companies.SelectedItem);
@@ -210,20 +216,72 @@ namespace JobApplicationLog
         {
             HidesSingleLineTextboxes();
 
+            SavesDataToAFile();
+
+            PopulateUi(Company1.FilePath);
+
+        }
+
+        private void SavesDataToAFile()
+        {
             Company1.CompanyName = txtBox_companyName.Text;
             Company1.ApplicationDate = txtBox_applicationDate.Text;
-            Company1.ApplicationStatus = txtBox_applicationStatus.Text;
             Company1.SourceSite = txtBox_sourceSite.Text;
+            Company1.ApplicationStatus = txtBox_applicationStatus.Text;
             Company1.CompanySiteLink = txtBox_companySite.Text;
             Company1.CompanyProfileAppLink = txtBox_companyProfileApp.Text;
             Company1.CompanyInfoLink = txtBox_companyInfo.Text;
             Company1.Pros = txtBox_pros.Text;
             Company1.Cons = txtBox_cons.Text;
 
-            //File.WriteAllLines
+            string[] linesToBeSaved = new string[] {
+                Company1.CompanyName,
+                Company1.ApplicationDate,
+                Company1.SourceSite,
+                Company1.ApplicationStatus,
+                Company1.CompanySiteLink,
+                Company1.CompanyProfileAppLink,
+                Company1.CompanyInfoLink,
+                Company1.Pros,
+                Company1.Cons,
+                txtBox_jobDesc.Text };
 
+            bool check = false;
+
+            if (string.IsNullOrEmpty(Company1.FilePath))
+            {
+                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+                saveFileDialog1.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+
+                if(saveFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    Company1.FilePath = Path.GetFullPath(saveFileDialog1.FileName);
+                }
+
+                string[] editedCompaniesArray = File.ReadAllLines("CompaniesList.txt");
+                List<string> editedCompaniesList = new List<string>();
+                editedCompaniesList.AddRange(editedCompaniesArray);
+                editedCompaniesList.Add(Company1.FilePath);
+                File.WriteAllLines("CompaniesList.txt", editedCompaniesList);
+
+                check = true;
+            }
+            
+            File.WriteAllLines(Company1.FilePath, linesToBeSaved);
+            if (check)
+            {
+                ReloadRecentList();
+            }
         }
 
-        
+        private void btn_newCompany_Click(object sender, EventArgs e)
+        {
+            Company1.FilePath = "";
+
+            ReplaceLabelsWithTextboxes();
+
+            txtBox_jobDesc.Text = "";
+
+        }
     }
 }

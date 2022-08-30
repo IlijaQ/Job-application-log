@@ -18,6 +18,7 @@ namespace JobApplicationLog
         public string Pros { get; set; }
         public string Cons { get; set; }
         public List<string> JobDescription { get; set; }
+        public string FilePath { get; set; }
 
         public Company()
         {
