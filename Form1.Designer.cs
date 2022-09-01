@@ -60,23 +60,30 @@ namespace JobApplicationLog
             this.txtBox_cons = new System.Windows.Forms.TextBox();
             this.btn_back = new System.Windows.Forms.Button();
             this.btn_save = new System.Windows.Forms.Button();
+            this.dynamic_lbl_companySite = new System.Windows.Forms.Label();
+            this.dynamic_lbl_companyInfo = new System.Windows.Forms.Label();
+            this.dynamic_lbl_companyProfileApp = new System.Windows.Forms.Label();
+            this.picBox_sourceSite = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox_sourceSite)).BeginInit();
             this.SuspendLayout();
             // 
             // listbox_companies
             // 
+            this.listbox_companies.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listbox_companies.FormattingEnabled = true;
-            this.listbox_companies.ItemHeight = 16;
+            this.listbox_companies.ItemHeight = 20;
             this.listbox_companies.Location = new System.Drawing.Point(12, 52);
             this.listbox_companies.MultiColumn = true;
             this.listbox_companies.Name = "listbox_companies";
-            this.listbox_companies.Size = new System.Drawing.Size(225, 820);
+            this.listbox_companies.Size = new System.Drawing.Size(387, 804);
             this.listbox_companies.TabIndex = 0;
             // 
             // btn_newCompany
             // 
-            this.btn_newCompany.Location = new System.Drawing.Point(259, 12);
+            this.btn_newCompany.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_newCompany.Location = new System.Drawing.Point(409, 9);
             this.btn_newCompany.Name = "btn_newCompany";
-            this.btn_newCompany.Size = new System.Drawing.Size(198, 23);
+            this.btn_newCompany.Size = new System.Drawing.Size(198, 28);
             this.btn_newCompany.TabIndex = 1;
             this.btn_newCompany.Text = "new company";
             this.btn_newCompany.UseVisualStyleBackColor = true;
@@ -84,9 +91,10 @@ namespace JobApplicationLog
             // 
             // btn_openCompany
             // 
-            this.btn_openCompany.Location = new System.Drawing.Point(12, 12);
+            this.btn_openCompany.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_openCompany.Location = new System.Drawing.Point(12, 9);
             this.btn_openCompany.Name = "btn_openCompany";
-            this.btn_openCompany.Size = new System.Drawing.Size(198, 23);
+            this.btn_openCompany.Size = new System.Drawing.Size(198, 28);
             this.btn_openCompany.TabIndex = 2;
             this.btn_openCompany.Text = "open company";
             this.btn_openCompany.UseVisualStyleBackColor = true;
@@ -94,9 +102,10 @@ namespace JobApplicationLog
             // 
             // btn_edit
             // 
-            this.btn_edit.Location = new System.Drawing.Point(811, 12);
+            this.btn_edit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_edit.Location = new System.Drawing.Point(1235, 9);
             this.btn_edit.Name = "btn_edit";
-            this.btn_edit.Size = new System.Drawing.Size(198, 23);
+            this.btn_edit.Size = new System.Drawing.Size(198, 28);
             this.btn_edit.TabIndex = 3;
             this.btn_edit.Text = "edit";
             this.btn_edit.UseVisualStyleBackColor = true;
@@ -104,9 +113,10 @@ namespace JobApplicationLog
             // 
             // btn_companySite
             // 
-            this.btn_companySite.Location = new System.Drawing.Point(259, 219);
+            this.btn_companySite.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_companySite.Location = new System.Drawing.Point(409, 212);
             this.btn_companySite.Name = "btn_companySite";
-            this.btn_companySite.Size = new System.Drawing.Size(310, 23);
+            this.btn_companySite.Size = new System.Drawing.Size(310, 28);
             this.btn_companySite.TabIndex = 4;
             this.btn_companySite.Text = "company site";
             this.btn_companySite.UseVisualStyleBackColor = true;
@@ -115,28 +125,30 @@ namespace JobApplicationLog
             // static_lbl_companyName
             // 
             this.static_lbl_companyName.AutoSize = true;
-            this.static_lbl_companyName.Location = new System.Drawing.Point(256, 60);
+            this.static_lbl_companyName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.static_lbl_companyName.Location = new System.Drawing.Point(405, 53);
             this.static_lbl_companyName.Name = "static_lbl_companyName";
-            this.static_lbl_companyName.Size = new System.Drawing.Size(108, 17);
+            this.static_lbl_companyName.Size = new System.Drawing.Size(127, 20);
             this.static_lbl_companyName.TabIndex = 5;
             this.static_lbl_companyName.Text = "company name:";
             // 
             // lbl_companyName
             // 
             this.lbl_companyName.AutoSize = true;
-            this.lbl_companyName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_companyName.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_companyName.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lbl_companyName.Location = new System.Drawing.Point(365, 53);
+            this.lbl_companyName.Location = new System.Drawing.Point(547, 46);
             this.lbl_companyName.Name = "lbl_companyName";
-            this.lbl_companyName.Size = new System.Drawing.Size(158, 25);
+            this.lbl_companyName.Size = new System.Drawing.Size(188, 29);
             this.lbl_companyName.TabIndex = 6;
             this.lbl_companyName.Text = "company name";
             // 
             // btn_companyInfo
             // 
-            this.btn_companyInfo.Location = new System.Drawing.Point(699, 219);
+            this.btn_companyInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_companyInfo.Location = new System.Drawing.Point(1123, 212);
             this.btn_companyInfo.Name = "btn_companyInfo";
-            this.btn_companyInfo.Size = new System.Drawing.Size(310, 23);
+            this.btn_companyInfo.Size = new System.Drawing.Size(310, 27);
             this.btn_companyInfo.TabIndex = 7;
             this.btn_companyInfo.Text = "company info";
             this.btn_companyInfo.UseVisualStyleBackColor = true;
@@ -145,9 +157,10 @@ namespace JobApplicationLog
             // static_lbl_applicationDate
             // 
             this.static_lbl_applicationDate.AutoSize = true;
-            this.static_lbl_applicationDate.Location = new System.Drawing.Point(256, 106);
+            this.static_lbl_applicationDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.static_lbl_applicationDate.Location = new System.Drawing.Point(405, 96);
             this.static_lbl_applicationDate.Name = "static_lbl_applicationDate";
-            this.static_lbl_applicationDate.Size = new System.Drawing.Size(112, 17);
+            this.static_lbl_applicationDate.Size = new System.Drawing.Size(131, 20);
             this.static_lbl_applicationDate.TabIndex = 8;
             this.static_lbl_applicationDate.Text = "application date:";
             // 
@@ -155,7 +168,7 @@ namespace JobApplicationLog
             // 
             this.lbl_applicationDate.AutoSize = true;
             this.lbl_applicationDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_applicationDate.Location = new System.Drawing.Point(367, 104);
+            this.lbl_applicationDate.Location = new System.Drawing.Point(549, 97);
             this.lbl_applicationDate.Name = "lbl_applicationDate";
             this.lbl_applicationDate.Size = new System.Drawing.Size(126, 18);
             this.lbl_applicationDate.TabIndex = 9;
@@ -164,72 +177,80 @@ namespace JobApplicationLog
             // static_lbl_pros
             // 
             this.static_lbl_pros.AutoSize = true;
-            this.static_lbl_pros.Location = new System.Drawing.Point(256, 277);
+            this.static_lbl_pros.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.static_lbl_pros.Location = new System.Drawing.Point(405, 278);
             this.static_lbl_pros.Name = "static_lbl_pros";
-            this.static_lbl_pros.Size = new System.Drawing.Size(40, 17);
+            this.static_lbl_pros.Size = new System.Drawing.Size(47, 20);
             this.static_lbl_pros.TabIndex = 12;
             this.static_lbl_pros.Text = "pros:";
             // 
             // static_lbl_cons
             // 
             this.static_lbl_cons.AutoSize = true;
-            this.static_lbl_cons.Location = new System.Drawing.Point(256, 323);
+            this.static_lbl_cons.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.static_lbl_cons.Location = new System.Drawing.Point(405, 325);
             this.static_lbl_cons.Name = "static_lbl_cons";
-            this.static_lbl_cons.Size = new System.Drawing.Size(42, 17);
+            this.static_lbl_cons.Size = new System.Drawing.Size(50, 20);
             this.static_lbl_cons.TabIndex = 13;
             this.static_lbl_cons.Text = "cons:";
             // 
             // lbl_pros
             // 
             this.lbl_pros.AutoSize = true;
-            this.lbl_pros.Location = new System.Drawing.Point(367, 277);
+            this.lbl_pros.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_pros.Location = new System.Drawing.Point(548, 278);
             this.lbl_pros.Name = "lbl_pros";
-            this.lbl_pros.Size = new System.Drawing.Size(36, 17);
+            this.lbl_pros.Size = new System.Drawing.Size(42, 20);
             this.lbl_pros.TabIndex = 14;
             this.lbl_pros.Text = "pros";
             // 
             // lbl_cons
             // 
             this.lbl_cons.AutoSize = true;
-            this.lbl_cons.Location = new System.Drawing.Point(367, 323);
+            this.lbl_cons.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_cons.Location = new System.Drawing.Point(548, 325);
             this.lbl_cons.Name = "lbl_cons";
-            this.lbl_cons.Size = new System.Drawing.Size(38, 17);
+            this.lbl_cons.Size = new System.Drawing.Size(45, 20);
             this.lbl_cons.TabIndex = 15;
             this.lbl_cons.Text = "cons";
             // 
             // txtBox_jobDesc
             // 
-            this.txtBox_jobDesc.Location = new System.Drawing.Point(259, 371);
+            this.txtBox_jobDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBox_jobDesc.Location = new System.Drawing.Point(409, 372);
             this.txtBox_jobDesc.Multiline = true;
             this.txtBox_jobDesc.Name = "txtBox_jobDesc";
-            this.txtBox_jobDesc.Size = new System.Drawing.Size(750, 504);
+            this.txtBox_jobDesc.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtBox_jobDesc.Size = new System.Drawing.Size(1024, 484);
             this.txtBox_jobDesc.TabIndex = 16;
             this.txtBox_jobDesc.Text = "job description:";
             // 
             // static_lbl_sourceSite
             // 
             this.static_lbl_sourceSite.AutoSize = true;
-            this.static_lbl_sourceSite.Location = new System.Drawing.Point(808, 106);
+            this.static_lbl_sourceSite.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.static_lbl_sourceSite.Location = new System.Drawing.Point(1170, 96);
             this.static_lbl_sourceSite.Name = "static_lbl_sourceSite";
-            this.static_lbl_sourceSite.Size = new System.Drawing.Size(81, 17);
+            this.static_lbl_sourceSite.Size = new System.Drawing.Size(97, 20);
             this.static_lbl_sourceSite.TabIndex = 17;
             this.static_lbl_sourceSite.Text = "source site:";
             // 
             // lbl_sourceSite
             // 
             this.lbl_sourceSite.AutoSize = true;
-            this.lbl_sourceSite.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_sourceSite.Location = new System.Drawing.Point(895, 104);
+            this.lbl_sourceSite.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_sourceSite.Location = new System.Drawing.Point(1281, 96);
             this.lbl_sourceSite.Name = "lbl_sourceSite";
-            this.lbl_sourceSite.Size = new System.Drawing.Size(92, 18);
+            this.lbl_sourceSite.Size = new System.Drawing.Size(103, 20);
             this.lbl_sourceSite.TabIndex = 18;
             this.lbl_sourceSite.Text = "source site";
             // 
             // btn_companyProfileApp
             // 
-            this.btn_companyProfileApp.Location = new System.Drawing.Point(596, 219);
+            this.btn_companyProfileApp.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_companyProfileApp.Location = new System.Drawing.Point(829, 212);
             this.btn_companyProfileApp.Name = "btn_companyProfileApp";
-            this.btn_companyProfileApp.Size = new System.Drawing.Size(75, 23);
+            this.btn_companyProfileApp.Size = new System.Drawing.Size(197, 27);
             this.btn_companyProfileApp.TabIndex = 19;
             this.btn_companyProfileApp.Text = "profile";
             this.btn_companyProfileApp.UseVisualStyleBackColor = true;
@@ -238,89 +259,101 @@ namespace JobApplicationLog
             // static_lbl_applicationStatus
             // 
             this.static_lbl_applicationStatus.AutoSize = true;
-            this.static_lbl_applicationStatus.Location = new System.Drawing.Point(256, 155);
+            this.static_lbl_applicationStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.static_lbl_applicationStatus.Location = new System.Drawing.Point(405, 145);
             this.static_lbl_applicationStatus.Name = "static_lbl_applicationStatus";
-            this.static_lbl_applicationStatus.Size = new System.Drawing.Size(50, 17);
+            this.static_lbl_applicationStatus.Size = new System.Drawing.Size(60, 20);
             this.static_lbl_applicationStatus.TabIndex = 20;
             this.static_lbl_applicationStatus.Text = "status:";
             // 
             // lbl_applicationStatus
             // 
             this.lbl_applicationStatus.AutoSize = true;
-            this.lbl_applicationStatus.Location = new System.Drawing.Point(367, 155);
+            this.lbl_applicationStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_applicationStatus.Location = new System.Drawing.Point(548, 145);
             this.lbl_applicationStatus.Name = "lbl_applicationStatus";
-            this.lbl_applicationStatus.Size = new System.Drawing.Size(118, 17);
+            this.lbl_applicationStatus.Size = new System.Drawing.Size(140, 20);
             this.lbl_applicationStatus.TabIndex = 21;
             this.lbl_applicationStatus.Text = "application status";
             // 
             // txtBox_companyName
             // 
-            this.txtBox_companyName.Location = new System.Drawing.Point(370, 57);
+            this.txtBox_companyName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBox_companyName.Location = new System.Drawing.Point(552, 48);
             this.txtBox_companyName.Name = "txtBox_companyName";
-            this.txtBox_companyName.Size = new System.Drawing.Size(259, 22);
+            this.txtBox_companyName.Size = new System.Drawing.Size(259, 27);
             this.txtBox_companyName.TabIndex = 22;
             // 
             // txtBox_applicationDate
             // 
-            this.txtBox_applicationDate.Location = new System.Drawing.Point(370, 103);
+            this.txtBox_applicationDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBox_applicationDate.Location = new System.Drawing.Point(552, 88);
             this.txtBox_applicationDate.Name = "txtBox_applicationDate";
-            this.txtBox_applicationDate.Size = new System.Drawing.Size(259, 22);
+            this.txtBox_applicationDate.Size = new System.Drawing.Size(259, 27);
             this.txtBox_applicationDate.TabIndex = 23;
             // 
             // txtBox_sourceSite
             // 
-            this.txtBox_sourceSite.Location = new System.Drawing.Point(898, 103);
+            this.txtBox_sourceSite.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBox_sourceSite.Location = new System.Drawing.Point(1281, 88);
             this.txtBox_sourceSite.Name = "txtBox_sourceSite";
-            this.txtBox_sourceSite.Size = new System.Drawing.Size(114, 22);
+            this.txtBox_sourceSite.Size = new System.Drawing.Size(152, 27);
             this.txtBox_sourceSite.TabIndex = 24;
             // 
             // txtBox_applicationStatus
             // 
-            this.txtBox_applicationStatus.Location = new System.Drawing.Point(370, 152);
+            this.txtBox_applicationStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBox_applicationStatus.Location = new System.Drawing.Point(552, 138);
             this.txtBox_applicationStatus.Name = "txtBox_applicationStatus";
-            this.txtBox_applicationStatus.Size = new System.Drawing.Size(259, 22);
+            this.txtBox_applicationStatus.Size = new System.Drawing.Size(881, 27);
             this.txtBox_applicationStatus.TabIndex = 25;
             // 
             // txtBox_companySite
             // 
-            this.txtBox_companySite.Location = new System.Drawing.Point(259, 191);
+            this.txtBox_companySite.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBox_companySite.Location = new System.Drawing.Point(409, 172);
             this.txtBox_companySite.Name = "txtBox_companySite";
-            this.txtBox_companySite.Size = new System.Drawing.Size(750, 22);
+            this.txtBox_companySite.Size = new System.Drawing.Size(1024, 27);
             this.txtBox_companySite.TabIndex = 26;
             // 
             // txtBox_companyProfileApp
             // 
-            this.txtBox_companyProfileApp.Location = new System.Drawing.Point(259, 247);
+            this.txtBox_companyProfileApp.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBox_companyProfileApp.Location = new System.Drawing.Point(409, 238);
             this.txtBox_companyProfileApp.Name = "txtBox_companyProfileApp";
-            this.txtBox_companyProfileApp.Size = new System.Drawing.Size(750, 22);
+            this.txtBox_companyProfileApp.Size = new System.Drawing.Size(1024, 27);
             this.txtBox_companyProfileApp.TabIndex = 27;
             // 
             // txtBox_companyInfo
             // 
-            this.txtBox_companyInfo.Location = new System.Drawing.Point(259, 219);
+            this.txtBox_companyInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBox_companyInfo.Location = new System.Drawing.Point(409, 205);
             this.txtBox_companyInfo.Name = "txtBox_companyInfo";
-            this.txtBox_companyInfo.Size = new System.Drawing.Size(750, 22);
+            this.txtBox_companyInfo.Size = new System.Drawing.Size(1024, 27);
             this.txtBox_companyInfo.TabIndex = 28;
             // 
             // txtBox_pros
             // 
-            this.txtBox_pros.Location = new System.Drawing.Point(370, 274);
+            this.txtBox_pros.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBox_pros.Location = new System.Drawing.Point(552, 271);
             this.txtBox_pros.Name = "txtBox_pros";
-            this.txtBox_pros.Size = new System.Drawing.Size(639, 22);
+            this.txtBox_pros.Size = new System.Drawing.Size(881, 27);
             this.txtBox_pros.TabIndex = 29;
             // 
             // txtBox_cons
             // 
-            this.txtBox_cons.Location = new System.Drawing.Point(370, 320);
+            this.txtBox_cons.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBox_cons.Location = new System.Drawing.Point(552, 318);
             this.txtBox_cons.Name = "txtBox_cons";
-            this.txtBox_cons.Size = new System.Drawing.Size(639, 22);
+            this.txtBox_cons.Size = new System.Drawing.Size(881, 27);
             this.txtBox_cons.TabIndex = 30;
             // 
             // btn_back
             // 
-            this.btn_back.Location = new System.Drawing.Point(463, 12);
+            this.btn_back.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_back.Location = new System.Drawing.Point(409, 9);
             this.btn_back.Name = "btn_back";
-            this.btn_back.Size = new System.Drawing.Size(75, 23);
+            this.btn_back.Size = new System.Drawing.Size(198, 28);
             this.btn_back.TabIndex = 31;
             this.btn_back.Text = "back";
             this.btn_back.UseVisualStyleBackColor = true;
@@ -328,19 +361,63 @@ namespace JobApplicationLog
             // 
             // btn_save
             // 
-            this.btn_save.Location = new System.Drawing.Point(730, 12);
+            this.btn_save.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_save.Location = new System.Drawing.Point(1235, 9);
             this.btn_save.Name = "btn_save";
-            this.btn_save.Size = new System.Drawing.Size(75, 23);
+            this.btn_save.Size = new System.Drawing.Size(198, 28);
             this.btn_save.TabIndex = 32;
             this.btn_save.Text = "save";
             this.btn_save.UseVisualStyleBackColor = true;
             this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
             // 
+            // dynamic_lbl_companySite
+            // 
+            this.dynamic_lbl_companySite.BackColor = System.Drawing.SystemColors.Control;
+            this.dynamic_lbl_companySite.Location = new System.Drawing.Point(176, 172);
+            this.dynamic_lbl_companySite.Name = "dynamic_lbl_companySite";
+            this.dynamic_lbl_companySite.Size = new System.Drawing.Size(200, 27);
+            this.dynamic_lbl_companySite.TabIndex = 33;
+            this.dynamic_lbl_companySite.Text = "company site";
+            this.dynamic_lbl_companySite.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // dynamic_lbl_companyInfo
+            // 
+            this.dynamic_lbl_companyInfo.BackColor = System.Drawing.SystemColors.Control;
+            this.dynamic_lbl_companyInfo.Location = new System.Drawing.Point(176, 205);
+            this.dynamic_lbl_companyInfo.Name = "dynamic_lbl_companyInfo";
+            this.dynamic_lbl_companyInfo.Size = new System.Drawing.Size(200, 27);
+            this.dynamic_lbl_companyInfo.TabIndex = 34;
+            this.dynamic_lbl_companyInfo.Text = "company info";
+            this.dynamic_lbl_companyInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // dynamic_lbl_companyProfileApp
+            // 
+            this.dynamic_lbl_companyProfileApp.BackColor = System.Drawing.SystemColors.Control;
+            this.dynamic_lbl_companyProfileApp.Location = new System.Drawing.Point(176, 238);
+            this.dynamic_lbl_companyProfileApp.Name = "dynamic_lbl_companyProfileApp";
+            this.dynamic_lbl_companyProfileApp.Size = new System.Drawing.Size(200, 27);
+            this.dynamic_lbl_companyProfileApp.TabIndex = 35;
+            this.dynamic_lbl_companyProfileApp.Text = "company profile app";
+            this.dynamic_lbl_companyProfileApp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // picBox_sourceSite
+            // 
+            this.picBox_sourceSite.Location = new System.Drawing.Point(1273, 75);
+            this.picBox_sourceSite.Name = "picBox_sourceSite";
+            this.picBox_sourceSite.Size = new System.Drawing.Size(160, 50);
+            this.picBox_sourceSite.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picBox_sourceSite.TabIndex = 36;
+            this.picBox_sourceSite.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1021, 887);
+            this.ClientSize = new System.Drawing.Size(1445, 869);
+            this.Controls.Add(this.picBox_sourceSite);
+            this.Controls.Add(this.dynamic_lbl_companyProfileApp);
+            this.Controls.Add(this.dynamic_lbl_companyInfo);
+            this.Controls.Add(this.dynamic_lbl_companySite);
             this.Controls.Add(this.btn_save);
             this.Controls.Add(this.btn_back);
             this.Controls.Add(this.txtBox_cons);
@@ -374,6 +451,7 @@ namespace JobApplicationLog
             this.Controls.Add(this.listbox_companies);
             this.Name = "Form1";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.picBox_sourceSite)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -412,6 +490,10 @@ namespace JobApplicationLog
         private System.Windows.Forms.TextBox txtBox_cons;
         private System.Windows.Forms.Button btn_back;
         private System.Windows.Forms.Button btn_save;
+        private System.Windows.Forms.Label dynamic_lbl_companySite;
+        private System.Windows.Forms.Label dynamic_lbl_companyInfo;
+        private System.Windows.Forms.Label dynamic_lbl_companyProfileApp;
+        private System.Windows.Forms.PictureBox picBox_sourceSite;
     }
 }
 

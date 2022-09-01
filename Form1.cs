@@ -18,31 +18,39 @@ namespace JobApplicationLog
             InitializeComponent();
 
             ReloadRecentList();
+            
+            PopulateUi((string)listbox_companies.Items[0]);
 
-            //PopulateUi();
-
-            txtBox_companyName.Hide();
-            txtBox_applicationDate.Hide();
-            txtBox_applicationStatus.Hide();
-            txtBox_sourceSite.Hide();
-            txtBox_companySite.Hide();
-            txtBox_companyProfileApp.Hide();
-            txtBox_companyInfo.Hide();
-            txtBox_pros.Hide();
-            txtBox_cons.Hide();
-        }
-
-        private void ReloadRecentList()
-        {
-            listbox_companies.Items.Clear();
-            string[] companiesArray = File.ReadAllLines("CompaniesList.txt");
-            Array.Reverse(companiesArray, 0, companiesArray.Length);
-            listbox_companies.Items.AddRange(companiesArray);
+            HidesSingleLineTextboxes();
             
         }
 
         Company Company1 = new Company();
 
+
+        private void ReloadRecentList()
+        {
+            listbox_companies.Items.Clear();
+            string[] companiesArray = File.ReadAllLines("CompaniesList.txt");
+
+            List<string> companiesList = new List<string>();
+
+            foreach(string s in companiesArray)
+            {
+                //Cheks for empty entries. They apper when user exits a dialog box when prompted to save a new file.
+                if (!string.IsNullOrEmpty(s))
+                {
+                    companiesList.Add(s);
+                }
+            }
+            companiesList.Reverse();
+
+            string[] arrayForUi = companiesList.ToArray();
+            //Array.Reverse(companiesArray, 0, companiesArray.Length);
+            listbox_companies.Items.AddRange(arrayForUi);
+        }
+
+        
         //List<string> linesList = new List<string>();
         //string selectedFile = "TestCompany.txt";
         
@@ -65,11 +73,12 @@ namespace JobApplicationLog
             txtBox_companyInfo.Text = Company1.CompanyInfoLink;
             txtBox_pros.Text = Company1.Pros;
             txtBox_cons.Text = Company1.Cons;
+            PopulatesJobDesc();
             #endregion
 
         }
 
-        private void ReplaceLabelsWithTextboxes()
+        private void ReplaceLabelsWithTextboxes()//and replaces 'new company' and 'edit' buttons with 'back' and 'save'
         {
             lbl_companyName.Hide();
             txtBox_companyName.Show();
@@ -97,6 +106,17 @@ namespace JobApplicationLog
 
             lbl_cons.Hide();
             txtBox_cons.Show();
+
+            dynamic_lbl_companySite.Show();
+            dynamic_lbl_companyInfo.Show();
+            dynamic_lbl_companyProfileApp.Show();
+
+            btn_newCompany.Hide();
+            btn_edit.Hide();
+            btn_back.Show();
+            btn_save.Show();
+
+            picBox_sourceSite.Hide();
         }
 
         private void btn_openCompany_Click(object sender, EventArgs e)
@@ -111,7 +131,7 @@ namespace JobApplicationLog
 
         private void PopulateUi(string selectedFile)
         {
-
+            Company1.FilePath = selectedFile;
 
             string[] linesArray = File.ReadAllLines(selectedFile);
             List<string> linesList = new List<string>();
@@ -138,16 +158,68 @@ namespace JobApplicationLog
             lbl_companyName.Text = Company1.CompanyName;
             lbl_applicationDate.Text = Company1.ApplicationDate;
             lbl_sourceSite.Text = Company1.SourceSite;
+
+
+            #region Determins wheader to put a logo of source site instead of text
+
+            DeterminTextOrPicture();
+            //loads apropriate picture
+            if (Company1.SourceSite.ToLower() == "joberty")
+            {
+                picBox_sourceSite.Image = new Bitmap("JobertyLogo.png");
+            }
+            else if (Company1.SourceSite.ToLower().Contains("helloworld"))
+            {
+                picBox_sourceSite.Image = new Bitmap("HelloWorldLogo.png");
+            }
+            else if (Company1.SourceSite.ToLower() == "infostud")
+            {
+                picBox_sourceSite.Image = new Bitmap("InfostudLogo.png");
+            }
+            else if (Company1.SourceSite.ToLower() == "linkedin")
+            {
+                picBox_sourceSite.Image = new Bitmap("LinkedInLogo.png");
+            }
+
+            #endregion
+
+
+
             lbl_applicationStatus.Text = Company1.ApplicationStatus;
 
             if (String.IsNullOrEmpty(Company1.CompanyProfileAppLink))
             {
                 btn_companyProfileApp.Hide();
             }
+            else
+            {
+                btn_companyProfileApp.Show();
+            }
 
             lbl_pros.Text = Company1.Pros;
             lbl_cons.Text = Company1.Cons;
 
+            PopulatesJobDesc();
+            #endregion
+        }
+
+        private void DeterminTextOrPicture()
+        {
+            //determins weather to show text or picture for source site
+            if (Company1.SourceSite.ToLower() == "joberty" || Company1.SourceSite.ToLower().Contains("helloworld") || Company1.SourceSite.ToLower() == "infostud" || Company1.SourceSite.ToLower() == "linkedin")
+            {
+                lbl_sourceSite.Hide();
+                picBox_sourceSite.Show();
+            }
+            else
+            {
+                lbl_sourceSite.Show();
+                picBox_sourceSite.Hide();
+            }
+        }
+
+        private void PopulatesJobDesc()
+        {
             txtBox_jobDesc.Text = "";
 
             for (int i = 0; i < Company1.JobDescription.Count; i++) //adds new line in last textbox for every item from position 4 to the end of the array
@@ -159,7 +231,6 @@ namespace JobApplicationLog
                     txtBox_jobDesc.Text = txtBox_jobDesc.Text + "\r\n";
                 }
             }
-            #endregion
         }
 
         private void btn_companySite_Click(object sender, EventArgs e)
@@ -180,9 +251,12 @@ namespace JobApplicationLog
         private void btn_back_Click(object sender, EventArgs e)
         {
             HidesSingleLineTextboxes();
+            PopulatesJobDesc();
+            
+            
         }
 
-        private void HidesSingleLineTextboxes()
+        private void HidesSingleLineTextboxes()//and replaces 'back' and 'save' with 'new' and 'edit' button
         {
             lbl_companyName.Show();
             txtBox_companyName.Hide();
@@ -199,7 +273,10 @@ namespace JobApplicationLog
             btn_companySite.Show();
             txtBox_companySite.Hide();
 
-            btn_companyProfileApp.Show();
+            if (!string.IsNullOrEmpty(Company1.CompanyProfileAppLink))
+            {
+                btn_companyProfileApp.Show();
+            }
             txtBox_companyProfileApp.Hide();
 
             btn_companyInfo.Show();
@@ -210,6 +287,17 @@ namespace JobApplicationLog
 
             lbl_cons.Show();
             txtBox_cons.Hide();
+
+            dynamic_lbl_companySite.Hide();
+            dynamic_lbl_companyInfo.Hide();
+            dynamic_lbl_companyProfileApp.Hide();
+
+            btn_newCompany.Show();
+            btn_edit.Show();
+            btn_back.Hide();
+            btn_save.Hide();
+
+            DeterminTextOrPicture();
         }
 
         private void btn_save_Click(object sender, EventArgs e)
@@ -280,7 +368,18 @@ namespace JobApplicationLog
 
             ReplaceLabelsWithTextboxes();
 
-            txtBox_jobDesc.Text = "";
+            #region Empties text boxes
+            txtBox_companyName.Text = "";
+            txtBox_applicationDate.Text = "";
+            txtBox_applicationStatus.Text = "";
+            txtBox_sourceSite.Text = "";
+            txtBox_companySite.Text = "";
+            txtBox_companyProfileApp.Text = "";
+            txtBox_companyInfo.Text = "";
+            txtBox_pros.Text = "";
+            txtBox_cons.Text = "";
+            txtBox_jobDesc.Text = ""; 
+            #endregion
 
         }
     }
