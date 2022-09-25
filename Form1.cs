@@ -19,28 +19,36 @@ namespace JobApplicationLog
 
             ReloadRecentList();
             
-            PopulateUi((string)listbox_companies.Items[0]);
-
+            PopulateUi(companiesDictionary[(string)listbox_companies.Items[0]]);
+            
             HidesSingleLineTextboxes();
             
         }
 
         Company Company1 = new Company();
-
+        Dictionary<string, string> companiesDictionary = new Dictionary<string, string>();
 
         private void ReloadRecentList()
         {
             listbox_companies.Items.Clear();
+            companiesDictionary.Clear();
             string[] companiesArray = File.ReadAllLines("CompaniesList.txt");
 
             List<string> companiesList = new List<string>();
+            
 
-            foreach(string s in companiesArray)
+            for(int i = 0; i < companiesArray.Length; i+=2)
             {
                 //Cheks for empty entries. They apper when user exits a dialog box when prompted to save a new file.
-                if (!string.IsNullOrEmpty(s))
+                if (!string.IsNullOrEmpty(companiesArray[i]))
                 {
-                    companiesList.Add(s);
+                    companiesList.Add(companiesArray[i]);
+
+                    companiesDictionary.Add(companiesArray[i], companiesArray[i + 1]);
+                }
+                else
+                {
+                    i--;
                 }
             }
             companiesList.Reverse();
@@ -124,7 +132,7 @@ namespace JobApplicationLog
             Company1.FilePath = (string)listbox_companies.SelectedItem;
 
 
-            PopulateUi((string)listbox_companies.SelectedItem);
+            PopulateUi(companiesDictionary[(string)listbox_companies.SelectedItem]);
         }
 
         
@@ -349,6 +357,7 @@ namespace JobApplicationLog
                 string[] editedCompaniesArray = File.ReadAllLines("CompaniesList.txt");
                 List<string> editedCompaniesList = new List<string>();
                 editedCompaniesList.AddRange(editedCompaniesArray);
+                editedCompaniesList.Add(Company1.CompanyName);
                 editedCompaniesList.Add(Company1.FilePath);
                 File.WriteAllLines("CompaniesList.txt", editedCompaniesList);
 
