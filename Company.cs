@@ -12,6 +12,7 @@ namespace JobApplicationLog
         public string ApplicationDate { get; set; }
         public string SourceSite { get; set; }
         public string ApplicationStatus { get; set; }
+        public bool currentStatus { get; set; }
         public string CompanySiteLink { get; set; }
         public string CompanyInfoLink { get; set; }
         public string CompanyProfileAppLink { get; set; }

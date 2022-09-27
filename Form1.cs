@@ -70,6 +70,7 @@ namespace JobApplicationLog
 
 
             ReplaceLabelsWithTextboxes();
+            
 
             #region Populates TextBoxes with appropriate values
             txtBox_companyName.Text = Company1.CompanyName;
@@ -96,6 +97,13 @@ namespace JobApplicationLog
 
             lbl_applicationStatus.Hide();
             txtBox_applicationStatus.Show();
+
+            if (Company1.currentStatus)
+            {
+                btn_deactivateCurrentStatus.Show();
+                btn_deactivateCurrentStatus.Text = "deactivate";
+            }
+            
 
             lbl_sourceSite.Hide();
             txtBox_sourceSite.Show();
@@ -157,8 +165,19 @@ namespace JobApplicationLog
             Company1.Pros = linesList[7];
             Company1.Cons = linesList[8];
 
+            if (linesList[9] == "1")
+            {
+                Company1.currentStatus = true;
+                lbl_companyName.ForeColor = Color.FromArgb(51, 153, 255);
+            }
+            else if(linesList[9] == "0")
+            {
+                Company1.currentStatus = false;
+                lbl_companyName.ForeColor = Color.Gray;
+            }
+
             Company1.JobDescription = linesList;
-            Company1.JobDescription.RemoveRange(0, 9);
+            Company1.JobDescription.RemoveRange(0, 10);
 
             //List<string> LinesForJobDescription = Company1.JobDescription;
             //LinesForJobDescription.
@@ -190,7 +209,6 @@ namespace JobApplicationLog
             }
 
             #endregion
-
 
 
             lbl_applicationStatus.Text = Company1.ApplicationStatus;
@@ -305,6 +323,8 @@ namespace JobApplicationLog
             btn_back.Hide();
             btn_save.Hide();
 
+            btn_deactivateCurrentStatus.Hide();
+
             DeterminTextOrPicture();
         }
 
@@ -340,6 +360,7 @@ namespace JobApplicationLog
                 Company1.CompanyInfoLink,
                 Company1.Pros,
                 Company1.Cons,
+                Company1.currentStatus ? "1" : "0",
                 txtBox_jobDesc.Text };
 
             bool check = false;
@@ -374,6 +395,7 @@ namespace JobApplicationLog
         private void btn_newCompany_Click(object sender, EventArgs e)
         {
             Company1.FilePath = "";
+            Company1.currentStatus = true;
 
             ReplaceLabelsWithTextboxes();
 
@@ -390,6 +412,12 @@ namespace JobApplicationLog
             txtBox_jobDesc.Text = ""; 
             #endregion
 
+        }
+
+        private void btn_deactivateCurrentStatus_Click(object sender, EventArgs e)
+        {
+            Company1.currentStatus = false;
+            btn_deactivateCurrentStatus.Text = "done";
         }
     }
 }

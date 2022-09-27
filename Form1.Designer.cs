@@ -64,6 +64,7 @@ namespace JobApplicationLog
             this.dynamic_lbl_companyInfo = new System.Windows.Forms.Label();
             this.dynamic_lbl_companyProfileApp = new System.Windows.Forms.Label();
             this.picBox_sourceSite = new System.Windows.Forms.PictureBox();
+            this.btn_deactivateCurrentStatus = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_sourceSite)).BeginInit();
             this.SuspendLayout();
             // 
@@ -136,7 +137,7 @@ namespace JobApplicationLog
             // 
             this.lbl_companyName.AutoSize = true;
             this.lbl_companyName.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_companyName.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lbl_companyName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.lbl_companyName.Location = new System.Drawing.Point(547, 46);
             this.lbl_companyName.Name = "lbl_companyName";
             this.lbl_companyName.Size = new System.Drawing.Size(188, 29);
@@ -279,7 +280,7 @@ namespace JobApplicationLog
             // txtBox_companyName
             // 
             this.txtBox_companyName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBox_companyName.Location = new System.Drawing.Point(552, 48);
+            this.txtBox_companyName.Location = new System.Drawing.Point(552, 46);
             this.txtBox_companyName.Name = "txtBox_companyName";
             this.txtBox_companyName.Size = new System.Drawing.Size(259, 27);
             this.txtBox_companyName.TabIndex = 22;
@@ -409,11 +410,23 @@ namespace JobApplicationLog
             this.picBox_sourceSite.TabIndex = 36;
             this.picBox_sourceSite.TabStop = false;
             // 
+            // btn_deactivateCurrentStatus
+            // 
+            this.btn_deactivateCurrentStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_deactivateCurrentStatus.Location = new System.Drawing.Point(461, 137);
+            this.btn_deactivateCurrentStatus.Name = "btn_deactivateCurrentStatus";
+            this.btn_deactivateCurrentStatus.Size = new System.Drawing.Size(91, 29);
+            this.btn_deactivateCurrentStatus.TabIndex = 37;
+            this.btn_deactivateCurrentStatus.Text = "deactivate";
+            this.btn_deactivateCurrentStatus.UseVisualStyleBackColor = true;
+            this.btn_deactivateCurrentStatus.Click += new System.EventHandler(this.btn_deactivateCurrentStatus_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1445, 869);
+            this.Controls.Add(this.btn_deactivateCurrentStatus);
             this.Controls.Add(this.picBox_sourceSite);
             this.Controls.Add(this.dynamic_lbl_companyProfileApp);
             this.Controls.Add(this.dynamic_lbl_companyInfo);
@@ -494,6 +507,7 @@ namespace JobApplicationLog
         private System.Windows.Forms.Label dynamic_lbl_companyInfo;
         private System.Windows.Forms.Label dynamic_lbl_companyProfileApp;
         private System.Windows.Forms.PictureBox picBox_sourceSite;
+        private System.Windows.Forms.Button btn_deactivateCurrentStatus;
     }
 }
 
