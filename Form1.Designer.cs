@@ -50,7 +50,6 @@ namespace JobApplicationLog
             this.static_lbl_applicationStatus = new System.Windows.Forms.Label();
             this.lbl_applicationStatus = new System.Windows.Forms.Label();
             this.txtBox_companyName = new System.Windows.Forms.TextBox();
-            this.txtBox_applicationDate = new System.Windows.Forms.TextBox();
             this.txtBox_sourceSite = new System.Windows.Forms.TextBox();
             this.txtBox_applicationStatus = new System.Windows.Forms.TextBox();
             this.txtBox_companySite = new System.Windows.Forms.TextBox();
@@ -65,7 +64,15 @@ namespace JobApplicationLog
             this.dynamic_lbl_companyProfileApp = new System.Windows.Forms.Label();
             this.picBox_sourceSite = new System.Windows.Forms.PictureBox();
             this.btn_deactivateCurrentStatus = new System.Windows.Forms.Button();
+            this.numUpDwn_day = new System.Windows.Forms.NumericUpDown();
+            this.numUpDwn_month = new System.Windows.Forms.NumericUpDown();
+            this.numUpDwn_year = new System.Windows.Forms.NumericUpDown();
+            this.btn_jobOffer = new System.Windows.Forms.Button();
+            this.lbl_dayInMonth = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_sourceSite)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDwn_day)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDwn_month)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDwn_year)).BeginInit();
             this.SuspendLayout();
             // 
             // listbox_companies
@@ -217,10 +224,12 @@ namespace JobApplicationLog
             // 
             // txtBox_jobDesc
             // 
+            this.txtBox_jobDesc.BackColor = System.Drawing.Color.White;
             this.txtBox_jobDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBox_jobDesc.Location = new System.Drawing.Point(409, 372);
             this.txtBox_jobDesc.Multiline = true;
             this.txtBox_jobDesc.Name = "txtBox_jobDesc";
+            this.txtBox_jobDesc.ReadOnly = true;
             this.txtBox_jobDesc.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtBox_jobDesc.Size = new System.Drawing.Size(1024, 484);
             this.txtBox_jobDesc.TabIndex = 16;
@@ -280,18 +289,10 @@ namespace JobApplicationLog
             // txtBox_companyName
             // 
             this.txtBox_companyName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBox_companyName.Location = new System.Drawing.Point(552, 46);
+            this.txtBox_companyName.Location = new System.Drawing.Point(552, 48);
             this.txtBox_companyName.Name = "txtBox_companyName";
             this.txtBox_companyName.Size = new System.Drawing.Size(259, 27);
             this.txtBox_companyName.TabIndex = 22;
-            // 
-            // txtBox_applicationDate
-            // 
-            this.txtBox_applicationDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBox_applicationDate.Location = new System.Drawing.Point(552, 88);
-            this.txtBox_applicationDate.Name = "txtBox_applicationDate";
-            this.txtBox_applicationDate.Size = new System.Drawing.Size(259, 27);
-            this.txtBox_applicationDate.TabIndex = 23;
             // 
             // txtBox_sourceSite
             // 
@@ -306,7 +307,7 @@ namespace JobApplicationLog
             this.txtBox_applicationStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBox_applicationStatus.Location = new System.Drawing.Point(552, 138);
             this.txtBox_applicationStatus.Name = "txtBox_applicationStatus";
-            this.txtBox_applicationStatus.Size = new System.Drawing.Size(881, 27);
+            this.txtBox_applicationStatus.Size = new System.Drawing.Size(616, 27);
             this.txtBox_applicationStatus.TabIndex = 25;
             // 
             // txtBox_companySite
@@ -413,19 +414,118 @@ namespace JobApplicationLog
             // btn_deactivateCurrentStatus
             // 
             this.btn_deactivateCurrentStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_deactivateCurrentStatus.Location = new System.Drawing.Point(461, 137);
+            this.btn_deactivateCurrentStatus.Location = new System.Drawing.Point(1174, 138);
             this.btn_deactivateCurrentStatus.Name = "btn_deactivateCurrentStatus";
-            this.btn_deactivateCurrentStatus.Size = new System.Drawing.Size(91, 29);
+            this.btn_deactivateCurrentStatus.Size = new System.Drawing.Size(93, 28);
             this.btn_deactivateCurrentStatus.TabIndex = 37;
             this.btn_deactivateCurrentStatus.Text = "deactivate";
             this.btn_deactivateCurrentStatus.UseVisualStyleBackColor = true;
             this.btn_deactivateCurrentStatus.Click += new System.EventHandler(this.btn_deactivateCurrentStatus_Click);
+            // 
+            // numUpDwn_day
+            // 
+            this.numUpDwn_day.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numUpDwn_day.Location = new System.Drawing.Point(552, 88);
+            this.numUpDwn_day.Maximum = new decimal(new int[] {
+            31,
+            0,
+            0,
+            0});
+            this.numUpDwn_day.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numUpDwn_day.Name = "numUpDwn_day";
+            this.numUpDwn_day.Size = new System.Drawing.Size(95, 27);
+            this.numUpDwn_day.TabIndex = 38;
+            this.numUpDwn_day.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numUpDwn_day.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // numUpDwn_month
+            // 
+            this.numUpDwn_month.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numUpDwn_month.Location = new System.Drawing.Point(653, 88);
+            this.numUpDwn_month.Maximum = new decimal(new int[] {
+            12,
+            0,
+            0,
+            0});
+            this.numUpDwn_month.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numUpDwn_month.Name = "numUpDwn_month";
+            this.numUpDwn_month.Size = new System.Drawing.Size(57, 27);
+            this.numUpDwn_month.TabIndex = 39;
+            this.numUpDwn_month.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numUpDwn_month.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numUpDwn_month.ValueChanged += new System.EventHandler(this.numUpDwn_month_ValueChanged);
+            // 
+            // numUpDwn_year
+            // 
+            this.numUpDwn_year.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numUpDwn_year.Location = new System.Drawing.Point(716, 88);
+            this.numUpDwn_year.Maximum = new decimal(new int[] {
+            2500,
+            0,
+            0,
+            0});
+            this.numUpDwn_year.Minimum = new decimal(new int[] {
+            1601,
+            0,
+            0,
+            0});
+            this.numUpDwn_year.Name = "numUpDwn_year";
+            this.numUpDwn_year.Size = new System.Drawing.Size(95, 27);
+            this.numUpDwn_year.TabIndex = 40;
+            this.numUpDwn_year.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numUpDwn_year.Value = new decimal(new int[] {
+            2022,
+            0,
+            0,
+            0});
+            this.numUpDwn_year.ValueChanged += new System.EventHandler(this.numUpDwn_year_ValueChanged);
+            // 
+            // btn_jobOffer
+            // 
+            this.btn_jobOffer.Location = new System.Drawing.Point(1273, 138);
+            this.btn_jobOffer.Name = "btn_jobOffer";
+            this.btn_jobOffer.Size = new System.Drawing.Size(160, 28);
+            this.btn_jobOffer.TabIndex = 41;
+            this.btn_jobOffer.Text = "Job offer";
+            this.btn_jobOffer.UseVisualStyleBackColor = true;
+            // 
+            // lbl_dayInMonth
+            // 
+            this.lbl_dayInMonth.AutoSize = true;
+            this.lbl_dayInMonth.BackColor = System.Drawing.Color.White;
+            this.lbl_dayInMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_dayInMonth.ForeColor = System.Drawing.SystemColors.ActiveBorder;
+            this.lbl_dayInMonth.Location = new System.Drawing.Point(555, 91);
+            this.lbl_dayInMonth.Name = "lbl_dayInMonth";
+            this.lbl_dayInMonth.Size = new System.Drawing.Size(44, 20);
+            this.lbl_dayInMonth.TabIndex = 42;
+            this.lbl_dayInMonth.Text = "Day:";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1445, 869);
+            this.Controls.Add(this.lbl_dayInMonth);
+            this.Controls.Add(this.btn_jobOffer);
+            this.Controls.Add(this.numUpDwn_year);
+            this.Controls.Add(this.numUpDwn_month);
             this.Controls.Add(this.btn_deactivateCurrentStatus);
             this.Controls.Add(this.picBox_sourceSite);
             this.Controls.Add(this.dynamic_lbl_companyProfileApp);
@@ -440,7 +540,6 @@ namespace JobApplicationLog
             this.Controls.Add(this.txtBox_companySite);
             this.Controls.Add(this.txtBox_applicationStatus);
             this.Controls.Add(this.txtBox_sourceSite);
-            this.Controls.Add(this.txtBox_applicationDate);
             this.Controls.Add(this.txtBox_companyName);
             this.Controls.Add(this.lbl_applicationStatus);
             this.Controls.Add(this.static_lbl_applicationStatus);
@@ -452,8 +551,6 @@ namespace JobApplicationLog
             this.Controls.Add(this.lbl_pros);
             this.Controls.Add(this.static_lbl_cons);
             this.Controls.Add(this.static_lbl_pros);
-            this.Controls.Add(this.lbl_applicationDate);
-            this.Controls.Add(this.static_lbl_applicationDate);
             this.Controls.Add(this.btn_companyInfo);
             this.Controls.Add(this.lbl_companyName);
             this.Controls.Add(this.static_lbl_companyName);
@@ -462,9 +559,15 @@ namespace JobApplicationLog
             this.Controls.Add(this.btn_openCompany);
             this.Controls.Add(this.btn_newCompany);
             this.Controls.Add(this.listbox_companies);
+            this.Controls.Add(this.numUpDwn_day);
+            this.Controls.Add(this.lbl_applicationDate);
+            this.Controls.Add(this.static_lbl_applicationDate);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.picBox_sourceSite)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDwn_day)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDwn_month)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDwn_year)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -493,7 +596,6 @@ namespace JobApplicationLog
         private System.Windows.Forms.Label static_lbl_applicationStatus;
         private System.Windows.Forms.Label lbl_applicationStatus;
         private System.Windows.Forms.TextBox txtBox_companyName;
-        private System.Windows.Forms.TextBox txtBox_applicationDate;
         private System.Windows.Forms.TextBox txtBox_sourceSite;
         private System.Windows.Forms.TextBox txtBox_applicationStatus;
         private System.Windows.Forms.TextBox txtBox_companySite;
@@ -508,6 +610,11 @@ namespace JobApplicationLog
         private System.Windows.Forms.Label dynamic_lbl_companyProfileApp;
         private System.Windows.Forms.PictureBox picBox_sourceSite;
         private System.Windows.Forms.Button btn_deactivateCurrentStatus;
+        private System.Windows.Forms.NumericUpDown numUpDwn_day;
+        private System.Windows.Forms.NumericUpDown numUpDwn_month;
+        private System.Windows.Forms.NumericUpDown numUpDwn_year;
+        private System.Windows.Forms.Button btn_jobOffer;
+        private System.Windows.Forms.Label lbl_dayInMonth;
     }
 }
 

@@ -39,7 +39,7 @@ namespace JobApplicationLog
         private void PopulateUi()
         {
             txtBox_companyName.Text = Company2.CompanyName;
-            txtBox_applicationDate.Text = Company2.ApplicationDate;
+            txtBox_applicationDate.Text = Company2.ApplicationDate.ToString("dd.M.yyyy");
             txtBox_sourceSite.Text = Company2.SourceSite;
             txtBox_applicationStatus.Text = Company2.ApplicationStatus;
             txtBox_companySite.Text = Company2.CompanySiteLink;

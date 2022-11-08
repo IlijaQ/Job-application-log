@@ -16,7 +16,8 @@ namespace JobApplicationLog
         public Form1()
         {
             InitializeComponent();
-
+            this.Text = "Job Application Log"; 
+            
             ReloadRecentList();
             
             PopulateUi(companiesDictionary[(string)listbox_companies.Items[0]]);
@@ -28,11 +29,47 @@ namespace JobApplicationLog
         Company Company1 = new Company();
         Dictionary<string, string> companiesDictionary = new Dictionary<string, string>();
 
+
+
+
         private void ReloadRecentList()
         {
             listbox_companies.Items.Clear();
             companiesDictionary.Clear();
+
+            //creates initial list and company with dummy data on start. Granst User a first look how files are viewed before entering his own entries.
+            if (!File.Exists("CompaniesList.txt"))
+            {
+
+                string[] starterList = new string[] { "Test Software inc", "TestCompany.txt" };
+
+                string[] starterFile = new string[] {
+                    "Test Company",
+                    "133985592000000000",
+                    "Service name",
+                    "Pending",
+                    "http://ilijac-001-site1.ftempurl.com/",
+                    "https://github.com/IlijaQ",
+                    "https://linkedin.com/in/ilija-kujovic-126352204",
+                    "good company",
+                    "no complaints",
+                    "1",
+                    "a fine job",
+                    "c#",
+                    "sql",
+                    "ef",
+                    "",
+                    ">>>>>>> Click on \"New Company\" to get started."
+                };
+
+                File.WriteAllLines("CompaniesList.txt", starterList);
+                File.WriteAllLines("TestCompany.txt", starterFile);
+
+            }
+
+
             string[] companiesArray = File.ReadAllLines("CompaniesList.txt");
+            
 
             List<string> companiesList = new List<string>();
             
@@ -59,14 +96,10 @@ namespace JobApplicationLog
         }
 
         
-        //List<string> linesList = new List<string>();
-        //string selectedFile = "TestCompany.txt";
         
 
         public void btn_edit_Click(object sender, EventArgs e)
         {
-            //Form2 form2 = new Form2(Company1);
-            //form2.Show();
 
 
             ReplaceLabelsWithTextboxes();
@@ -74,7 +107,11 @@ namespace JobApplicationLog
 
             #region Populates TextBoxes with appropriate values
             txtBox_companyName.Text = Company1.CompanyName;
-            txtBox_applicationDate.Text = Company1.ApplicationDate;
+
+            numUpDwn_day.Value = Company1.ApplicationDate.Day;
+            numUpDwn_month.Value = Company1.ApplicationDate.Month;
+            numUpDwn_year.Value = Company1.ApplicationDate.Year;
+
             txtBox_applicationStatus.Text = Company1.ApplicationStatus;
             txtBox_sourceSite.Text = Company1.SourceSite;
             txtBox_companySite.Text = Company1.CompanySiteLink;
@@ -93,19 +130,24 @@ namespace JobApplicationLog
             txtBox_companyName.Show();
 
             lbl_applicationDate.Hide();
-            txtBox_applicationDate.Show();
+            numUpDwn_day.Show();
+            lbl_dayInMonth.Show();
+            numUpDwn_month.Show();
+            numUpDwn_year.Show();
 
             lbl_applicationStatus.Hide();
             txtBox_applicationStatus.Show();
 
             if (Company1.currentStatus)
             {
+                btn_jobOffer.Show();
                 btn_deactivateCurrentStatus.Show();
                 btn_deactivateCurrentStatus.Text = "deactivate";
             }
             
 
             lbl_sourceSite.Hide();
+            picBox_sourceSite.Hide();
             txtBox_sourceSite.Show();
 
             btn_companySite.Hide();
@@ -132,7 +174,7 @@ namespace JobApplicationLog
             btn_back.Show();
             btn_save.Show();
 
-            picBox_sourceSite.Hide();
+            txtBox_jobDesc.ReadOnly = false;
         }
 
         private void btn_openCompany_Click(object sender, EventArgs e)
@@ -153,87 +195,118 @@ namespace JobApplicationLog
             List<string> linesList = new List<string>();
             linesList.AddRange(linesArray);
 
-            #region Loading Data
-            //ucitavanje infa sa lokalnog
-            Company1.CompanyName = linesList[0];
-            Company1.ApplicationDate = linesList[1];
-            Company1.SourceSite = linesList[2];
-            Company1.ApplicationStatus = linesList[3];
-            Company1.CompanySiteLink = linesList[4];
-            Company1.CompanyProfileAppLink = linesList[5];
-            Company1.CompanyInfoLink = linesList[6];
-            Company1.Pros = linesList[7];
-            Company1.Cons = linesList[8];
-
-            if (linesList[9] == "1")
+            if(companiesDictionary.Count == 0)
             {
-                Company1.currentStatus = true;
-                lbl_companyName.ForeColor = Color.FromArgb(51, 153, 255);
-            }
-            else if(linesList[9] == "0")
-            {
-                Company1.currentStatus = false;
-                lbl_companyName.ForeColor = Color.Gray;
-            }
-
-            Company1.JobDescription = linesList;
-            Company1.JobDescription.RemoveRange(0, 10);
-
-            //List<string> LinesForJobDescription = Company1.JobDescription;
-            //LinesForJobDescription.
-
-            lbl_companyName.Text = Company1.CompanyName;
-            lbl_applicationDate.Text = Company1.ApplicationDate;
-            lbl_sourceSite.Text = Company1.SourceSite;
-
-
-            #region Determins wheader to put a logo of source site instead of text
-
-            DeterminTextOrPicture();
-            //loads apropriate picture
-            if (Company1.SourceSite.ToLower() == "joberty")
-            {
-                picBox_sourceSite.Image = new Bitmap("JobertyLogo.png");
-            }
-            else if (Company1.SourceSite.ToLower().Contains("helloworld"))
-            {
-                picBox_sourceSite.Image = new Bitmap("HelloWorldLogo.png");
-            }
-            else if (Company1.SourceSite.ToLower() == "infostud")
-            {
-                picBox_sourceSite.Image = new Bitmap("InfostudLogo.png");
-            }
-            else if (Company1.SourceSite.ToLower() == "linkedin")
-            {
-                picBox_sourceSite.Image = new Bitmap("LinkedInLogo.png");
-            }
-
-            #endregion
-
-
-            lbl_applicationStatus.Text = Company1.ApplicationStatus;
-
-            if (String.IsNullOrEmpty(Company1.CompanyProfileAppLink))
-            {
-                btn_companyProfileApp.Hide();
+                OpenNewCompanyForm();
             }
             else
             {
-                btn_companyProfileApp.Show();
+                #region Loading Data
+                //ucitavanje infa sa lokalnog
+                Company1.CompanyName = linesList[0];
+                Company1.ApplicationDate = DateTime.FromFileTime(Convert.ToInt64(linesList[1]));
+                Company1.SourceSite = linesList[2];
+                Company1.ApplicationStatus = linesList[3];
+                Company1.CompanySiteLink = linesList[4];
+                Company1.CompanyProfileAppLink = linesList[5];
+                Company1.CompanyInfoLink = linesList[6];
+                Company1.Pros = linesList[7];
+                Company1.Cons = linesList[8];
+
+                if (linesList[9] == "1")
+                {
+                    Company1.currentStatus = true;
+                    lbl_companyName.ForeColor = Color.FromArgb(51, 153, 255);
+                }
+                else if (linesList[9] == "0")
+                {
+                    Company1.currentStatus = false;
+                    lbl_companyName.ForeColor = Color.Gray;
+                }
+
+                Company1.JobDescription = linesList;
+                Company1.JobDescription.RemoveRange(0, 10);
+
+                lbl_companyName.Text = Company1.CompanyName;
+                lbl_applicationDate.Text = Company1.ApplicationDate.ToString("dd.M.yyyy");
+                lbl_sourceSite.Text = Company1.SourceSite;
+
+                
+                DetermineTextOrLabel();
+                
+
+                lbl_applicationStatus.Text = Company1.ApplicationStatus;
+
+                #region adds hint to status label if one or more months has passed if status remains pending 
+                if (Company1.currentStatus && lbl_applicationStatus.Text.ToLower().Contains("pending"))
+                {
+                    int currentTotalMonths = DateTime.Now.Month + DateTime.Now.Year * 12;
+                    int applicationDateTotalMonths = Company1.ApplicationDate.Month + Company1.ApplicationDate.Year * 12;
+
+
+                    if (currentTotalMonths == applicationDateTotalMonths + 1 && DateTime.Now.Day > Company1.ApplicationDate.Day)
+                    {
+                        lbl_applicationStatus.Text = Company1.ApplicationStatus + " (over a month)";
+                    }
+
+                    if (currentTotalMonths == applicationDateTotalMonths + 2)
+                    {
+                        lbl_applicationStatus.Text = DateTime.Now.Day > Company1.ApplicationDate.Day ? Company1.ApplicationStatus + " (over two months)" : Company1.ApplicationStatus + " (over a month)";
+
+                    }
+                    else if (currentTotalMonths == applicationDateTotalMonths + 3)
+                    {
+                        lbl_applicationStatus.Text = DateTime.Now.Day > Company1.ApplicationDate.Day ? Company1.ApplicationStatus + " (over three months, you shoud probably dactivate this one)" : Company1.ApplicationStatus + " (over two months)";
+
+                    }
+                    else if (currentTotalMonths > applicationDateTotalMonths + 3)
+                        lbl_applicationStatus.Text = Company1.ApplicationStatus + " (over three months, you shoud probably dactivate this one)";
+                }
+                #endregion
+
+
+                if (String.IsNullOrEmpty(Company1.CompanyProfileAppLink))
+                {
+                    btn_companyProfileApp.Hide();
+                }
+                else
+                {
+                    btn_companyProfileApp.Show();
+                }
+
+                lbl_pros.Text = Company1.Pros;
+                lbl_cons.Text = Company1.Cons;
+
+                PopulatesJobDesc();
+                #endregion
             }
-
-            lbl_pros.Text = Company1.Pros;
-            lbl_cons.Text = Company1.Cons;
-
-            PopulatesJobDesc();
-            #endregion
         }
 
-        private void DeterminTextOrPicture()
+        private void DetermineTextOrLabel()
         {
-            //determins weather to show text or picture for source site
-            if (Company1.SourceSite.ToLower() == "joberty" || Company1.SourceSite.ToLower().Contains("helloworld") || Company1.SourceSite.ToLower() == "infostud" || Company1.SourceSite.ToLower() == "linkedin")
+
+            //loads apropriate label for source site instead of text, if one is provided
+            if (Company1.SourceSite.ToLower() == "joberty" && File.Exists("JobertyLogo.png"))
             {
+                picBox_sourceSite.Image = new Bitmap("JobertyLogo.png");
+                lbl_sourceSite.Hide();
+                picBox_sourceSite.Show();
+            }
+            else if (Company1.SourceSite.ToLower().Contains("helloworld") && File.Exists("HelloWorldLogo.png"))
+            {
+                picBox_sourceSite.Image = new Bitmap("HelloWorldLogo.png");
+                lbl_sourceSite.Hide();
+                picBox_sourceSite.Show();
+            }
+            else if (Company1.SourceSite.ToLower() == "infostud" && File.Exists("InfostudLogo.png"))
+            {
+                picBox_sourceSite.Image = new Bitmap("InfostudLogo.png");
+                lbl_sourceSite.Hide();
+                picBox_sourceSite.Show();
+            }
+            else if (Company1.SourceSite.ToLower() == "linkedin" && File.Exists("LinkedInLogo.png"))
+            {
+                picBox_sourceSite.Image = new Bitmap("LinkedInLogo.png");
                 lbl_sourceSite.Hide();
                 picBox_sourceSite.Show();
             }
@@ -243,6 +316,7 @@ namespace JobApplicationLog
                 picBox_sourceSite.Hide();
             }
         }
+
 
         private void PopulatesJobDesc()
         {
@@ -288,12 +362,16 @@ namespace JobApplicationLog
             txtBox_companyName.Hide();
 
             lbl_applicationDate.Show();
-            txtBox_applicationDate.Hide();
+            numUpDwn_day.Hide();
+            lbl_dayInMonth.Hide();
+            numUpDwn_month.Hide();
+            numUpDwn_year.Hide();
+            
 
             lbl_applicationStatus.Show();
             txtBox_applicationStatus.Hide();
 
-            lbl_sourceSite.Show();
+            DetermineTextOrLabel();
             txtBox_sourceSite.Hide();
 
             btn_companySite.Show();
@@ -324,8 +402,9 @@ namespace JobApplicationLog
             btn_save.Hide();
 
             btn_deactivateCurrentStatus.Hide();
+            btn_jobOffer.Hide();
 
-            DeterminTextOrPicture();
+            txtBox_jobDesc.ReadOnly = true;
         }
 
         private void btn_save_Click(object sender, EventArgs e)
@@ -341,7 +420,7 @@ namespace JobApplicationLog
         private void SavesDataToAFile()
         {
             Company1.CompanyName = txtBox_companyName.Text;
-            Company1.ApplicationDate = txtBox_applicationDate.Text;
+            Company1.ApplicationDate = new DateTime((int)numUpDwn_year.Value, (int)numUpDwn_month.Value, (int)numUpDwn_day.Value); 
             Company1.SourceSite = txtBox_sourceSite.Text;
             Company1.ApplicationStatus = txtBox_applicationStatus.Text;
             Company1.CompanySiteLink = txtBox_companySite.Text;
@@ -352,7 +431,7 @@ namespace JobApplicationLog
 
             string[] linesToBeSaved = new string[] {
                 Company1.CompanyName,
-                Company1.ApplicationDate,
+                Convert.ToString(Company1.ApplicationDate.ToFileTime()),
                 Company1.SourceSite,
                 Company1.ApplicationStatus,
                 Company1.CompanySiteLink,
@@ -369,6 +448,7 @@ namespace JobApplicationLog
             {
                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
                 saveFileDialog1.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+                saveFileDialog1.Title = "Save Company: Select storage location";
 
                 if(saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
@@ -394,6 +474,11 @@ namespace JobApplicationLog
 
         private void btn_newCompany_Click(object sender, EventArgs e)
         {
+            OpenNewCompanyForm();
+        }
+
+        private void OpenNewCompanyForm()
+        {
             Company1.FilePath = "";
             Company1.currentStatus = true;
 
@@ -401,17 +486,20 @@ namespace JobApplicationLog
 
             #region Empties text boxes
             txtBox_companyName.Text = "";
-            txtBox_applicationDate.Text = "";
-            txtBox_applicationStatus.Text = "";
+
+            numUpDwn_day.Value = DateTime.Now.Day;
+            numUpDwn_month.Value = DateTime.Now.Month;
+            numUpDwn_year.Value = DateTime.Now.Year;
+
+            txtBox_applicationStatus.Text = "Pending";
             txtBox_sourceSite.Text = "";
             txtBox_companySite.Text = "";
             txtBox_companyProfileApp.Text = "";
             txtBox_companyInfo.Text = "";
             txtBox_pros.Text = "";
             txtBox_cons.Text = "";
-            txtBox_jobDesc.Text = ""; 
+            txtBox_jobDesc.Text = "";
             #endregion
-
         }
 
         private void btn_deactivateCurrentStatus_Click(object sender, EventArgs e)
@@ -419,5 +507,32 @@ namespace JobApplicationLog
             Company1.currentStatus = false;
             btn_deactivateCurrentStatus.Text = "done";
         }
+
+        #region Maximum day values depending on the month
+        private void numUpDwn_month_ValueChanged(object sender, EventArgs e)
+        {
+            SetMaxDaysInMonth();
+        }
+
+        private void SetMaxDaysInMonth()
+        {
+            if (numUpDwn_month.Value == 4 || numUpDwn_month.Value == 6 || numUpDwn_month.Value == 9 || numUpDwn_month.Value == 11)
+                numUpDwn_day.Maximum = 30;
+            else if (numUpDwn_month.Value == 2)
+            {
+                if (DateTime.IsLeapYear((int)numUpDwn_year.Value))
+                    numUpDwn_day.Maximum = 29;
+                else
+                    numUpDwn_day.Maximum = 28;
+            }
+            else
+                numUpDwn_day.Maximum = 31;
+        }
+
+        private void numUpDwn_year_ValueChanged(object sender, EventArgs e)
+        {
+            SetMaxDaysInMonth();
+        } 
+        #endregion
     }
 }

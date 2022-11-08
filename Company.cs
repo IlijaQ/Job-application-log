@@ -9,7 +9,7 @@ namespace JobApplicationLog
     public class Company
     {
         public string CompanyName { get; set; }
-        public string ApplicationDate { get; set; }
+        public DateTime ApplicationDate { get; set; }
         public string SourceSite { get; set; }
         public string ApplicationStatus { get; set; }
         public bool currentStatus { get; set; }
