@@ -16,7 +16,7 @@ namespace JobApplicationLog
         public Form1()
         {
             InitializeComponent();
-            this.Text = "Job Application Log"; 
+            this.Text = "Job Application Log";
             
             ReloadRecentList();
             
@@ -29,7 +29,7 @@ namespace JobApplicationLog
         Company Company1 = new Company();
         Dictionary<string, string> companiesDictionary = new Dictionary<string, string>();
 
-
+        bool newCompanyForm = false;
 
 
         private void ReloadRecentList()
@@ -41,7 +41,7 @@ namespace JobApplicationLog
             if (!File.Exists("CompaniesList.txt"))
             {
 
-                string[] starterList = new string[] { "Test Software inc", "TestCompany.txt" };
+                string[] starterList = new string[] { "TEST COMPANY", "TestCompany.txt" };
 
                 string[] starterFile = new string[] {
                     "Test Company",
@@ -138,7 +138,12 @@ namespace JobApplicationLog
             lbl_applicationStatus.Hide();
             txtBox_applicationStatus.Show();
 
-            if (Company1.currentStatus)
+            if (newCompanyForm)
+            {
+                btn_jobOffer.Hide();
+                btn_deactivateCurrentStatus.Hide();
+            }
+            else if (Company1.currentStatus)
             {
                 btn_jobOffer.Show();
                 btn_deactivateCurrentStatus.Show();
@@ -352,8 +357,8 @@ namespace JobApplicationLog
         {
             HidesSingleLineTextboxes();
             PopulatesJobDesc();
-            
-            
+            newCompanyForm = false;
+
         }
 
         private void HidesSingleLineTextboxes()//and replaces 'back' and 'save' with 'new' and 'edit' button
@@ -429,6 +434,9 @@ namespace JobApplicationLog
             Company1.Pros = txtBox_pros.Text;
             Company1.Cons = txtBox_cons.Text;
 
+            if (newCompanyForm)
+                Company1.currentStatus = true;
+
             string[] linesToBeSaved = new string[] {
                 Company1.CompanyName,
                 Convert.ToString(Company1.ApplicationDate.ToFileTime()),
@@ -444,7 +452,8 @@ namespace JobApplicationLog
 
             bool check = false;
 
-            if (string.IsNullOrEmpty(Company1.FilePath))
+            //Actions if new Company is beeing created
+            if (newCompanyForm)
             {
                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
                 saveFileDialog1.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
@@ -455,10 +464,11 @@ namespace JobApplicationLog
                     Company1.FilePath = Path.GetFullPath(saveFileDialog1.FileName);
                 }
 
+                //updating CompaniesList.txt
                 string[] editedCompaniesArray = File.ReadAllLines("CompaniesList.txt");
                 List<string> editedCompaniesList = new List<string>();
                 editedCompaniesList.AddRange(editedCompaniesArray);
-                editedCompaniesList.Add(Company1.CompanyName);
+                editedCompaniesList.Add(Company1.CompanyName.ToUpper());//Uppercase name for Companiest with active status(default)
                 editedCompaniesList.Add(Company1.FilePath);
                 File.WriteAllLines("CompaniesList.txt", editedCompaniesList);
 
@@ -466,10 +476,12 @@ namespace JobApplicationLog
             }
             
             File.WriteAllLines(Company1.FilePath, linesToBeSaved);
-            if (check)
+            if (check)//in case a new Company is added to CompaniesList.txt
             {
                 ReloadRecentList();
             }
+
+            newCompanyForm = false;
         }
 
         private void btn_newCompany_Click(object sender, EventArgs e)
@@ -479,8 +491,7 @@ namespace JobApplicationLog
 
         private void OpenNewCompanyForm()
         {
-            Company1.FilePath = "";
-            Company1.currentStatus = true;
+            newCompanyForm = true;
 
             ReplaceLabelsWithTextboxes();
 
@@ -505,6 +516,14 @@ namespace JobApplicationLog
         private void btn_deactivateCurrentStatus_Click(object sender, EventArgs e)
         {
             Company1.currentStatus = false;
+            
+            //Companies with active status are written in uppercase in companies list
+            //Deactivating Company status writes Company "normally" in the list.
+            string[] editedCompaniesArray = File.ReadAllLines("CompaniesList.txt");
+            editedCompaniesArray[Array.IndexOf(editedCompaniesArray, Company1.CompanyName.ToUpper())] = Company1.CompanyName;
+            File.WriteAllLines("CompaniesList.txt", editedCompaniesArray);
+
+            ReloadRecentList();
             btn_deactivateCurrentStatus.Text = "done";
         }
 

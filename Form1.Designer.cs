@@ -416,7 +416,7 @@ namespace JobApplicationLog
             this.btn_deactivateCurrentStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_deactivateCurrentStatus.Location = new System.Drawing.Point(1174, 138);
             this.btn_deactivateCurrentStatus.Name = "btn_deactivateCurrentStatus";
-            this.btn_deactivateCurrentStatus.Size = new System.Drawing.Size(93, 28);
+            this.btn_deactivateCurrentStatus.Size = new System.Drawing.Size(101, 27);
             this.btn_deactivateCurrentStatus.TabIndex = 37;
             this.btn_deactivateCurrentStatus.Text = "deactivate";
             this.btn_deactivateCurrentStatus.UseVisualStyleBackColor = true;
@@ -498,9 +498,9 @@ namespace JobApplicationLog
             // 
             // btn_jobOffer
             // 
-            this.btn_jobOffer.Location = new System.Drawing.Point(1273, 138);
+            this.btn_jobOffer.Location = new System.Drawing.Point(1281, 138);
             this.btn_jobOffer.Name = "btn_jobOffer";
-            this.btn_jobOffer.Size = new System.Drawing.Size(160, 28);
+            this.btn_jobOffer.Size = new System.Drawing.Size(152, 27);
             this.btn_jobOffer.TabIndex = 41;
             this.btn_jobOffer.Text = "Job offer";
             this.btn_jobOffer.UseVisualStyleBackColor = true;
