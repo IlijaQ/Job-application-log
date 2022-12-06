@@ -138,16 +138,15 @@ namespace JobApplicationLog
             lbl_applicationStatus.Hide();
             txtBox_applicationStatus.Show();
 
-            if (newCompanyForm)
+            if (Company1.currentStatus == 0 || newCompanyForm || Company1.currentStatus == 2)
             {
                 btn_jobOffer.Hide();
                 btn_deactivateCurrentStatus.Hide();
             }
-            else if (Company1.currentStatus)
+            else if (Company1.currentStatus == 1)
             {
                 btn_jobOffer.Show();
                 btn_deactivateCurrentStatus.Show();
-                btn_deactivateCurrentStatus.Text = "deactivate";
             }
             
 
@@ -218,16 +217,22 @@ namespace JobApplicationLog
                 Company1.Pros = linesList[7];
                 Company1.Cons = linesList[8];
 
-                if (linesList[9] == "1")
+                switch(linesList[9])
                 {
-                    Company1.currentStatus = true;
-                    lbl_companyName.ForeColor = Color.FromArgb(51, 153, 255);
+                    case "2":   //Company offered a Job Offer
+                        Company1.currentStatus = 2;
+                        lbl_companyName.ForeColor = Color.FromArgb(139, 255, 60);
+                        break;
+                    case "1":   //Application in motion
+                        Company1.currentStatus = 1;
+                        lbl_companyName.ForeColor = Color.FromArgb(51, 153, 255);
+                        break;
+                    case "0":   //Aplication not active
+                        Company1.currentStatus = 0;
+                        lbl_companyName.ForeColor = Color.Gray;
+                        break;
                 }
-                else if (linesList[9] == "0")
-                {
-                    Company1.currentStatus = false;
-                    lbl_companyName.ForeColor = Color.Gray;
-                }
+
 
                 Company1.JobDescription = linesList;
                 Company1.JobDescription.RemoveRange(0, 10);
@@ -243,7 +248,7 @@ namespace JobApplicationLog
                 lbl_applicationStatus.Text = Company1.ApplicationStatus;
 
                 #region adds hint to status label if one or more months has passed if status remains pending 
-                if (Company1.currentStatus && lbl_applicationStatus.Text.ToLower().Contains("pending"))
+                if (Company1.currentStatus == 1 && lbl_applicationStatus.Text.ToLower().Contains("pending"))
                 {
                     int currentTotalMonths = DateTime.Now.Month + DateTime.Now.Year * 12;
                     int applicationDateTotalMonths = Company1.ApplicationDate.Month + Company1.ApplicationDate.Year * 12;
@@ -435,7 +440,7 @@ namespace JobApplicationLog
             Company1.Cons = txtBox_cons.Text;
 
             if (newCompanyForm)
-                Company1.currentStatus = true;
+                Company1.currentStatus = 1;
 
             string[] linesToBeSaved = new string[] {
                 Company1.CompanyName,
@@ -447,10 +452,9 @@ namespace JobApplicationLog
                 Company1.CompanyInfoLink,
                 Company1.Pros,
                 Company1.Cons,
-                Company1.currentStatus ? "1" : "0",
+                Convert.ToString(Company1.currentStatus),
                 txtBox_jobDesc.Text };
 
-            bool check = false;
 
             //Actions if new Company is beeing created
             if (newCompanyForm)
@@ -472,11 +476,11 @@ namespace JobApplicationLog
                 editedCompaniesList.Add(Company1.FilePath);
                 File.WriteAllLines("CompaniesList.txt", editedCompaniesList);
 
-                check = true;
             }
             
             File.WriteAllLines(Company1.FilePath, linesToBeSaved);
-            if (check)//in case a new Company is added to CompaniesList.txt
+
+            if (newCompanyForm)//in case a new Company is added to CompaniesList.txt
             {
                 ReloadRecentList();
             }
@@ -515,8 +519,9 @@ namespace JobApplicationLog
 
         private void btn_deactivateCurrentStatus_Click(object sender, EventArgs e)
         {
-            Company1.currentStatus = false;
-            
+            Company1.currentStatus = 0;
+            SavesDataToAFile();
+
             //Companies with active status are written in uppercase in companies list
             //Deactivating Company status writes Company "normally" in the list.
             string[] editedCompaniesArray = File.ReadAllLines("CompaniesList.txt");
@@ -524,7 +529,37 @@ namespace JobApplicationLog
             File.WriteAllLines("CompaniesList.txt", editedCompaniesArray);
 
             ReloadRecentList();
-            btn_deactivateCurrentStatus.Text = "done";
+
+            
+            lbl_companyName.ForeColor = Color.Gray;//no need to call PopulateUi() method since only the label color is changed in this case
+
+            HidesSingleLineTextboxes();
+
+            MessageBox.Show($"Company: {Company1.CompanyName}\r\nJob aplication status: not active");
+        }
+
+        private void btn_jobOffer_Click(object sender, EventArgs e)
+        {
+            Company1.currentStatus = 2;
+            txtBox_applicationStatus.Text = "Job Offer";//compatability with SavesDataToAFile() method
+            
+            SavesDataToAFile();
+
+            //hints out the Company that offered a Job Offer in companies list
+            string[] editedCompaniesArray = File.ReadAllLines("CompaniesList.txt");
+            editedCompaniesArray[Array.IndexOf(editedCompaniesArray, Company1.CompanyName.ToUpper())] = $" > > {Company1.CompanyName}";
+            File.WriteAllLines("CompaniesList.txt", editedCompaniesArray);
+
+            ReloadRecentList();
+
+            
+            lbl_companyName.ForeColor = Color.FromArgb(139, 255, 60);//no need to call PopulateUi() method since only the label color and application status is changed in this case
+            lbl_applicationStatus.Text = Company1.ApplicationStatus;
+            HidesSingleLineTextboxes();
+
+            
+            MessageBox.Show("    SUBJECT:  FREEMAN\n\n       STATUS:  HIRED\n\nAWAITING ASSIGNMENT");
+            
         }
 
         #region Maximum day values depending on the month
@@ -551,7 +586,8 @@ namespace JobApplicationLog
         private void numUpDwn_year_ValueChanged(object sender, EventArgs e)
         {
             SetMaxDaysInMonth();
-        } 
+        }
         #endregion
+        
     }
 }

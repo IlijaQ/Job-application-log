@@ -226,12 +226,12 @@ namespace JobApplicationLog
             // 
             this.txtBox_jobDesc.BackColor = System.Drawing.Color.White;
             this.txtBox_jobDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBox_jobDesc.Location = new System.Drawing.Point(409, 372);
+            this.txtBox_jobDesc.Location = new System.Drawing.Point(409, 366);
             this.txtBox_jobDesc.Multiline = true;
             this.txtBox_jobDesc.Name = "txtBox_jobDesc";
             this.txtBox_jobDesc.ReadOnly = true;
             this.txtBox_jobDesc.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtBox_jobDesc.Size = new System.Drawing.Size(1024, 484);
+            this.txtBox_jobDesc.Size = new System.Drawing.Size(1024, 470);
             this.txtBox_jobDesc.TabIndex = 16;
             this.txtBox_jobDesc.Text = "job description:";
             // 
@@ -498,12 +498,15 @@ namespace JobApplicationLog
             // 
             // btn_jobOffer
             // 
+            this.btn_jobOffer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_jobOffer.ForeColor = System.Drawing.Color.Crimson;
             this.btn_jobOffer.Location = new System.Drawing.Point(1281, 138);
             this.btn_jobOffer.Name = "btn_jobOffer";
             this.btn_jobOffer.Size = new System.Drawing.Size(152, 27);
             this.btn_jobOffer.TabIndex = 41;
             this.btn_jobOffer.Text = "Job offer";
             this.btn_jobOffer.UseVisualStyleBackColor = true;
+            this.btn_jobOffer.Click += new System.EventHandler(this.btn_jobOffer_Click);
             // 
             // lbl_dayInMonth
             // 
