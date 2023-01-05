@@ -41,25 +41,30 @@ namespace JobApplicationLog
             if (!File.Exists("CompaniesList.txt"))
             {
 
-                string[] starterList = new string[] { "TEST COMPANY", "TestCompany.txt" };
+                string[] starterList = new string[] { "GET STARTED", "TestCompany.txt" };
 
                 string[] starterFile = new string[] {
                     "Test Company",
                     "133985592000000000",
                     "Service name",
                     "Pending",
-                    "http://ilijac-001-site1.ftempurl.com/",
-                    "https://github.com/IlijaQ",
                     "https://linkedin.com/in/ilija-kujovic-126352204",
+                    "https://github.com/IlijaQ",
+                    "https://github.com/IlijaQ/Job-application-log",
                     "good company",
                     "no complaints",
                     "1",
-                    "a fine job",
-                    "c#",
-                    "sql",
-                    "ef",
+                    "[EXAMPLE]",
+                    "You are a good candidate if you can check at least two of the following key skills:",
+                    "-knowledge of C# and .NET framework.",
+                    "-knowledge of HTML, CSS",
+                    "-knowledge of SQL and experience in working with databases",
+                    "-Experience with ASP.NET MVC and/or Razor Pages",
+                    "-Experience in working with Entity Framework (or other persistence frameworks)",
                     "",
-                    ">>>>>>> Click on \"New Company\" to get started."
+                    "",
+                    "///////////////  Click on \"New Company\" to get started.",
+                    "///////////////  Click on \"Company info\" on this entry to view program features and manual."
                 };
 
                 File.WriteAllLines("CompaniesList.txt", starterList);
