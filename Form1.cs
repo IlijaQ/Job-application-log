@@ -221,11 +221,11 @@ namespace JobApplicationLog
                 {
                     case "2":   //Company offered a Job Offer
                         Company1.currentStatus = 2;
-                        lbl_companyName.ForeColor = Color.FromArgb(139, 255, 60);
+                        lbl_companyName.ForeColor = Color.FromArgb(139, 255, 60);//fluorescent green
                         break;
                     case "1":   //Application in motion
                         Company1.currentStatus = 1;
-                        lbl_companyName.ForeColor = Color.FromArgb(51, 153, 255);
+                        lbl_companyName.ForeColor = Color.FromArgb(51, 153, 255);//vibrant blue
                         break;
                     case "0":   //Aplication not active
                         Company1.currentStatus = 0;
@@ -296,27 +296,27 @@ namespace JobApplicationLog
         {
 
             //loads apropriate label for source site instead of text, if one is provided
-            if (Company1.SourceSite.ToLower() == "joberty" && File.Exists("JobertyLogo.png"))
+            if (Company1.SourceSite.ToLower() == "joberty" && File.Exists(@".\..\..\logo\JobertyLogo.png"))
             {
-                picBox_sourceSite.Image = new Bitmap("JobertyLogo.png");
+                picBox_sourceSite.Image = new Bitmap(@".\..\..\logo\JobertyLogo.png");
                 lbl_sourceSite.Hide();
                 picBox_sourceSite.Show();
             }
-            else if (Company1.SourceSite.ToLower().Contains("helloworld") && File.Exists("HelloWorldLogo.png"))
+            else if (Company1.SourceSite.ToLower().Contains("helloworld") && File.Exists(@".\..\..\logo\HelloWorldLogo.png"))
             {
-                picBox_sourceSite.Image = new Bitmap("HelloWorldLogo.png");
+                picBox_sourceSite.Image = new Bitmap(@".\..\..\logo\HelloWorldLogo.png");
                 lbl_sourceSite.Hide();
                 picBox_sourceSite.Show();
             }
-            else if (Company1.SourceSite.ToLower() == "infostud" && File.Exists("InfostudLogo.png"))
+            else if (Company1.SourceSite.ToLower() == "infostud" && File.Exists(@".\..\..\logo\InfostudLogo.png"))
             {
-                picBox_sourceSite.Image = new Bitmap("InfostudLogo.png");
+                picBox_sourceSite.Image = new Bitmap(@".\..\..\logo\InfostudLogo.png");
                 lbl_sourceSite.Hide();
                 picBox_sourceSite.Show();
             }
-            else if (Company1.SourceSite.ToLower() == "linkedin" && File.Exists("LinkedInLogo.png"))
+            else if (Company1.SourceSite.ToLower() == "linkedin" && File.Exists(@".\..\..\logo\LinkedInLogo.png"))
             {
-                picBox_sourceSite.Image = new Bitmap("LinkedInLogo.png");
+                picBox_sourceSite.Image = new Bitmap(@".\..\..\logo\LinkedInLogo.png");
                 lbl_sourceSite.Hide();
                 picBox_sourceSite.Show();
             }
