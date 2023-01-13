@@ -129,67 +129,12 @@ namespace JobApplicationLog
 
         }
 
-        private void ReplaceLabelsWithTextboxes()//and replaces 'new company' and 'edit' buttons with 'back' and 'save'
-        {
-            lbl_companyName.Hide();
-            txtBox_companyName.Show();
-
-            lbl_applicationDate.Hide();
-            numUpDwn_day.Show();
-            lbl_dayInMonth.Show();
-            numUpDwn_month.Show();
-            numUpDwn_year.Show();
-
-            lbl_applicationStatus.Hide();
-            txtBox_applicationStatus.Show();
-
-            if (Company1.currentStatus == 0 || newCompanyForm || Company1.currentStatus == 2)
-            {
-                btn_jobOffer.Hide();
-                btn_deactivateCurrentStatus.Hide();
-            }
-            else if (Company1.currentStatus == 1)
-            {
-                btn_jobOffer.Show();
-                btn_deactivateCurrentStatus.Show();
-            }
-            
-
-            lbl_sourceSite.Hide();
-            picBox_sourceSite.Hide();
-            txtBox_sourceSite.Show();
-
-            btn_companySite.Hide();
-            txtBox_companySite.Show();
-
-            btn_companyProfileApp.Hide();
-            txtBox_companyProfileApp.Show();
-
-            btn_companyInfo.Hide();
-            txtBox_companyInfo.Show();
-
-            lbl_pros.Hide();
-            txtBox_pros.Show();
-
-            lbl_cons.Hide();
-            txtBox_cons.Show();
-
-            dynamic_lbl_companySite.Show();
-            dynamic_lbl_companyInfo.Show();
-            dynamic_lbl_companyProfileApp.Show();
-
-            btn_newCompany.Hide();
-            btn_edit.Hide();
-            btn_back.Show();
-            btn_save.Show();
-
-            txtBox_jobDesc.ReadOnly = false;
-        }
-
         private void btn_openCompany_Click(object sender, EventArgs e)
         {
-            Company1.FilePath = (string)listbox_companies.SelectedItem;
+            if (txtBox_companyName.Visible)
+                HidesSingleLineTextboxes();
 
+            Company1.FilePath = (string)listbox_companies.SelectedItem;
 
             PopulateUi(companiesDictionary[(string)listbox_companies.SelectedItem]);
         }
@@ -225,15 +170,15 @@ namespace JobApplicationLog
                 switch(linesList[9])
                 {
                     case "2":   //Company offered a Job Offer
-                        Company1.currentStatus = 2;
+                        Company1.CurrentStatus = 2;
                         lbl_companyName.ForeColor = Color.FromArgb(139, 255, 60);//fluorescent green
                         break;
                     case "1":   //Application in motion
-                        Company1.currentStatus = 1;
+                        Company1.CurrentStatus = 1;
                         lbl_companyName.ForeColor = Color.FromArgb(51, 153, 255);//vibrant blue
                         break;
                     case "0":   //Aplication not active
-                        Company1.currentStatus = 0;
+                        Company1.CurrentStatus = 0;
                         lbl_companyName.ForeColor = Color.Gray;
                         break;
                 }
@@ -253,7 +198,7 @@ namespace JobApplicationLog
                 lbl_applicationStatus.Text = Company1.ApplicationStatus;
 
                 #region adds hint to status label if one or more months has passed if status remains pending 
-                if (Company1.currentStatus == 1 && lbl_applicationStatus.Text.ToLower().Contains("pending"))
+                if (Company1.CurrentStatus == 1 && lbl_applicationStatus.Text.ToLower().Contains("pending"))
                 {
                     int currentTotalMonths = DateTime.Now.Month + DateTime.Now.Year * 12;
                     int applicationDateTotalMonths = Company1.ApplicationDate.Month + Company1.ApplicationDate.Year * 12;
@@ -371,6 +316,251 @@ namespace JobApplicationLog
 
         }
 
+        private void btn_save_Click(object sender, EventArgs e)
+        {
+            HidesSingleLineTextboxes();
+
+            SavesDataToAFile();
+
+            PopulateUi(Company1.FilePath);
+
+        }
+
+        private void SavesDataToAFile()
+        {
+            string IfCoNameChangedIndicator = Company1.CompanyName;
+            Company1.CompanyName = txtBox_companyName.Text;
+            Company1.ApplicationDate = new DateTime((int)numUpDwn_year.Value, (int)numUpDwn_month.Value, (int)numUpDwn_day.Value); 
+            Company1.SourceSite = txtBox_sourceSite.Text;
+            Company1.ApplicationStatus = txtBox_applicationStatus.Text;
+            Company1.CompanySiteLink = txtBox_companySite.Text;
+            Company1.CompanyProfileAppLink = txtBox_companyProfileApp.Text;
+            Company1.CompanyInfoLink = txtBox_companyInfo.Text;
+            Company1.Pros = txtBox_pros.Text;
+            Company1.Cons = txtBox_cons.Text;
+
+            if (newCompanyForm)
+                Company1.CurrentStatus = 1;
+
+            string[] linesToBeSaved = new string[] {
+                Company1.CompanyName,
+                Convert.ToString(Company1.ApplicationDate.ToFileTime()),
+                Company1.SourceSite,
+                Company1.ApplicationStatus,
+                Company1.CompanySiteLink,
+                Company1.CompanyProfileAppLink,
+                Company1.CompanyInfoLink,
+                Company1.Pros,
+                Company1.Cons,
+                Convert.ToString(Company1.CurrentStatus),
+                txtBox_jobDesc.Text };
+
+
+            //Actions if new Company is beeing created
+            if (newCompanyForm)
+            {
+                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+                saveFileDialog1.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+                saveFileDialog1.Title = "Save Company: Select storage location";
+
+                if(saveFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    Company1.FilePath = Path.GetFullPath(saveFileDialog1.FileName);
+                }
+
+                //updating CompaniesList.txt
+                string[] editedCompaniesArray = File.ReadAllLines("CompaniesList.txt");
+                List<string> editedCompaniesList = new List<string>();
+                editedCompaniesList.AddRange(editedCompaniesArray);
+                editedCompaniesList.Add(Company1.CompanyName.ToUpper());//Uppercase name for Companiest with active status(default)
+                editedCompaniesList.Add(Company1.FilePath);
+                File.WriteAllLines("CompaniesList.txt", editedCompaniesList);
+
+                ReloadRecentList();
+            }
+
+            //cheks if Comapany name is changed to update CompaniesList.txt
+            if (IfCoNameChangedIndicator != Company1.CompanyName && !newCompanyForm)
+            {
+                string[] editedCompaniesArray = File.ReadAllLines("CompaniesList.txt");
+
+                switch (Company1.CurrentStatus)
+                {
+                    //applies the change according to how company is displayed on the list (depneding on CurrentStatus)
+                    case 0: editedCompaniesArray[Array.IndexOf(editedCompaniesArray, IfCoNameChangedIndicator)] = Company1.CompanyName; break;
+                    case 1: editedCompaniesArray[Array.IndexOf(editedCompaniesArray, IfCoNameChangedIndicator.ToUpper())] = Company1.CompanyName.ToUpper(); break;
+                    case 2: editedCompaniesArray[Array.IndexOf(editedCompaniesArray, ($" > > {IfCoNameChangedIndicator}"))] = $" > > {Company1.CompanyName}"; break;
+                }
+
+                File.WriteAllLines("CompaniesList.txt", editedCompaniesArray);
+
+                ReloadRecentList();
+            }
+
+            File.WriteAllLines(Company1.FilePath, linesToBeSaved);
+
+            newCompanyForm = false;
+        }
+
+        private void btn_newCompany_Click(object sender, EventArgs e)
+        {
+            OpenNewCompanyForm();
+        }
+
+        private void OpenNewCompanyForm()
+        {
+            newCompanyForm = true;
+
+            ReplaceLabelsWithTextboxes();
+
+            #region Empties text boxes
+            txtBox_companyName.Text = "";
+
+            numUpDwn_day.Value = DateTime.Now.Day;
+            numUpDwn_month.Value = DateTime.Now.Month;
+            numUpDwn_year.Value = DateTime.Now.Year;
+
+            txtBox_applicationStatus.Text = "Pending";
+            txtBox_sourceSite.Text = "";
+            txtBox_companySite.Text = "";
+            txtBox_companyProfileApp.Text = "";
+            txtBox_companyInfo.Text = "";
+            txtBox_pros.Text = "";
+            txtBox_cons.Text = "";
+            txtBox_jobDesc.Text = "";
+            #endregion
+        }
+
+        private void btn_deactivateCurrentStatus_Click(object sender, EventArgs e)
+        {
+            Company1.CurrentStatus = 0;
+            SavesDataToAFile();
+
+            //Companies with active status are written in uppercase in companies list
+            //Deactivating Company status writes Company "normally" in the list.
+            string[] editedCompaniesArray = File.ReadAllLines("CompaniesList.txt");
+            editedCompaniesArray[Array.IndexOf(editedCompaniesArray, Company1.CompanyName.ToUpper())] = Company1.CompanyName;
+            File.WriteAllLines("CompaniesList.txt", editedCompaniesArray);
+
+            ReloadRecentList();
+
+            PopulateUi(Company1.FilePath);
+
+            HidesSingleLineTextboxes();
+
+            
+            MessageBox.Show($"Company: {Company1.CompanyName}\r\nJob aplication status: not active");
+        }
+
+        private void btn_jobOffer_Click(object sender, EventArgs e)
+        {
+            Company1.CurrentStatus = 2;
+            txtBox_applicationStatus.Text = "Job Offer";//compatability with SavesDataToAFile() method
+            
+            SavesDataToAFile();
+
+            //hints out the Company that offered a Job Offer in companies list
+            string[] editedCompaniesArray = File.ReadAllLines("CompaniesList.txt");
+            editedCompaniesArray[Array.IndexOf(editedCompaniesArray, Company1.CompanyName.ToUpper())] = $" > > {Company1.CompanyName}";
+            File.WriteAllLines("CompaniesList.txt", editedCompaniesArray);
+
+            ReloadRecentList();
+
+            PopulateUi(Company1.FilePath);
+            
+            HidesSingleLineTextboxes();
+
+            
+            MessageBox.Show("    SUBJECT:  FREEMAN\n\n      STATUS:  HIRED\n\nAWAITING ASSIGNMENT");
+            
+        }
+
+        #region Maximum day values depending on the month
+        private void numUpDwn_month_ValueChanged(object sender, EventArgs e)
+        {
+            SetMaxDaysInMonth();
+        }
+
+        private void SetMaxDaysInMonth()
+        {
+            if (numUpDwn_month.Value == 4 || numUpDwn_month.Value == 6 || numUpDwn_month.Value == 9 || numUpDwn_month.Value == 11)
+                numUpDwn_day.Maximum = 30;
+            else if (numUpDwn_month.Value == 2)
+            {
+                if (DateTime.IsLeapYear((int)numUpDwn_year.Value))
+                    numUpDwn_day.Maximum = 29;
+                else
+                    numUpDwn_day.Maximum = 28;
+            }
+            else
+                numUpDwn_day.Maximum = 31;
+        }
+
+        private void numUpDwn_year_ValueChanged(object sender, EventArgs e)
+        {
+            SetMaxDaysInMonth();
+        }
+        #endregion
+
+
+        private void ReplaceLabelsWithTextboxes()//and replaces 'new company' and 'edit' buttons with 'back' and 'save'
+        {
+            lbl_companyName.Hide();
+            txtBox_companyName.Show();
+
+            lbl_applicationDate.Hide();
+            numUpDwn_day.Show();
+            lbl_dayInMonth.Show();
+            numUpDwn_month.Show();
+            numUpDwn_year.Show();
+
+            lbl_applicationStatus.Hide();
+            txtBox_applicationStatus.Show();
+
+            if (Company1.CurrentStatus == 0 || newCompanyForm || Company1.CurrentStatus == 2)
+            {
+                btn_jobOffer.Hide();
+                btn_deactivateCurrentStatus.Hide();
+            }
+            else if (Company1.CurrentStatus == 1)
+            {
+                btn_jobOffer.Show();
+                btn_deactivateCurrentStatus.Show();
+            }
+
+
+            lbl_sourceSite.Hide();
+            picBox_sourceSite.Hide();
+            txtBox_sourceSite.Show();
+
+            btn_companySite.Hide();
+            txtBox_companySite.Show();
+
+            btn_companyProfileApp.Hide();
+            txtBox_companyProfileApp.Show();
+
+            btn_companyInfo.Hide();
+            txtBox_companyInfo.Show();
+
+            lbl_pros.Hide();
+            txtBox_pros.Show();
+
+            lbl_cons.Hide();
+            txtBox_cons.Show();
+
+            dynamic_lbl_companySite.Show();
+            dynamic_lbl_companyInfo.Show();
+            dynamic_lbl_companyProfileApp.Show();
+
+            btn_newCompany.Hide();
+            btn_edit.Hide();
+            btn_back.Show();
+            btn_save.Show();
+
+            txtBox_jobDesc.ReadOnly = false;
+        }
+
+        
         private void HidesSingleLineTextboxes()//and replaces 'back' and 'save' with 'new' and 'edit' button
         {
             lbl_companyName.Show();
@@ -422,177 +612,5 @@ namespace JobApplicationLog
             txtBox_jobDesc.ReadOnly = true;
         }
 
-        private void btn_save_Click(object sender, EventArgs e)
-        {
-            HidesSingleLineTextboxes();
-
-            SavesDataToAFile();
-
-            PopulateUi(Company1.FilePath);
-
-        }
-
-        private void SavesDataToAFile()
-        {
-            Company1.CompanyName = txtBox_companyName.Text;
-            Company1.ApplicationDate = new DateTime((int)numUpDwn_year.Value, (int)numUpDwn_month.Value, (int)numUpDwn_day.Value); 
-            Company1.SourceSite = txtBox_sourceSite.Text;
-            Company1.ApplicationStatus = txtBox_applicationStatus.Text;
-            Company1.CompanySiteLink = txtBox_companySite.Text;
-            Company1.CompanyProfileAppLink = txtBox_companyProfileApp.Text;
-            Company1.CompanyInfoLink = txtBox_companyInfo.Text;
-            Company1.Pros = txtBox_pros.Text;
-            Company1.Cons = txtBox_cons.Text;
-
-            if (newCompanyForm)
-                Company1.currentStatus = 1;
-
-            string[] linesToBeSaved = new string[] {
-                Company1.CompanyName,
-                Convert.ToString(Company1.ApplicationDate.ToFileTime()),
-                Company1.SourceSite,
-                Company1.ApplicationStatus,
-                Company1.CompanySiteLink,
-                Company1.CompanyProfileAppLink,
-                Company1.CompanyInfoLink,
-                Company1.Pros,
-                Company1.Cons,
-                Convert.ToString(Company1.currentStatus),
-                txtBox_jobDesc.Text };
-
-
-            //Actions if new Company is beeing created
-            if (newCompanyForm)
-            {
-                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-                saveFileDialog1.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
-                saveFileDialog1.Title = "Save Company: Select storage location";
-
-                if(saveFileDialog1.ShowDialog() == DialogResult.OK)
-                {
-                    Company1.FilePath = Path.GetFullPath(saveFileDialog1.FileName);
-                }
-
-                //updating CompaniesList.txt
-                string[] editedCompaniesArray = File.ReadAllLines("CompaniesList.txt");
-                List<string> editedCompaniesList = new List<string>();
-                editedCompaniesList.AddRange(editedCompaniesArray);
-                editedCompaniesList.Add(Company1.CompanyName.ToUpper());//Uppercase name for Companiest with active status(default)
-                editedCompaniesList.Add(Company1.FilePath);
-                File.WriteAllLines("CompaniesList.txt", editedCompaniesList);
-
-            }
-            
-            File.WriteAllLines(Company1.FilePath, linesToBeSaved);
-
-            if (newCompanyForm)//in case a new Company is added to CompaniesList.txt
-            {
-                ReloadRecentList();
-            }
-
-            newCompanyForm = false;
-        }
-
-        private void btn_newCompany_Click(object sender, EventArgs e)
-        {
-            OpenNewCompanyForm();
-        }
-
-        private void OpenNewCompanyForm()
-        {
-            newCompanyForm = true;
-
-            ReplaceLabelsWithTextboxes();
-
-            #region Empties text boxes
-            txtBox_companyName.Text = "";
-
-            numUpDwn_day.Value = DateTime.Now.Day;
-            numUpDwn_month.Value = DateTime.Now.Month;
-            numUpDwn_year.Value = DateTime.Now.Year;
-
-            txtBox_applicationStatus.Text = "Pending";
-            txtBox_sourceSite.Text = "";
-            txtBox_companySite.Text = "";
-            txtBox_companyProfileApp.Text = "";
-            txtBox_companyInfo.Text = "";
-            txtBox_pros.Text = "";
-            txtBox_cons.Text = "";
-            txtBox_jobDesc.Text = "";
-            #endregion
-        }
-
-        private void btn_deactivateCurrentStatus_Click(object sender, EventArgs e)
-        {
-            Company1.currentStatus = 0;
-            SavesDataToAFile();
-
-            //Companies with active status are written in uppercase in companies list
-            //Deactivating Company status writes Company "normally" in the list.
-            string[] editedCompaniesArray = File.ReadAllLines("CompaniesList.txt");
-            editedCompaniesArray[Array.IndexOf(editedCompaniesArray, Company1.CompanyName.ToUpper())] = Company1.CompanyName;
-            File.WriteAllLines("CompaniesList.txt", editedCompaniesArray);
-
-            ReloadRecentList();
-
-            
-            lbl_companyName.ForeColor = Color.Gray;//no need to call PopulateUi() method since only the label color is changed in this case
-
-            HidesSingleLineTextboxes();
-
-            MessageBox.Show($"Company: {Company1.CompanyName}\r\nJob aplication status: not active");
-        }
-
-        private void btn_jobOffer_Click(object sender, EventArgs e)
-        {
-            Company1.currentStatus = 2;
-            txtBox_applicationStatus.Text = "Job Offer";//compatability with SavesDataToAFile() method
-            
-            SavesDataToAFile();
-
-            //hints out the Company that offered a Job Offer in companies list
-            string[] editedCompaniesArray = File.ReadAllLines("CompaniesList.txt");
-            editedCompaniesArray[Array.IndexOf(editedCompaniesArray, Company1.CompanyName.ToUpper())] = $" > > {Company1.CompanyName}";
-            File.WriteAllLines("CompaniesList.txt", editedCompaniesArray);
-
-            ReloadRecentList();
-
-            
-            lbl_companyName.ForeColor = Color.FromArgb(139, 255, 60);//no need to call PopulateUi() method since only the label color and application status is changed in this case
-            lbl_applicationStatus.Text = Company1.ApplicationStatus;
-            HidesSingleLineTextboxes();
-
-            
-            MessageBox.Show("    SUBJECT:  FREEMAN\n\n       STATUS:  HIRED\n\nAWAITING ASSIGNMENT");
-            
-        }
-
-        #region Maximum day values depending on the month
-        private void numUpDwn_month_ValueChanged(object sender, EventArgs e)
-        {
-            SetMaxDaysInMonth();
-        }
-
-        private void SetMaxDaysInMonth()
-        {
-            if (numUpDwn_month.Value == 4 || numUpDwn_month.Value == 6 || numUpDwn_month.Value == 9 || numUpDwn_month.Value == 11)
-                numUpDwn_day.Maximum = 30;
-            else if (numUpDwn_month.Value == 2)
-            {
-                if (DateTime.IsLeapYear((int)numUpDwn_year.Value))
-                    numUpDwn_day.Maximum = 29;
-                else
-                    numUpDwn_day.Maximum = 28;
-            }
-            else
-                numUpDwn_day.Maximum = 31;
-        }
-
-        private void numUpDwn_year_ValueChanged(object sender, EventArgs e)
-        {
-            SetMaxDaysInMonth();
-        }
-        #endregion
-        
     }
 }

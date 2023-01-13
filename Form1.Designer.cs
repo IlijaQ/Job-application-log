@@ -352,6 +352,7 @@ namespace JobApplicationLog
             // 
             // btn_back
             // 
+            this.btn_back.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btn_back.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_back.Location = new System.Drawing.Point(409, 9);
             this.btn_back.Name = "btn_back";
@@ -363,6 +364,7 @@ namespace JobApplicationLog
             // 
             // btn_save
             // 
+            this.btn_save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_save.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_save.Location = new System.Drawing.Point(1235, 9);
             this.btn_save.Name = "btn_save";
@@ -377,7 +379,7 @@ namespace JobApplicationLog
             this.dynamic_lbl_companySite.BackColor = System.Drawing.SystemColors.Control;
             this.dynamic_lbl_companySite.Location = new System.Drawing.Point(176, 172);
             this.dynamic_lbl_companySite.Name = "dynamic_lbl_companySite";
-            this.dynamic_lbl_companySite.Size = new System.Drawing.Size(200, 27);
+            this.dynamic_lbl_companySite.Size = new System.Drawing.Size(211, 27);
             this.dynamic_lbl_companySite.TabIndex = 33;
             this.dynamic_lbl_companySite.Text = "company site";
             this.dynamic_lbl_companySite.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -387,7 +389,7 @@ namespace JobApplicationLog
             this.dynamic_lbl_companyInfo.BackColor = System.Drawing.SystemColors.Control;
             this.dynamic_lbl_companyInfo.Location = new System.Drawing.Point(176, 205);
             this.dynamic_lbl_companyInfo.Name = "dynamic_lbl_companyInfo";
-            this.dynamic_lbl_companyInfo.Size = new System.Drawing.Size(200, 27);
+            this.dynamic_lbl_companyInfo.Size = new System.Drawing.Size(211, 27);
             this.dynamic_lbl_companyInfo.TabIndex = 34;
             this.dynamic_lbl_companyInfo.Text = "company info";
             this.dynamic_lbl_companyInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -397,7 +399,7 @@ namespace JobApplicationLog
             this.dynamic_lbl_companyProfileApp.BackColor = System.Drawing.SystemColors.Control;
             this.dynamic_lbl_companyProfileApp.Location = new System.Drawing.Point(176, 238);
             this.dynamic_lbl_companyProfileApp.Name = "dynamic_lbl_companyProfileApp";
-            this.dynamic_lbl_companyProfileApp.Size = new System.Drawing.Size(200, 27);
+            this.dynamic_lbl_companyProfileApp.Size = new System.Drawing.Size(211, 27);
             this.dynamic_lbl_companyProfileApp.TabIndex = 35;
             this.dynamic_lbl_companyProfileApp.Text = "company profile app";
             this.dynamic_lbl_companyProfileApp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
