@@ -83,7 +83,7 @@ namespace JobApplicationLog
             this.listbox_companies.Location = new System.Drawing.Point(12, 52);
             this.listbox_companies.MultiColumn = true;
             this.listbox_companies.Name = "listbox_companies";
-            this.listbox_companies.Size = new System.Drawing.Size(387, 804);
+            this.listbox_companies.Size = new System.Drawing.Size(387, 784);
             this.listbox_companies.TabIndex = 0;
             // 
             // btn_newCompany
@@ -121,10 +121,11 @@ namespace JobApplicationLog
             // 
             // btn_companySite
             // 
+            this.btn_companySite.AutoSize = true;
             this.btn_companySite.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_companySite.Location = new System.Drawing.Point(409, 212);
             this.btn_companySite.Name = "btn_companySite";
-            this.btn_companySite.Size = new System.Drawing.Size(310, 28);
+            this.btn_companySite.Size = new System.Drawing.Size(310, 30);
             this.btn_companySite.TabIndex = 4;
             this.btn_companySite.Text = "company site";
             this.btn_companySite.UseVisualStyleBackColor = true;
@@ -289,7 +290,7 @@ namespace JobApplicationLog
             // txtBox_companyName
             // 
             this.txtBox_companyName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBox_companyName.Location = new System.Drawing.Point(552, 48);
+            this.txtBox_companyName.Location = new System.Drawing.Point(552, 46);
             this.txtBox_companyName.Name = "txtBox_companyName";
             this.txtBox_companyName.Size = new System.Drawing.Size(259, 27);
             this.txtBox_companyName.TabIndex = 22;
@@ -376,30 +377,39 @@ namespace JobApplicationLog
             // 
             // dynamic_lbl_companySite
             // 
+            this.dynamic_lbl_companySite.AutoSize = true;
             this.dynamic_lbl_companySite.BackColor = System.Drawing.SystemColors.Control;
-            this.dynamic_lbl_companySite.Location = new System.Drawing.Point(176, 172);
+            this.dynamic_lbl_companySite.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dynamic_lbl_companySite.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.dynamic_lbl_companySite.Location = new System.Drawing.Point(200, 174);
             this.dynamic_lbl_companySite.Name = "dynamic_lbl_companySite";
-            this.dynamic_lbl_companySite.Size = new System.Drawing.Size(211, 27);
+            this.dynamic_lbl_companySite.Size = new System.Drawing.Size(187, 25);
             this.dynamic_lbl_companySite.TabIndex = 33;
-            this.dynamic_lbl_companySite.Text = "company site";
+            this.dynamic_lbl_companySite.Text = "      company site      ";
             this.dynamic_lbl_companySite.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // dynamic_lbl_companyInfo
             // 
+            this.dynamic_lbl_companyInfo.AutoSize = true;
             this.dynamic_lbl_companyInfo.BackColor = System.Drawing.SystemColors.Control;
-            this.dynamic_lbl_companyInfo.Location = new System.Drawing.Point(176, 205);
+            this.dynamic_lbl_companyInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dynamic_lbl_companyInfo.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.dynamic_lbl_companyInfo.Location = new System.Drawing.Point(199, 207);
             this.dynamic_lbl_companyInfo.Name = "dynamic_lbl_companyInfo";
-            this.dynamic_lbl_companyInfo.Size = new System.Drawing.Size(211, 27);
+            this.dynamic_lbl_companyInfo.Size = new System.Drawing.Size(188, 25);
             this.dynamic_lbl_companyInfo.TabIndex = 34;
-            this.dynamic_lbl_companyInfo.Text = "company info";
+            this.dynamic_lbl_companyInfo.Text = "      company info      ";
             this.dynamic_lbl_companyInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // dynamic_lbl_companyProfileApp
             // 
+            this.dynamic_lbl_companyProfileApp.AutoSize = true;
             this.dynamic_lbl_companyProfileApp.BackColor = System.Drawing.SystemColors.Control;
-            this.dynamic_lbl_companyProfileApp.Location = new System.Drawing.Point(176, 238);
+            this.dynamic_lbl_companyProfileApp.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dynamic_lbl_companyProfileApp.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.dynamic_lbl_companyProfileApp.Location = new System.Drawing.Point(199, 240);
             this.dynamic_lbl_companyProfileApp.Name = "dynamic_lbl_companyProfileApp";
-            this.dynamic_lbl_companyProfileApp.Size = new System.Drawing.Size(211, 27);
+            this.dynamic_lbl_companyProfileApp.Size = new System.Drawing.Size(187, 25);
             this.dynamic_lbl_companyProfileApp.TabIndex = 35;
             this.dynamic_lbl_companyProfileApp.Text = "company profile app";
             this.dynamic_lbl_companyProfileApp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -526,6 +536,7 @@ namespace JobApplicationLog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1445, 869);
             this.Controls.Add(this.lbl_dayInMonth);
             this.Controls.Add(this.btn_jobOffer);
@@ -569,6 +580,8 @@ namespace JobApplicationLog
             this.Controls.Add(this.static_lbl_applicationDate);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Resize += new System.EventHandler(this.Form1_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.picBox_sourceSite)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDwn_day)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDwn_month)).EndInit();

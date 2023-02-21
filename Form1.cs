@@ -13,6 +13,20 @@ namespace JobApplicationLog
 {
     public partial class Form1 : Form
     {
+        private Rectangle Form1OriginalSize;
+
+        private Rectangle static_lbl_companyName_OriginalLocation;
+        private Rectangle lbl_companyName_OriginalLocation;
+        private Rectangle static_lbl_applicationDate_OriginalLocation;
+        private Rectangle static_lbl_applicationStatus_OriginalLocation;
+        private Rectangle dynamic_lbl_companySite_OriginalLocation;
+        private Rectangle dynamic_lbl_companyInfo_OriginalLocation;
+        private Rectangle dynamic_lbl_companyProfileApp_OriginalLocation;
+        private Rectangle static_lbl_pros_OriginalLocation;
+        private Rectangle static_lbl_cons_OriginalLocation;
+        private Rectangle btn_companySite_OriginalLocation;
+
+
         public Form1()
         {
             InitializeComponent();
@@ -501,8 +515,48 @@ namespace JobApplicationLog
             SetMaxDaysInMonth();
         }
         #endregion
+        
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            Form1OriginalSize = new Rectangle(this.Location.X, this.Location.Y, this.Width, this.Height);
 
+            static_lbl_companyName_OriginalLocation = new Rectangle(static_lbl_companyName.Location.X, static_lbl_companyName.Location.Y, static_lbl_companyName.Width, static_lbl_companyName.Height);
+            lbl_companyName_OriginalLocation = new Rectangle(lbl_companyName.Location.X, lbl_companyName.Location.Y, lbl_companyName.Width, lbl_companyName.Height);
+            static_lbl_applicationDate_OriginalLocation = new Rectangle(static_lbl_applicationDate.Location.X, static_lbl_applicationDate.Location.Y, static_lbl_applicationDate.Width, static_lbl_applicationDate.Height);
+            static_lbl_applicationStatus_OriginalLocation = new Rectangle(static_lbl_applicationStatus.Location.X, static_lbl_applicationStatus.Location.Y, static_lbl_applicationStatus.Width, static_lbl_applicationStatus.Height);
+            dynamic_lbl_companySite_OriginalLocation = new Rectangle(dynamic_lbl_companySite.Location.X, dynamic_lbl_companySite.Location.Y, dynamic_lbl_companySite.Width, dynamic_lbl_companySite.Height);
+            dynamic_lbl_companyInfo_OriginalLocation = new Rectangle(dynamic_lbl_companyInfo.Location.X, dynamic_lbl_companyInfo.Location.Y, dynamic_lbl_companyInfo.Width, dynamic_lbl_companyInfo.Height);
+            dynamic_lbl_companyProfileApp_OriginalLocation = new Rectangle(dynamic_lbl_companyProfileApp.Location.X, dynamic_lbl_companyProfileApp.Location.Y, dynamic_lbl_companyProfileApp.Width, dynamic_lbl_companyProfileApp.Height);
+            static_lbl_pros_OriginalLocation = new Rectangle(static_lbl_pros.Location.X, static_lbl_pros.Location.Y, static_lbl_pros.Width, static_lbl_pros.Height);
+            static_lbl_cons_OriginalLocation = new Rectangle(static_lbl_cons.Location.X, static_lbl_cons.Location.Y, static_lbl_cons.Width, static_lbl_cons.Height);
+            btn_companySite_OriginalLocation = new Rectangle(btn_companySite.Location.X, btn_companySite.Location.Y, btn_companySite.Width, btn_companySite.Height);
+        }
+        
+        private void VerticalMovementControl(Rectangle r, Control c)
+        {
+            float YRatio = (float)this.Height / (float)Form1OriginalSize.Height;
 
+            int newYCoordinate = (int)(r.Location.Y * YRatio);
+
+            c.Location = new Point(r.Location.X, newYCoordinate);
+            c.Size = new Size(r.Width, r.Height);
+        }
+        
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            //VerticalMovementControl(static_lbl_companyName_OriginalLocation, static_lbl_companyName);
+            //VerticalMovementControl(lbl_companyName_OriginalLocation, lbl_companyName);
+            //VerticalMovementControl(static_lbl_applicationDate_OriginalLocation, static_lbl_applicationDate);
+            //VerticalMovementControl(static_lbl_applicationStatus_OriginalLocation, static_lbl_applicationStatus);
+            //VerticalMovementControl(dynamic_lbl_companySite_OriginalLocation, dynamic_lbl_companySite);
+            //VerticalMovementControl(dynamic_lbl_companyInfo_OriginalLocation, dynamic_lbl_companyInfo);
+            //VerticalMovementControl(dynamic_lbl_companyProfileApp_OriginalLocation, dynamic_lbl_companyProfileApp);
+            //VerticalMovementControl(static_lbl_pros_OriginalLocation, static_lbl_pros);
+            //VerticalMovementControl(static_lbl_cons_OriginalLocation, static_lbl_cons);
+            //VerticalMovementControl(btn_companySite_OriginalLocation, btn_companySite);
+        }
+        
         private void ReplaceLabelsWithTextboxes()//and replaces 'new company' and 'edit' buttons with 'back' and 'save'
         {
             lbl_companyName.Hide();
@@ -612,5 +666,6 @@ namespace JobApplicationLog
             txtBox_jobDesc.ReadOnly = true;
         }
 
+        
     }
 }
