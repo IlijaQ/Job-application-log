@@ -128,8 +128,8 @@ namespace JobApplicationLog
             #endregion
 
         }
-
-        private void btn_openCompany_Click(object sender, EventArgs e)
+        
+        private void listbox_companies_DoubleClick(object sender, EventArgs e)
         {
             if (txtBox_companyName.Visible)
                 HidesSingleLineTextboxes();
@@ -139,7 +139,6 @@ namespace JobApplicationLog
             PopulateUi(companiesDictionary[(string)listbox_companies.SelectedItem]);
         }
 
-        
 
         private void PopulateUi(string selectedFile)
         {
@@ -402,7 +401,7 @@ namespace JobApplicationLog
             newCompanyForm = false;
         }
 
-        private void btn_newCompany_Click(object sender, EventArgs e)
+        private void newCompanyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenNewCompanyForm();
         }
@@ -505,6 +504,11 @@ namespace JobApplicationLog
 
         private void ReplaceLabelsWithTextboxes()//and replaces 'new company' and 'edit' buttons with 'back' and 'save'
         {
+            btn_edit.Hide();
+            btn_back.Show();
+            btn_save.Show();
+
+
             lbl_companyName.Hide();
             txtBox_companyName.Show();
 
@@ -513,6 +517,10 @@ namespace JobApplicationLog
             lbl_dayInMonth.Show();
             numUpDwn_month.Show();
             numUpDwn_year.Show();
+
+            lbl_sourceSite.Hide();
+            picBox_sourceSite.Hide();
+            txtBox_sourceSite.Show();
 
             lbl_applicationStatus.Hide();
             txtBox_applicationStatus.Show();
@@ -529,18 +537,14 @@ namespace JobApplicationLog
             }
 
 
-            lbl_sourceSite.Hide();
-            picBox_sourceSite.Hide();
-            txtBox_sourceSite.Show();
+            groupBox_companySite.Show();
+            groupBox_companyProfileApp.Show();
+            groupBox_companyInfo.Show();
 
             btn_companySite.Hide();
-            txtBox_companySite.Show();
-
             btn_companyProfileApp.Hide();
-            txtBox_companyProfileApp.Show();
-
             btn_companyInfo.Hide();
-            txtBox_companyInfo.Show();
+
 
             lbl_pros.Hide();
             txtBox_pros.Show();
@@ -548,14 +552,6 @@ namespace JobApplicationLog
             lbl_cons.Hide();
             txtBox_cons.Show();
 
-            dynamic_lbl_companySite.Show();
-            dynamic_lbl_companyInfo.Show();
-            dynamic_lbl_companyProfileApp.Show();
-
-            btn_newCompany.Hide();
-            btn_edit.Hide();
-            btn_back.Show();
-            btn_save.Show();
 
             txtBox_jobDesc.ReadOnly = false;
         }
@@ -563,6 +559,11 @@ namespace JobApplicationLog
         
         private void HidesSingleLineTextboxes()//and replaces 'back' and 'save' with 'new' and 'edit' button
         {
+            btn_edit.Show();
+            btn_back.Hide();
+            btn_save.Hide();
+
+
             lbl_companyName.Show();
             txtBox_companyName.Hide();
 
@@ -571,46 +572,54 @@ namespace JobApplicationLog
             lbl_dayInMonth.Hide();
             numUpDwn_month.Hide();
             numUpDwn_year.Hide();
-            
-
-            lbl_applicationStatus.Show();
-            txtBox_applicationStatus.Hide();
 
             DetermineTextOrLabel();
             txtBox_sourceSite.Hide();
 
-            btn_companySite.Show();
-            txtBox_companySite.Hide();
+            lbl_applicationStatus.Show();
+            txtBox_applicationStatus.Hide();
 
+            btn_deactivateCurrentStatus.Hide();
+            btn_jobOffer.Hide();
+
+
+            groupBox_companySite.Hide();
+            groupBox_companyProfileApp.Hide();
+            groupBox_companyInfo.Hide();
+
+            btn_companySite.Show();
             if (!string.IsNullOrEmpty(Company1.CompanyProfileAppLink))
             {
                 btn_companyProfileApp.Show();
             }
-            txtBox_companyProfileApp.Hide();
-
             btn_companyInfo.Show();
-            txtBox_companyInfo.Hide();
+
 
             lbl_pros.Show();
             txtBox_pros.Hide();
 
             lbl_cons.Show();
             txtBox_cons.Hide();
-
-            dynamic_lbl_companySite.Hide();
-            dynamic_lbl_companyInfo.Hide();
-            dynamic_lbl_companyProfileApp.Hide();
-
-            btn_newCompany.Show();
-            btn_edit.Show();
-            btn_back.Hide();
-            btn_save.Hide();
-
-            btn_deactivateCurrentStatus.Hide();
-            btn_jobOffer.Hide();
+            
 
             txtBox_jobDesc.ReadOnly = true;
         }
 
+        private void txtBox_companyInfo_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtBox_companyProfileApp_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        
     }
 }
