@@ -106,7 +106,6 @@ namespace JobApplicationLog
         public void btn_edit_Click(object sender, EventArgs e)
         {
 
-
             ReplaceLabelsWithTextboxes();
             
 
@@ -469,9 +468,9 @@ namespace JobApplicationLog
             
             HidesSingleLineTextboxes();
 
-            
-            MessageBox.Show("    SUBJECT:  FREEMAN\n\n      STATUS:  HIRED\n\nAWAITING ASSIGNMENT");
-            
+
+            MessageBox.Show(String.Format("{0, 11}{1, 9}\n\n{2, 12}{3, 7}\n\n{4}", "SUBJECT:", "FREEMAN", "STATUS:", "HIRED", "AWAITING ASSIGNMENT"));
+
         }
 
         #region Maximum day values depending on the month
@@ -620,6 +619,52 @@ namespace JobApplicationLog
 
         }
 
-        
+        private void saveInAAditionaltxtFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+            saveFileDialog1.Title = "Save Company in a separate text file";
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                //Company1.FilePath = Path.GetFullPath(saveFileDialog1.FileName);
+            }
+
+            string stat = "";
+            switch (Company1.CurrentStatus) {
+                case 0: stat = "REJECTED"; break;
+                case 1: stat = "IN PROGRESS"; break;
+                case 2: stat = "JOB OFFER"; break;
+            }
+
+            string coProfile = String.Format("{0, -25}{1}", "COMPANY PROFILE APP:", Company1.CompanyProfileAppLink);
+            string coReviews = String.Format("{0, -25}{1}", "COMPANY REVIEWS FORUM:", Company1.CompanyInfoLink);
+
+            string[] linesToBeSaved = new string[] {
+                String.Format("{0, -25}{1}", "COMPANY NAME:", Company1.CompanyName),
+                String.Format("{0, -25}{1}", "APPLICATION DATE:", Company1.ApplicationDate.ToString("dd-M-yyyy")),
+                String.Format("{0, -25}{1} {2}", "APPLICATION STATUS:", stat, Company1.ApplicationStatus),
+                String.Format("{0, -25}{1}", "SOURCE SITE:", Company1.SourceSite),
+                "",
+                String.Format("{0, -25}{1}", "CONPANY SITE LINK:", Company1.CompanySiteLink),
+                String.IsNullOrEmpty(Company1.CompanyProfileAppLink) ? coReviews : $"{coProfile}\r\n{coReviews}", //eliminates entire row COMPANY PROFILE APP if one doesn' exist, usually it doesn't
+                "",
+                String.Format("{0, -25}{1}", "PROS:", Company1.Pros),
+                String.Format("{0, -25}{1}", "CONS:", Company1.Cons),
+                "",
+                "",
+                $"JOB DESCRIPTION:",
+                "",
+                txtBox_jobDesc.Text };
+
+            try
+            {
+                File.WriteAllLines(Path.GetFullPath(saveFileDialog1.FileName), linesToBeSaved);
+            }
+            catch(ArgumentException)
+            {
+
+            }
+        }
     }
 }

@@ -617,6 +617,7 @@ namespace JobApplicationLog
             this.saveInAAditionaltxtFileToolStripMenuItem.Name = "saveInAAditionaltxtFileToolStripMenuItem";
             this.saveInAAditionaltxtFileToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.saveInAAditionaltxtFileToolStripMenuItem.Text = "Save as .txt file";
+            this.saveInAAditionaltxtFileToolStripMenuItem.Click += new System.EventHandler(this.saveInAAditionaltxtFileToolStripMenuItem_Click);
             // 
             // printToolStripMenuItem
             // 
