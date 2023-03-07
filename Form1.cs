@@ -244,27 +244,28 @@ namespace JobApplicationLog
         {
 
             //loads apropriate label for source site instead of text, if one is provided
-            if (Company1.SourceSite.ToLower() == "joberty" && File.Exists(@".\..\..\logo\JobertyLogo.png"))
+            string pathToLogoDir = @".\..\..\additional\logo\";
+            if (Company1.SourceSite.ToLower() == "joberty" && File.Exists($"{pathToLogoDir}JobertyLogo.png"))
             {
-                picBox_sourceSite.Image = new Bitmap(@".\..\..\logo\JobertyLogo.png");
+                picBox_sourceSite.Image = new Bitmap($"{pathToLogoDir}JobertyLogo.png");
                 lbl_sourceSite.Hide();
                 picBox_sourceSite.Show();
             }
-            else if (Company1.SourceSite.ToLower().Contains("helloworld") && File.Exists(@".\..\..\logo\HelloWorldLogo.png"))
+            else if (Company1.SourceSite.ToLower().Contains("helloworld") && File.Exists($"{pathToLogoDir}HelloWorldLogo.png"))
             {
-                picBox_sourceSite.Image = new Bitmap(@".\..\..\logo\HelloWorldLogo.png");
+                picBox_sourceSite.Image = new Bitmap($"{pathToLogoDir}HelloWorldLogo.png");
                 lbl_sourceSite.Hide();
                 picBox_sourceSite.Show();
             }
-            else if (Company1.SourceSite.ToLower() == "infostud" && File.Exists(@".\..\..\logo\InfostudLogo.png"))
+            else if (Company1.SourceSite.ToLower() == "infostud" && File.Exists($"{pathToLogoDir}InfostudLogo.png"))
             {
-                picBox_sourceSite.Image = new Bitmap(@".\..\..\logo\InfostudLogo.png");
+                picBox_sourceSite.Image = new Bitmap($"{pathToLogoDir}InfostudLogo.png");
                 lbl_sourceSite.Hide();
                 picBox_sourceSite.Show();
             }
-            else if (Company1.SourceSite.ToLower() == "linkedin" && File.Exists(@".\..\..\logo\LinkedInLogo.png"))
+            else if (Company1.SourceSite.ToLower() == "linkedin" && File.Exists($"{pathToLogoDir}LinkedInLogo.png"))
             {
-                picBox_sourceSite.Image = new Bitmap(@".\..\..\logo\LinkedInLogo.png");
+                picBox_sourceSite.Image = new Bitmap($"{pathToLogoDir}LinkedInLogo.png");
                 lbl_sourceSite.Hide();
                 picBox_sourceSite.Show();
             }
@@ -625,9 +626,11 @@ namespace JobApplicationLog
             saveFileDialog1.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
             saveFileDialog1.Title = "Save Company in a separate text file";
 
+            string txtFilePath = "";
+
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                //Company1.FilePath = Path.GetFullPath(saveFileDialog1.FileName);
+                txtFilePath = Path.GetFullPath(saveFileDialog1.FileName);
             }
 
             string stat = "";
@@ -657,14 +660,25 @@ namespace JobApplicationLog
                 "",
                 txtBox_jobDesc.Text };
 
-            try
-            {
-                File.WriteAllLines(Path.GetFullPath(saveFileDialog1.FileName), linesToBeSaved);
-            }
-            catch(ArgumentException)
-            {
+            if(!String.IsNullOrEmpty(txtFilePath))
+                File.WriteAllLines(txtFilePath, linesToBeSaved);
 
-            }
+            
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(@".\..\..\additional\About.txt");
+        }
+
+        private void developerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/IlijaQ");
+        }
+
+        private void sourceCodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/IlijaQ/Job-application-log");
         }
     }
 }

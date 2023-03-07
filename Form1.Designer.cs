@@ -79,8 +79,9 @@ namespace JobApplicationLog
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.developerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.picBox_sourceSite = new System.Windows.Forms.PictureBox();
             this.btn_back = new System.Windows.Forms.Button();
+            this.picBox_sourceSite = new System.Windows.Forms.PictureBox();
+            this.sourceCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDwn_day)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDwn_month)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDwn_year)).BeginInit();
@@ -408,7 +409,7 @@ namespace JobApplicationLog
             // 
             this.btn_deactivateCurrentStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_deactivateCurrentStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_deactivateCurrentStatus.Location = new System.Drawing.Point(1178, 132);
+            this.btn_deactivateCurrentStatus.Location = new System.Drawing.Point(1178, 131);
             this.btn_deactivateCurrentStatus.Name = "btn_deactivateCurrentStatus";
             this.btn_deactivateCurrentStatus.Size = new System.Drawing.Size(101, 27);
             this.btn_deactivateCurrentStatus.TabIndex = 37;
@@ -495,7 +496,7 @@ namespace JobApplicationLog
             this.btn_jobOffer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_jobOffer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_jobOffer.ForeColor = System.Drawing.Color.Crimson;
-            this.btn_jobOffer.Location = new System.Drawing.Point(1285, 133);
+            this.btn_jobOffer.Location = new System.Drawing.Point(1285, 131);
             this.btn_jobOffer.Name = "btn_jobOffer";
             this.btn_jobOffer.Size = new System.Drawing.Size(152, 27);
             this.btn_jobOffer.TabIndex = 41;
@@ -615,20 +616,21 @@ namespace JobApplicationLog
             // saveInAAditionaltxtFileToolStripMenuItem
             // 
             this.saveInAAditionaltxtFileToolStripMenuItem.Name = "saveInAAditionaltxtFileToolStripMenuItem";
-            this.saveInAAditionaltxtFileToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveInAAditionaltxtFileToolStripMenuItem.Size = new System.Drawing.Size(190, 26);
             this.saveInAAditionaltxtFileToolStripMenuItem.Text = "Save as .txt file";
             this.saveInAAditionaltxtFileToolStripMenuItem.Click += new System.EventHandler(this.saveInAAditionaltxtFileToolStripMenuItem_Click);
             // 
             // printToolStripMenuItem
             // 
             this.printToolStripMenuItem.Name = "printToolStripMenuItem";
-            this.printToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.printToolStripMenuItem.Size = new System.Drawing.Size(190, 26);
             this.printToolStripMenuItem.Text = "Print";
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem,
+            this.sourceCodeToolStripMenuItem,
             this.developerToolStripMenuItem});
             this.helpToolStripMenuItem.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
@@ -638,24 +640,16 @@ namespace JobApplicationLog
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(161, 26);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // developerToolStripMenuItem
             // 
             this.developerToolStripMenuItem.Name = "developerToolStripMenuItem";
-            this.developerToolStripMenuItem.Size = new System.Drawing.Size(161, 26);
+            this.developerToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.developerToolStripMenuItem.Text = "Developer";
-            // 
-            // picBox_sourceSite
-            // 
-            this.picBox_sourceSite.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picBox_sourceSite.Location = new System.Drawing.Point(1277, 76);
-            this.picBox_sourceSite.Name = "picBox_sourceSite";
-            this.picBox_sourceSite.Size = new System.Drawing.Size(160, 50);
-            this.picBox_sourceSite.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picBox_sourceSite.TabIndex = 36;
-            this.picBox_sourceSite.TabStop = false;
+            this.developerToolStripMenuItem.Click += new System.EventHandler(this.developerToolStripMenuItem_Click);
             // 
             // btn_back
             // 
@@ -669,6 +663,23 @@ namespace JobApplicationLog
             this.toolTip1.SetToolTip(this.btn_back, "Back");
             this.btn_back.UseVisualStyleBackColor = true;
             this.btn_back.Click += new System.EventHandler(this.btn_back_Click);
+            // 
+            // picBox_sourceSite
+            // 
+            this.picBox_sourceSite.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picBox_sourceSite.Location = new System.Drawing.Point(1277, 76);
+            this.picBox_sourceSite.Name = "picBox_sourceSite";
+            this.picBox_sourceSite.Size = new System.Drawing.Size(160, 50);
+            this.picBox_sourceSite.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picBox_sourceSite.TabIndex = 36;
+            this.picBox_sourceSite.TabStop = false;
+            // 
+            // sourceCodeToolStripMenuItem
+            // 
+            this.sourceCodeToolStripMenuItem.Name = "sourceCodeToolStripMenuItem";
+            this.sourceCodeToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.sourceCodeToolStripMenuItem.Text = "Source Code";
+            this.sourceCodeToolStripMenuItem.Click += new System.EventHandler(this.sourceCodeToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -787,6 +798,7 @@ namespace JobApplicationLog
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem developerToolStripMenuItem;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ToolStripMenuItem sourceCodeToolStripMenuItem;
     }
 }
 
