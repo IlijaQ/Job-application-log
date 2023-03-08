@@ -122,9 +122,9 @@ namespace JobApplicationLog
             // btn_companySite
             // 
             this.btn_companySite.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_companySite.Location = new System.Drawing.Point(405, 232);
+            this.btn_companySite.Location = new System.Drawing.Point(405, 231);
             this.btn_companySite.Name = "btn_companySite";
-            this.btn_companySite.Size = new System.Drawing.Size(314, 28);
+            this.btn_companySite.Size = new System.Drawing.Size(314, 29);
             this.btn_companySite.TabIndex = 4;
             this.btn_companySite.Text = "company site";
             this.btn_companySite.UseVisualStyleBackColor = true;
@@ -155,9 +155,9 @@ namespace JobApplicationLog
             // 
             this.btn_companyInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_companyInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_companyInfo.Location = new System.Drawing.Point(1125, 232);
+            this.btn_companyInfo.Location = new System.Drawing.Point(1125, 231);
             this.btn_companyInfo.Name = "btn_companyInfo";
-            this.btn_companyInfo.Size = new System.Drawing.Size(312, 27);
+            this.btn_companyInfo.Size = new System.Drawing.Size(312, 29);
             this.btn_companyInfo.TabIndex = 7;
             this.btn_companyInfo.Text = "company info";
             this.btn_companyInfo.UseVisualStyleBackColor = true;
@@ -251,7 +251,7 @@ namespace JobApplicationLog
             this.btn_companyProfileApp.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_companyProfileApp.Location = new System.Drawing.Point(815, 231);
             this.btn_companyProfileApp.Name = "btn_companyProfileApp";
-            this.btn_companyProfileApp.Size = new System.Drawing.Size(197, 27);
+            this.btn_companyProfileApp.Size = new System.Drawing.Size(214, 29);
             this.btn_companyProfileApp.TabIndex = 19;
             this.btn_companyProfileApp.Text = "profile";
             this.btn_companyProfileApp.UseVisualStyleBackColor = true;
@@ -319,7 +319,7 @@ namespace JobApplicationLog
             this.txtBox_companyProfileApp.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.txtBox_companyProfileApp.Location = new System.Drawing.Point(75, 61);
             this.txtBox_companyProfileApp.Name = "txtBox_companyProfileApp";
-            this.txtBox_companyProfileApp.Size = new System.Drawing.Size(197, 22);
+            this.txtBox_companyProfileApp.Size = new System.Drawing.Size(214, 22);
             this.txtBox_companyProfileApp.TabIndex = 27;
             this.txtBox_companyProfileApp.TextChanged += new System.EventHandler(this.txtBox_companyProfileApp_TextChanged);
             // 
@@ -386,7 +386,7 @@ namespace JobApplicationLog
             this.dynamic_lbl_companyInfo.ForeColor = System.Drawing.SystemColors.ControlText;
             this.dynamic_lbl_companyInfo.Location = new System.Drawing.Point(6, 12);
             this.dynamic_lbl_companyInfo.Name = "dynamic_lbl_companyInfo";
-            this.dynamic_lbl_companyInfo.Size = new System.Drawing.Size(346, 52);
+            this.dynamic_lbl_companyInfo.Size = new System.Drawing.Size(356, 52);
             this.dynamic_lbl_companyInfo.TabIndex = 34;
             this.dynamic_lbl_companyInfo.Text = "if the company provides its own web service to submit and track your job applicat" +
     "ion, put it\'s URL here; otherwise the button will not appear";
@@ -529,7 +529,7 @@ namespace JobApplicationLog
             this.txtBox_jobDesc.Name = "txtBox_jobDesc";
             this.txtBox_jobDesc.ReadOnly = true;
             this.txtBox_jobDesc.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtBox_jobDesc.Size = new System.Drawing.Size(1040, 474);
+            this.txtBox_jobDesc.Size = new System.Drawing.Size(1040, 498);
             this.txtBox_jobDesc.TabIndex = 16;
             this.txtBox_jobDesc.Text = "job description:";
             // 
@@ -617,14 +617,14 @@ namespace JobApplicationLog
             // saveInAAditionaltxtFileToolStripMenuItem
             // 
             this.saveInAAditionaltxtFileToolStripMenuItem.Name = "saveInAAditionaltxtFileToolStripMenuItem";
-            this.saveInAAditionaltxtFileToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveInAAditionaltxtFileToolStripMenuItem.Size = new System.Drawing.Size(190, 26);
             this.saveInAAditionaltxtFileToolStripMenuItem.Text = "Save as .txt file";
             this.saveInAAditionaltxtFileToolStripMenuItem.Click += new System.EventHandler(this.saveInAAditionaltxtFileToolStripMenuItem_Click);
             // 
             // printToolStripMenuItem
             // 
             this.printToolStripMenuItem.Name = "printToolStripMenuItem";
-            this.printToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.printToolStripMenuItem.Size = new System.Drawing.Size(190, 26);
             this.printToolStripMenuItem.Text = "Print";
             this.printToolStripMenuItem.Click += new System.EventHandler(this.printToolStripMenuItem_Click);
             // 
@@ -738,6 +738,7 @@ namespace JobApplicationLog
             this.Controls.Add(this.static_lbl_applicationDate);
             this.Controls.Add(this.btn_restoreStatus);
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimumSize = new System.Drawing.Size(1431, 670);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
