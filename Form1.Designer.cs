@@ -77,11 +77,12 @@ namespace JobApplicationLog
             this.printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sourceCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.developerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.btn_back = new System.Windows.Forms.Button();
             this.picBox_sourceSite = new System.Windows.Forms.PictureBox();
-            this.sourceCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btn_restoreStatus = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDwn_day)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDwn_month)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDwn_year)).BeginInit();
@@ -616,15 +617,16 @@ namespace JobApplicationLog
             // saveInAAditionaltxtFileToolStripMenuItem
             // 
             this.saveInAAditionaltxtFileToolStripMenuItem.Name = "saveInAAditionaltxtFileToolStripMenuItem";
-            this.saveInAAditionaltxtFileToolStripMenuItem.Size = new System.Drawing.Size(190, 26);
+            this.saveInAAditionaltxtFileToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.saveInAAditionaltxtFileToolStripMenuItem.Text = "Save as .txt file";
             this.saveInAAditionaltxtFileToolStripMenuItem.Click += new System.EventHandler(this.saveInAAditionaltxtFileToolStripMenuItem_Click);
             // 
             // printToolStripMenuItem
             // 
             this.printToolStripMenuItem.Name = "printToolStripMenuItem";
-            this.printToolStripMenuItem.Size = new System.Drawing.Size(190, 26);
+            this.printToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.printToolStripMenuItem.Text = "Print";
+            this.printToolStripMenuItem.Click += new System.EventHandler(this.printToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -640,14 +642,21 @@ namespace JobApplicationLog
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // sourceCodeToolStripMenuItem
+            // 
+            this.sourceCodeToolStripMenuItem.Name = "sourceCodeToolStripMenuItem";
+            this.sourceCodeToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
+            this.sourceCodeToolStripMenuItem.Text = "Source Code";
+            this.sourceCodeToolStripMenuItem.Click += new System.EventHandler(this.sourceCodeToolStripMenuItem_Click);
             // 
             // developerToolStripMenuItem
             // 
             this.developerToolStripMenuItem.Name = "developerToolStripMenuItem";
-            this.developerToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.developerToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
             this.developerToolStripMenuItem.Text = "Developer";
             this.developerToolStripMenuItem.Click += new System.EventHandler(this.developerToolStripMenuItem_Click);
             // 
@@ -674,12 +683,17 @@ namespace JobApplicationLog
             this.picBox_sourceSite.TabIndex = 36;
             this.picBox_sourceSite.TabStop = false;
             // 
-            // sourceCodeToolStripMenuItem
+            // btn_restoreStatus
             // 
-            this.sourceCodeToolStripMenuItem.Name = "sourceCodeToolStripMenuItem";
-            this.sourceCodeToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.sourceCodeToolStripMenuItem.Text = "Source Code";
-            this.sourceCodeToolStripMenuItem.Click += new System.EventHandler(this.sourceCodeToolStripMenuItem_Click);
+            this.btn_restoreStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_restoreStatus.ForeColor = System.Drawing.Color.CornflowerBlue;
+            this.btn_restoreStatus.Location = new System.Drawing.Point(1178, 131);
+            this.btn_restoreStatus.Name = "btn_restoreStatus";
+            this.btn_restoreStatus.Size = new System.Drawing.Size(259, 27);
+            this.btn_restoreStatus.TabIndex = 47;
+            this.btn_restoreStatus.Text = "restore default status";
+            this.btn_restoreStatus.UseVisualStyleBackColor = true;
+            this.btn_restoreStatus.Click += new System.EventHandler(this.btn_restoreStatus_Click);
             // 
             // Form1
             // 
@@ -722,6 +736,7 @@ namespace JobApplicationLog
             this.Controls.Add(this.numUpDwn_day);
             this.Controls.Add(this.lbl_applicationDate);
             this.Controls.Add(this.static_lbl_applicationDate);
+            this.Controls.Add(this.btn_restoreStatus);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
@@ -799,6 +814,7 @@ namespace JobApplicationLog
         private System.Windows.Forms.ToolStripMenuItem developerToolStripMenuItem;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ToolStripMenuItem sourceCodeToolStripMenuItem;
+        private System.Windows.Forms.Button btn_restoreStatus;
     }
 }
 

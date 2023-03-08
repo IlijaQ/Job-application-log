@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Drawing.Printing;
 
 namespace JobApplicationLog
 {
@@ -169,7 +170,7 @@ namespace JobApplicationLog
                 {
                     case "2":   //Company offered a Job Offer
                         Company1.CurrentStatus = 2;
-                        lbl_companyName.ForeColor = Color.FromArgb(139, 255, 60);//fluorescent green
+                        lbl_companyName.ForeColor = Color.FromArgb(122, 209, 19);//green
                         break;
                     case "1":   //Application in motion
                         Company1.CurrentStatus = 1;
@@ -474,6 +475,34 @@ namespace JobApplicationLog
 
         }
 
+        private void btn_restoreStatus_Click(object sender, EventArgs e)
+        {
+            string[] editedCompaniesArray = File.ReadAllLines("CompaniesList.txt");
+            switch (Company1.CurrentStatus)
+            {
+                case 0:
+                    editedCompaniesArray[Array.IndexOf(editedCompaniesArray, Company1.CompanyName)] = Company1.CompanyName.ToUpper();
+                    break;
+                case 2:
+                    editedCompaniesArray[Array.IndexOf(editedCompaniesArray, $" > > {Company1.CompanyName}")] = Company1.CompanyName.ToUpper();
+                    break;
+            }
+            File.WriteAllLines("CompaniesList.txt", editedCompaniesArray);
+
+            Company1.CurrentStatus = 1;
+            SavesDataToAFile();
+            
+
+            ReloadRecentList();
+
+            PopulateUi(Company1.FilePath);
+
+            HidesSingleLineTextboxes();
+
+
+            MessageBox.Show($"Company: {Company1.CompanyName}\r\nJob aplication status: default");
+        }
+
         #region Maximum day values depending on the month
         private void numUpDwn_month_ValueChanged(object sender, EventArgs e)
         {
@@ -529,11 +558,13 @@ namespace JobApplicationLog
             {
                 btn_jobOffer.Hide();
                 btn_deactivateCurrentStatus.Hide();
+                btn_restoreStatus.Show();
             }
             else if (Company1.CurrentStatus == 1)
             {
                 btn_jobOffer.Show();
                 btn_deactivateCurrentStatus.Show();
+                btn_restoreStatus.Hide();
             }
 
 
@@ -581,6 +612,7 @@ namespace JobApplicationLog
 
             btn_deactivateCurrentStatus.Hide();
             btn_jobOffer.Hide();
+            btn_restoreStatus.Hide();
 
 
             groupBox_companySite.Hide();
@@ -679,6 +711,11 @@ namespace JobApplicationLog
         private void sourceCodeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/IlijaQ/Job-application-log");
+        }
+
+        private void printToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Comming soon");
         }
     }
 }
