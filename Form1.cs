@@ -18,9 +18,11 @@ namespace JobApplicationLog
         {
             InitializeComponent();
             this.Text = "Job Application Log";
-            
+
+            Directory.CreateDirectory(@".\..\..\Companies");
+
             ReloadRecentList();
-            
+
             PopulateUi(companiesDictionary[(string)listbox_companies.Items[0]]);
             
             HidesSingleLineTextboxes();
@@ -75,7 +77,7 @@ namespace JobApplicationLog
 
             for(int i = 0; i < companiesArray.Length; i+=2)
             {
-                // Cheks for empty entries. They apper when user exits a dialog box when prompted to save a new file.
+                // Cheks for empty entries
                 if (!string.IsNullOrEmpty(companiesArray[i]))
                 {
                     companiesList.Add(companiesArray[i]);
@@ -318,14 +320,7 @@ namespace JobApplicationLog
             // Actions if new Company is beeing created
             if (newCompanyForm)
             {
-                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-                saveFileDialog1.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
-                saveFileDialog1.Title = "Save Company: Select storage location";
-
-                if(saveFileDialog1.ShowDialog() == DialogResult.OK)
-                {
-                    Company1.FilePath = Path.GetFullPath(saveFileDialog1.FileName);
-                }
+                Company1.FilePath = @".\..\..\Companies\" + Company1.CompanyName.Replace(" ", "") + ".txt";
 
                 // updating CompaniesList.txt
                 string[] editedCompaniesArray = File.ReadAllLines("CompaniesList.txt");
