@@ -24,14 +24,12 @@ namespace JobApplicationLog
             PopulateUi(companiesDictionary[(string)listbox_companies.Items[0]]);
             
             HidesSingleLineTextboxes();
-            
         }
 
         Company Company1 = new Company();
         Dictionary<string, string> companiesDictionary = new Dictionary<string, string>();
 
         bool newCompanyForm = false;
-
 
         private void ReloadRecentList()
         {
@@ -41,7 +39,6 @@ namespace JobApplicationLog
             //creates initial list and company with dummy data on start. Granst User a first look how files are viewed before entering his own entries.
             if (!File.Exists("CompaniesList.txt"))
             {
-
                 string[] starterList = new string[] { "GET STARTED", "TestCompany.txt" };
 
                 string[] starterFile = new string[] {
@@ -70,23 +67,18 @@ namespace JobApplicationLog
 
                 File.WriteAllLines("CompaniesList.txt", starterList);
                 File.WriteAllLines("TestCompany.txt", starterFile);
-
             }
 
-
             string[] companiesArray = File.ReadAllLines("CompaniesList.txt");
-            
 
             List<string> companiesList = new List<string>();
-            
 
             for(int i = 0; i < companiesArray.Length; i+=2)
             {
-                //Cheks for empty entries. They apper when user exits a dialog box when prompted to save a new file.
+                // Cheks for empty entries. They apper when user exits a dialog box when prompted to save a new file.
                 if (!string.IsNullOrEmpty(companiesArray[i]))
                 {
                     companiesList.Add(companiesArray[i]);
-
                     companiesDictionary.Add(companiesArray[i], companiesArray[i + 1]);
                 }
                 else
@@ -97,19 +89,12 @@ namespace JobApplicationLog
             companiesList.Reverse();
 
             string[] arrayForUi = companiesList.ToArray();
-            //Array.Reverse(companiesArray, 0, companiesArray.Length);
             listbox_companies.Items.AddRange(arrayForUi);
         }
 
-        
-        
-
         public void btn_edit_Click(object sender, EventArgs e)
         {
-
             ReplaceLabelsWithTextboxes();
-            
-
             #region Populates TextBoxes with appropriate values
             txtBox_companyName.Text = Company1.CompanyName;
 
@@ -126,7 +111,6 @@ namespace JobApplicationLog
             txtBox_cons.Text = Company1.Cons;
             PopulatesJobDesc();
             #endregion
-
         }
         
         private void listbox_companies_DoubleClick(object sender, EventArgs e)
@@ -135,10 +119,8 @@ namespace JobApplicationLog
                 HidesSingleLineTextboxes();
 
             Company1.FilePath = (string)listbox_companies.SelectedItem;
-
             PopulateUi(companiesDictionary[(string)listbox_companies.SelectedItem]);
         }
-
 
         private void PopulateUi(string selectedFile)
         {
@@ -155,7 +137,7 @@ namespace JobApplicationLog
             else
             {
                 #region Loading Data
-                //ucitavanje infa sa lokalnog
+                // loading from file
                 Company1.CompanyName = linesList[0];
                 Company1.ApplicationDate = DateTime.FromFileTime(Convert.ToInt64(linesList[1]));
                 Company1.SourceSite = linesList[2];
@@ -165,9 +147,11 @@ namespace JobApplicationLog
                 Company1.CompanyInfoLink = linesList[6];
                 Company1.Pros = linesList[7];
                 Company1.Cons = linesList[8];
-
                 Company1.CurrentStatus = Convert.ToInt32(linesList[9]);
-
+                Company1.JobDescription = linesList;
+                Company1.JobDescription.RemoveRange(0, 10);
+                
+                // setting labels
                 switch (Company1.CurrentStatus)
                 {
                     case (int)Status.JobOffer:
@@ -180,19 +164,12 @@ namespace JobApplicationLog
                         lbl_companyName.ForeColor = Color.Gray;
                         break;
                 }
-
-                Company1.JobDescription = linesList;
-                Company1.JobDescription.RemoveRange(0, 10);
-
+                
                 lbl_companyName.Text = Company1.CompanyName;
                 lbl_applicationDate.Text = Company1.ApplicationDate.ToString("dd.M.yyyy");
-                lbl_sourceSite.Text = Company1.SourceSite;
-
-                
-                DetermineTextOrLabel();
-                
-
                 lbl_applicationStatus.Text = Company1.ApplicationStatus;
+                lbl_sourceSite.Text = Company1.SourceSite;
+                DetermineTextOrLabel();
 
                 #region adds hint to status label if one or more months has passed if status remains pending 
                 if (Company1.CurrentStatus == (int)Status.InProgress && lbl_applicationStatus.Text.ToLower().Contains("pending"))
@@ -200,36 +177,27 @@ namespace JobApplicationLog
                     int currentTotalMonths = DateTime.Now.Month + DateTime.Now.Year * 12;
                     int applicationDateTotalMonths = Company1.ApplicationDate.Month + Company1.ApplicationDate.Year * 12;
 
-
                     if (currentTotalMonths == applicationDateTotalMonths + 1 && DateTime.Now.Day > Company1.ApplicationDate.Day)
                     {
                         lbl_applicationStatus.Text = Company1.ApplicationStatus + " (over a month)";
                     }
-
                     if (currentTotalMonths == applicationDateTotalMonths + 2)
                     {
                         lbl_applicationStatus.Text = DateTime.Now.Day > Company1.ApplicationDate.Day ? Company1.ApplicationStatus + " (over two months)" : Company1.ApplicationStatus + " (over a month)";
-
                     }
                     else if (currentTotalMonths == applicationDateTotalMonths + 3)
                     {
                         lbl_applicationStatus.Text = DateTime.Now.Day > Company1.ApplicationDate.Day ? Company1.ApplicationStatus + " (over three months, you shoud probably dactivate this one)" : Company1.ApplicationStatus + " (over two months)";
-
                     }
                     else if (currentTotalMonths > applicationDateTotalMonths + 3)
                         lbl_applicationStatus.Text = Company1.ApplicationStatus + " (over three months, you shoud probably dactivate this one)";
                 }
                 #endregion
 
-
                 if (String.IsNullOrEmpty(Company1.CompanyProfileAppLink))
-                {
                     btn_companyProfileApp.Hide();
-                }
                 else
-                {
                     btn_companyProfileApp.Show();
-                }
 
                 lbl_pros.Text = Company1.Pros;
                 lbl_cons.Text = Company1.Cons;
@@ -241,8 +209,7 @@ namespace JobApplicationLog
 
         private void DetermineTextOrLabel()
         {
-
-            //loads apropriate label for source site instead of text, if one is provided
+            // loads apropriate label for source site instead of text, if one is provided
             string pathToLogoDir = @".\..\..\additional\logo\";
             if (Company1.SourceSite.ToLower() == "joberty" && File.Exists($"{pathToLogoDir}JobertyLogo.png"))
             {
@@ -275,16 +242,14 @@ namespace JobApplicationLog
             }
         }
 
-
         private void PopulatesJobDesc()
         {
             txtBox_jobDesc.Text = "";
 
-            for (int i = 0; i < Company1.JobDescription.Count; i++) //adds new line in last textbox for every item from position 4 to the end of the array
+            for (int i = 0; i < Company1.JobDescription.Count; i++) // adds new line in last textbox for every item from position 4 to the end of the array
             {
-
                 txtBox_jobDesc.Text = txtBox_jobDesc.Text + Company1.JobDescription[i];
-                if (i < Company1.JobDescription.Count - 1) //prevents adding an empty line at the end of textbox content
+                if (i < Company1.JobDescription.Count - 1) // prevents adding an empty line at the end of textbox content
                 {
                     txtBox_jobDesc.Text = txtBox_jobDesc.Text + "\r\n";
                 }
@@ -311,17 +276,13 @@ namespace JobApplicationLog
             HidesSingleLineTextboxes();
             PopulatesJobDesc();
             newCompanyForm = false;
-
         }
 
         private void btn_save_Click(object sender, EventArgs e)
         {
             HidesSingleLineTextboxes();
-
             SavesDataToAFile();
-
             PopulateUi(Company1.FilePath);
-
         }
 
         private void SavesDataToAFile()
@@ -351,10 +312,10 @@ namespace JobApplicationLog
                 Company1.Pros,
                 Company1.Cons,
                 Convert.ToString(Company1.CurrentStatus),
-                txtBox_jobDesc.Text };
+                txtBox_jobDesc.Text
+            };
 
-
-            //Actions if new Company is beeing created
+            // Actions if new Company is beeing created
             if (newCompanyForm)
             {
                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
@@ -366,25 +327,25 @@ namespace JobApplicationLog
                     Company1.FilePath = Path.GetFullPath(saveFileDialog1.FileName);
                 }
 
-                //updating CompaniesList.txt
+                // updating CompaniesList.txt
                 string[] editedCompaniesArray = File.ReadAllLines("CompaniesList.txt");
                 List<string> editedCompaniesList = new List<string>();
                 editedCompaniesList.AddRange(editedCompaniesArray);
-                editedCompaniesList.Add(Company1.CompanyName.ToUpper());//Uppercase name for Companiest with active status(default)
+                editedCompaniesList.Add(Company1.CompanyName.ToUpper()); // Uppercase name for Companiest with active status(default)
                 editedCompaniesList.Add(Company1.FilePath);
                 File.WriteAllLines("CompaniesList.txt", editedCompaniesList);
 
                 ReloadRecentList();
             }
 
-            //cheks if Comapany name is changed to update CompaniesList.txt
+            // cheks if Comapany name is changed to update CompaniesList.txt
             if (IfCoNameChangedIndicator != Company1.CompanyName && !newCompanyForm)
             {
                 string[] editedCompaniesArray = File.ReadAllLines("CompaniesList.txt");
 
                 switch (Company1.CurrentStatus)
                 {
-                    //applies the change according to how company is displayed on the list (depneding on CurrentStatus)
+                    // applies the change according to how company is displayed on the list (depneding on CurrentStatus)
                     case (int)Status.Rejected: editedCompaniesArray[Array.IndexOf(editedCompaniesArray, IfCoNameChangedIndicator)] = Company1.CompanyName; break;
                     case (int)Status.InProgress: editedCompaniesArray[Array.IndexOf(editedCompaniesArray, IfCoNameChangedIndicator.ToUpper())] = Company1.CompanyName.ToUpper(); break;
                     case (int)Status.JobOffer: editedCompaniesArray[Array.IndexOf(editedCompaniesArray, ($" > > {IfCoNameChangedIndicator}"))] = $" > > {Company1.CompanyName}"; break;
@@ -441,11 +402,8 @@ namespace JobApplicationLog
             File.WriteAllLines("CompaniesList.txt", editedCompaniesArray);
 
             ReloadRecentList();
-
             PopulateUi(Company1.FilePath);
-
             HidesSingleLineTextboxes();
-
             
             MessageBox.Show($"Company: {Company1.CompanyName}\r\nJob aplication status: not active");
         }
@@ -463,14 +421,10 @@ namespace JobApplicationLog
             File.WriteAllLines("CompaniesList.txt", editedCompaniesArray);
 
             ReloadRecentList();
-
             PopulateUi(Company1.FilePath);
-            
             HidesSingleLineTextboxes();
 
-
             MessageBox.Show(String.Format("{0, 11}{1, 9}\n\n{2, 12}{3, 7}\n\n{4}", "SUBJECT:", "FREEMAN", "STATUS:", "HIRED", "AWAITING ASSIGNMENT"));
-
         }
 
         private void btn_restoreStatus_Click(object sender, EventArgs e)
@@ -489,14 +443,9 @@ namespace JobApplicationLog
 
             Company1.CurrentStatus = (int)Status.InProgress;
             SavesDataToAFile();
-            
-
             ReloadRecentList();
-
             PopulateUi(Company1.FilePath);
-
             HidesSingleLineTextboxes();
-
 
             MessageBox.Show($"Company: {Company1.CompanyName}\r\nJob aplication status: default");
         }
@@ -529,12 +478,11 @@ namespace JobApplicationLog
         #endregion
 
 
-        private void ReplaceLabelsWithTextboxes()//and replaces 'new company' and 'edit' buttons with 'back' and 'save'
+        private void ReplaceLabelsWithTextboxes() // and replaces 'new company' and 'edit' buttons with 'back' and 'save'
         {
             btn_edit.Hide();
             btn_back.Show();
             btn_save.Show();
-
 
             lbl_companyName.Hide();
             txtBox_companyName.Show();
@@ -556,15 +504,15 @@ namespace JobApplicationLog
             {
                 btn_jobOffer.Hide();
                 btn_deactivateCurrentStatus.Hide();
-                btn_restoreStatus.Show();
+                if(!newCompanyForm)
+                    btn_restoreStatus.Show();
             }
-            else if (Company1.CurrentStatus == 1)
+            else if (Company1.CurrentStatus == (int)Status.InProgress)
             {
                 btn_jobOffer.Show();
                 btn_deactivateCurrentStatus.Show();
                 btn_restoreStatus.Hide();
             }
-
 
             groupBox_companySite.Show();
             groupBox_companyProfileApp.Show();
@@ -574,24 +522,20 @@ namespace JobApplicationLog
             btn_companyProfileApp.Hide();
             btn_companyInfo.Hide();
 
-
             lbl_pros.Hide();
             txtBox_pros.Show();
 
             lbl_cons.Hide();
             txtBox_cons.Show();
 
-
             txtBox_jobDesc.ReadOnly = false;
         }
-
         
         private void HidesSingleLineTextboxes()//and replaces 'back' and 'save' with 'new' and 'edit' button
         {
             btn_edit.Show();
             btn_back.Hide();
             btn_save.Hide();
-
 
             lbl_companyName.Show();
             txtBox_companyName.Hide();
@@ -612,7 +556,6 @@ namespace JobApplicationLog
             btn_jobOffer.Hide();
             btn_restoreStatus.Hide();
 
-
             groupBox_companySite.Hide();
             groupBox_companyProfileApp.Hide();
             groupBox_companyInfo.Hide();
@@ -624,33 +567,15 @@ namespace JobApplicationLog
             }
             btn_companyInfo.Show();
 
-
             lbl_pros.Show();
             txtBox_pros.Hide();
-
             lbl_cons.Show();
             txtBox_cons.Hide();
-            
 
             txtBox_jobDesc.ReadOnly = true;
         }
 
-        private void txtBox_companyInfo_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtBox_companyProfileApp_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void saveInAAditionaltxtFileToolStripMenuItem_Click(object sender, EventArgs e)
+        private void saveInAditionaltxtFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
@@ -688,12 +613,11 @@ namespace JobApplicationLog
                 "",
                 $"JOB DESCRIPTION:",
                 "",
-                txtBox_jobDesc.Text };
+                txtBox_jobDesc.Text
+            };
 
             if(!String.IsNullOrEmpty(txtFilePath))
                 File.WriteAllLines(txtFilePath, linesToBeSaved);
-
-            
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -710,7 +634,6 @@ namespace JobApplicationLog
         {
             System.Diagnostics.Process.Start("https://github.com/IlijaQ/Job-application-log");
         }
-
         private void printToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Comming soon");
@@ -722,6 +645,5 @@ namespace JobApplicationLog
             InProgress,
             JobOffer
         }
-
     }
 }

@@ -321,7 +321,6 @@ namespace JobApplicationLog
             this.txtBox_companyProfileApp.Name = "txtBox_companyProfileApp";
             this.txtBox_companyProfileApp.Size = new System.Drawing.Size(214, 22);
             this.txtBox_companyProfileApp.TabIndex = 27;
-            this.txtBox_companyProfileApp.TextChanged += new System.EventHandler(this.txtBox_companyProfileApp_TextChanged);
             // 
             // txtBox_companyInfo
             // 
@@ -332,7 +331,6 @@ namespace JobApplicationLog
             this.txtBox_companyInfo.Name = "txtBox_companyInfo";
             this.txtBox_companyInfo.Size = new System.Drawing.Size(310, 22);
             this.txtBox_companyInfo.TabIndex = 28;
-            this.txtBox_companyInfo.TextChanged += new System.EventHandler(this.txtBox_companyInfo_TextChanged);
             // 
             // txtBox_pros
             // 
@@ -619,7 +617,7 @@ namespace JobApplicationLog
             this.saveInAAditionaltxtFileToolStripMenuItem.Name = "saveInAAditionaltxtFileToolStripMenuItem";
             this.saveInAAditionaltxtFileToolStripMenuItem.Size = new System.Drawing.Size(190, 26);
             this.saveInAAditionaltxtFileToolStripMenuItem.Text = "Save as .txt file";
-            this.saveInAAditionaltxtFileToolStripMenuItem.Click += new System.EventHandler(this.saveInAAditionaltxtFileToolStripMenuItem_Click);
+            this.saveInAAditionaltxtFileToolStripMenuItem.Click += new System.EventHandler(this.saveInAditionaltxtFileToolStripMenuItem_Click);
             // 
             // printToolStripMenuItem
             // 
@@ -741,7 +739,6 @@ namespace JobApplicationLog
             this.MinimumSize = new System.Drawing.Size(1431, 670);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numUpDwn_day)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDwn_month)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDwn_year)).EndInit();
