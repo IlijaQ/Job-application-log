@@ -166,22 +166,20 @@ namespace JobApplicationLog
                 Company1.Pros = linesList[7];
                 Company1.Cons = linesList[8];
 
-                switch(linesList[9])
+                Company1.CurrentStatus = Convert.ToInt32(linesList[9]);
+
+                switch (Company1.CurrentStatus)
                 {
-                    case "2":   //Company offered a Job Offer
-                        Company1.CurrentStatus = 2;
-                        lbl_companyName.ForeColor = Color.FromArgb(122, 209, 19);//green
+                    case (int)Status.JobOffer:
+                        lbl_companyName.ForeColor = Color.FromArgb(122, 209, 19); // green
                         break;
-                    case "1":   //Application in motion
-                        Company1.CurrentStatus = 1;
-                        lbl_companyName.ForeColor = Color.FromArgb(51, 153, 255);//vibrant blue
+                    case (int)Status.InProgress:
+                        lbl_companyName.ForeColor = Color.FromArgb(51, 153, 255); // vibrant blue
                         break;
-                    case "0":   //Aplication not active
-                        Company1.CurrentStatus = 0;
+                    case (int)Status.Rejected:
                         lbl_companyName.ForeColor = Color.Gray;
                         break;
                 }
-
 
                 Company1.JobDescription = linesList;
                 Company1.JobDescription.RemoveRange(0, 10);
@@ -197,7 +195,7 @@ namespace JobApplicationLog
                 lbl_applicationStatus.Text = Company1.ApplicationStatus;
 
                 #region adds hint to status label if one or more months has passed if status remains pending 
-                if (Company1.CurrentStatus == 1 && lbl_applicationStatus.Text.ToLower().Contains("pending"))
+                if (Company1.CurrentStatus == (int)Status.InProgress && lbl_applicationStatus.Text.ToLower().Contains("pending"))
                 {
                     int currentTotalMonths = DateTime.Now.Month + DateTime.Now.Year * 12;
                     int applicationDateTotalMonths = Company1.ApplicationDate.Month + Company1.ApplicationDate.Year * 12;
@@ -340,7 +338,7 @@ namespace JobApplicationLog
             Company1.Cons = txtBox_cons.Text;
 
             if (newCompanyForm)
-                Company1.CurrentStatus = 1;
+                Company1.CurrentStatus = (int)Status.InProgress;
 
             string[] linesToBeSaved = new string[] {
                 Company1.CompanyName,
@@ -387,9 +385,9 @@ namespace JobApplicationLog
                 switch (Company1.CurrentStatus)
                 {
                     //applies the change according to how company is displayed on the list (depneding on CurrentStatus)
-                    case 0: editedCompaniesArray[Array.IndexOf(editedCompaniesArray, IfCoNameChangedIndicator)] = Company1.CompanyName; break;
-                    case 1: editedCompaniesArray[Array.IndexOf(editedCompaniesArray, IfCoNameChangedIndicator.ToUpper())] = Company1.CompanyName.ToUpper(); break;
-                    case 2: editedCompaniesArray[Array.IndexOf(editedCompaniesArray, ($" > > {IfCoNameChangedIndicator}"))] = $" > > {Company1.CompanyName}"; break;
+                    case (int)Status.Rejected: editedCompaniesArray[Array.IndexOf(editedCompaniesArray, IfCoNameChangedIndicator)] = Company1.CompanyName; break;
+                    case (int)Status.InProgress: editedCompaniesArray[Array.IndexOf(editedCompaniesArray, IfCoNameChangedIndicator.ToUpper())] = Company1.CompanyName.ToUpper(); break;
+                    case (int)Status.JobOffer: editedCompaniesArray[Array.IndexOf(editedCompaniesArray, ($" > > {IfCoNameChangedIndicator}"))] = $" > > {Company1.CompanyName}"; break;
                 }
 
                 File.WriteAllLines("CompaniesList.txt", editedCompaniesArray);
@@ -433,7 +431,7 @@ namespace JobApplicationLog
 
         private void btn_deactivateCurrentStatus_Click(object sender, EventArgs e)
         {
-            Company1.CurrentStatus = 0;
+            Company1.CurrentStatus = (int)Status.Rejected;
             SavesDataToAFile();
 
             //Companies with active status are written in uppercase in companies list
@@ -454,7 +452,7 @@ namespace JobApplicationLog
 
         private void btn_jobOffer_Click(object sender, EventArgs e)
         {
-            Company1.CurrentStatus = 2;
+            Company1.CurrentStatus = (int)Status.JobOffer;
             txtBox_applicationStatus.Text = "Job Offer";//compatability with SavesDataToAFile() method
             
             SavesDataToAFile();
@@ -480,16 +478,16 @@ namespace JobApplicationLog
             string[] editedCompaniesArray = File.ReadAllLines("CompaniesList.txt");
             switch (Company1.CurrentStatus)
             {
-                case 0:
+                case (int)Status.Rejected:
                     editedCompaniesArray[Array.IndexOf(editedCompaniesArray, Company1.CompanyName)] = Company1.CompanyName.ToUpper();
                     break;
-                case 2:
+                case (int)Status.JobOffer:
                     editedCompaniesArray[Array.IndexOf(editedCompaniesArray, $" > > {Company1.CompanyName}")] = Company1.CompanyName.ToUpper();
                     break;
             }
             File.WriteAllLines("CompaniesList.txt", editedCompaniesArray);
 
-            Company1.CurrentStatus = 1;
+            Company1.CurrentStatus = (int)Status.InProgress;
             SavesDataToAFile();
             
 
@@ -554,7 +552,7 @@ namespace JobApplicationLog
             lbl_applicationStatus.Hide();
             txtBox_applicationStatus.Show();
 
-            if (Company1.CurrentStatus == 0 || newCompanyForm || Company1.CurrentStatus == 2)
+            if (Company1.CurrentStatus == (int)Status.Rejected || newCompanyForm || Company1.CurrentStatus == (int)Status.JobOffer)
             {
                 btn_jobOffer.Hide();
                 btn_deactivateCurrentStatus.Hide();
@@ -667,9 +665,9 @@ namespace JobApplicationLog
 
             string stat = "";
             switch (Company1.CurrentStatus) {
-                case 0: stat = "REJECTED"; break;
-                case 1: stat = "IN PROGRESS"; break;
-                case 2: stat = "JOB OFFER"; break;
+                case (int)Status.Rejected: stat = "REJECTED"; break;
+                case (int)Status.InProgress: stat = "IN PROGRESS"; break;
+                case (int)Status.JobOffer: stat = "JOB OFFER"; break;
             }
 
             string coProfile = String.Format("{0, -25}{1}", "COMPANY PROFILE APP:", Company1.CompanyProfileAppLink);
@@ -681,7 +679,7 @@ namespace JobApplicationLog
                 String.Format("{0, -25}{1} {2}", "APPLICATION STATUS:", stat, Company1.ApplicationStatus),
                 String.Format("{0, -25}{1}", "SOURCE SITE:", Company1.SourceSite),
                 "",
-                String.Format("{0, -25}{1}", "CONPANY SITE LINK:", Company1.CompanySiteLink),
+                String.Format("{0, -25}{1}", "COMPANY SITE LINK:", Company1.CompanySiteLink),
                 String.IsNullOrEmpty(Company1.CompanyProfileAppLink) ? coReviews : $"{coProfile}\r\n{coReviews}", //eliminates entire row COMPANY PROFILE APP if one doesn' exist, usually it doesn't
                 "",
                 String.Format("{0, -25}{1}", "PROS:", Company1.Pros),
@@ -717,5 +715,13 @@ namespace JobApplicationLog
         {
             MessageBox.Show("Comming soon");
         }
+
+        enum Status
+        {
+            Rejected,
+            InProgress,
+            JobOffer
+        }
+
     }
 }
