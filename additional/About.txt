@@ -1,0 +1,56 @@
+This project is published on Github on the IlijaQ / Job-application-log public repository.
+https://github.com/IlijaQ/Job-application-log
+
+Project is protected with MIT Licence.
+
+Special thanks to Dule for helping along the way.
+
+
+
+Project main features:
+
+Keeps all necessary information in one pleace (Company name, application date, application current status, Job description, application website, basic feedback about Company - positive and negative)
+Provides dedicated buttons that run web browser that visits Company official site; third party informative sites for additional info about Company etc
+Saves all data about Company locally on PC
+Provides list of saved Companies ordered by application date
+Selected entries from list opens stored data of selected Company and displays it on app window
+
+
+
+Instructions:
+
+	Companies list
+		Double click on a company to load it's data
+		Companies displayed in uppercase letters are in "application in progress state"
+		Companies marked with "> >" symbol are ones that extended their job offer
+		Companies displayed regularly stopped the selection process
+	
+	Menu bar
+		New Company
+			Displays form to fill information about a company that application was submitted
+			Fields:
+				company name
+				application date
+				source site (website where application is submitted to employer)
+				status (current stage of application process)
+				company site (mapping URI to "company site" button to open web browser and visit page)
+				company profile app (mapping URI to "profile" button to open web browser and visit page)
+					"profile" button not visible if this field is empty
+				company info (mapping URI to "company info" button to open web browser and visit page)
+				pros (positive criticism about company)
+				cons (negative criticism about company)
+				job description
+		Options
+			Save as .txt file
+				Creates a separate .txt file with all provided info about company in dedicated format
+				Save file dialog appears for user to select file name and storage location
+			Print
+		Help
+			About
+				Opens text readonly file with user manual and program information
+			Source Code
+				Opens web browser and loads GitHub repository for this porject
+					https://github.com/IlijaQ/Job-application-log
+			Developer
+				Opens web browser and loads the developer GitHub home page
+					https://github.com/IlijaQ
