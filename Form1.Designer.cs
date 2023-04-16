@@ -683,6 +683,7 @@ namespace JobApplicationLog
             // 
             // btn_restoreStatus
             // 
+            this.btn_restoreStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_restoreStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_restoreStatus.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.btn_restoreStatus.Location = new System.Drawing.Point(1178, 131);

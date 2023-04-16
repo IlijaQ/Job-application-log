@@ -45,11 +45,11 @@ namespace JobApplicationLog
 
                 string[] starterFile = new string[] {
                     "Test Company",
-                    "133985592000000000",
-                    "Service name",
-                    "Pending",
-                    "https://linkedin.com/in/ilija-kujovic-126352204",
+                    Convert.ToString(DateTime.Now.ToFileTime()),
+                    "NSZ",
+                    "no applications yet",
                     "https://github.com/IlijaQ",
+                    "https://linkedin.com/in/ilija-kujovic-126352204",
                     "https://github.com/IlijaQ/Job-application-log",
                     "good company",
                     "no complaints",
@@ -63,8 +63,9 @@ namespace JobApplicationLog
                     "-Experience in working with Entity Framework (or other persistence frameworks)",
                     "",
                     "",
-                    "///////////////  Click on \"New Company\" to get started.",
-                    "///////////////  Click on \"Company info\" on this entry to view program features and manual."
+                    "Click on \"New Company\" to get started.",
+                    "Click on Help / About to open manual.",
+                    "Click on \"Company info\" on this entry to view program features with screenshots, and manual."
                 };
 
                 File.WriteAllLines("CompaniesList.txt", starterList);
@@ -320,7 +321,7 @@ namespace JobApplicationLog
             // Actions if new Company is beeing created
             if (newCompanyForm)
             {
-                Company1.FilePath = @".\..\..\Companies\" + Company1.CompanyName.Replace(" ", "") + ".txt";
+                Company1.FilePath = @".\..\..\Companies\txtFiles\" + Company1.CompanyName.Replace(" ", "") + ".txt";
 
                 // updating CompaniesList.txt
                 string[] editedCompaniesArray = File.ReadAllLines("CompaniesList.txt");
@@ -471,7 +472,6 @@ namespace JobApplicationLog
             SetMaxDaysInMonth();
         }
         #endregion
-
 
         private void ReplaceLabelsWithTextboxes() // and replaces 'new company' and 'edit' buttons with 'back' and 'save'
         {
