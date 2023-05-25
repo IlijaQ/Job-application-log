@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Drawing.Printing;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace JobApplicationLog
 {
@@ -37,39 +39,10 @@ namespace JobApplicationLog
         {
             listbox_companies.Items.Clear();
             companiesDictionary.Clear();
-
-            //creates initial list and company with dummy data on start. Granst User a first look how files are viewed before entering his own entries.
+            
             if (!File.Exists("CompaniesList.txt"))
             {
-                string[] starterList = new string[] { "GET STARTED", "TestCompany.txt" };
-
-                string[] starterFile = new string[] {
-                    "Test Company",
-                    Convert.ToString(DateTime.Now.ToFileTime()),
-                    "NSZ",
-                    "no applications yet",
-                    "https://github.com/IlijaQ",
-                    "https://linkedin.com/in/ilija-kujovic-126352204",
-                    "https://github.com/IlijaQ/Job-application-log",
-                    "good company",
-                    "no complaints",
-                    "1",
-                    "[EXAMPLE]",
-                    "You are a good candidate if you can check at least two of the following key skills:",
-                    "-knowledge of C# and .NET framework.",
-                    "-knowledge of HTML, CSS",
-                    "-knowledge of SQL and experience in working with databases",
-                    "-Experience with ASP.NET MVC and/or Razor Pages",
-                    "-Experience in working with Entity Framework (or other persistence frameworks)",
-                    "",
-                    "",
-                    "Click on \"New Company\" to get started.",
-                    "Click on Help / About to open manual.",
-                    "Click on \"Company info\" on this entry to view program features with screenshots, and manual."
-                };
-
-                File.WriteAllLines("CompaniesList.txt", starterList);
-                File.WriteAllLines("TestCompany.txt", starterFile);
+                CreateInitialFiles();
             }
 
             string[] companiesArray = File.ReadAllLines("CompaniesList.txt");
@@ -93,6 +66,46 @@ namespace JobApplicationLog
 
             string[] arrayForUi = companiesList.ToArray();
             listbox_companies.Items.AddRange(arrayForUi);
+        }
+
+        // creates initial list and company with dummy data on start. Granst User a first look how files are viewed before entering his own entries.
+        private void CreateInitialFiles()
+        {
+            // adding dummy data for initial company file
+            Company1.CompanyName = "Test Company";
+            Company1.ApplicationDate = DateTime.Now;
+            Company1.SourceSite = "NSZ";
+            Company1.ApplicationStatus = "no applications yet";
+            Company1.CompanySiteLink = "https://github.com/IlijaQ";
+            Company1.CompanyProfileAppLink = "https://linkedin.com/in/ilija-kujovic-126352204";
+            Company1.CompanyInfoLink = "https://github.com/IlijaQ/Job-application-log";
+            Company1.Pros = "good company";
+            Company1.Cons = "no complaints";
+            Company1.CurrentStatus = (int)Status.InProgress;
+
+            Company1.JobDescription = new List<string>();
+            Company1.JobDescription.Add("[EXAMPLE]");
+            Company1.JobDescription.Add("You are a good candidate if you can check at least two of the following key skills:");
+            Company1.JobDescription.Add("-knowledge of C# and .NET framework.");
+            Company1.JobDescription.Add("-knowledge of HTML, CSS");
+            Company1.JobDescription.Add("-knowledge of SQL and experience in working with databases");
+            Company1.JobDescription.Add("-Experience with ASP.NET MVC and/or Razor Pages");
+            Company1.JobDescription.Add("-Experience in working with Entity Framework (or other persistence frameworks)");
+            Company1.JobDescription.Add("");
+            Company1.JobDescription.Add("Click on \"New Company\" to get started.");
+            Company1.JobDescription.Add("Click on Help / About to open manual.");
+            Company1.JobDescription.Add("Click on \"Company info\" on this entry to view program features with screenshots, and manual.");
+
+            // creates initial company file
+            XmlSerializer CompanyXmlSerializer = new XmlSerializer(typeof(Company));
+            using (FileStream CompanyFileStream = File.Create("TestCompany.xml"))
+            {
+                CompanyXmlSerializer.Serialize(CompanyFileStream, Company1);
+            }
+
+            // Creates CompaniesList.txt and ads initial file to the list
+            string[] starterList = new string[] { "GET STARTED", "TestCompany.xml" };
+            File.WriteAllLines("CompaniesList.txt", starterList);
         }
 
         public void btn_edit_Click(object sender, EventArgs e)
@@ -129,53 +142,41 @@ namespace JobApplicationLog
         {
             Company1.FilePath = selectedFile;
 
-            string[] linesArray = File.ReadAllLines(selectedFile);
-            List<string> linesList = new List<string>();
-            linesList.AddRange(linesArray);
+            XmlSerializer CompanyXmlDeSerializer = new XmlSerializer(typeof(Company));
+            using (FileStream CompanyFileStream = new FileStream(Company1.FilePath, FileMode.Open))
+            {
+                Company1 = (Company)CompanyXmlDeSerializer.Deserialize(CompanyFileStream);
+            }
 
             if(companiesDictionary.Count == 0)
             {
                 OpenNewCompanyForm();
             }
-            else
-            {
-                #region Loading Data
-                // loading from file
-                Company1.CompanyName = linesList[0];
-                Company1.ApplicationDate = DateTime.FromFileTime(Convert.ToInt64(linesList[1]));
-                Company1.SourceSite = linesList[2];
-                Company1.ApplicationStatus = linesList[3];
-                Company1.CompanySiteLink = linesList[4];
-                Company1.CompanyProfileAppLink = linesList[5];
-                Company1.CompanyInfoLink = linesList[6];
-                Company1.Pros = linesList[7];
-                Company1.Cons = linesList[8];
-                Company1.CurrentStatus = Convert.ToInt32(linesList[9]);
-                Company1.JobDescription = linesList;
-                Company1.JobDescription.RemoveRange(0, 10);
-                
-                // setting labels
-                switch (Company1.CurrentStatus)
-                {
-                    case (int)Status.JobOffer:
-                        lbl_companyName.ForeColor = Color.FromArgb(122, 209, 19); // green
-                        break;
-                    case (int)Status.InProgress:
-                        lbl_companyName.ForeColor = Color.FromArgb(51, 153, 255); // vibrant blue
-                        break;
-                    case (int)Status.Rejected:
-                        lbl_companyName.ForeColor = Color.Gray;
-                        break;
-                }
-                
-                lbl_companyName.Text = Company1.CompanyName;
-                lbl_applicationDate.Text = Company1.ApplicationDate.ToString("dd.M.yyyy");
-                lbl_applicationStatus.Text = Company1.ApplicationStatus;
-                lbl_sourceSite.Text = Company1.SourceSite;
-                DetermineTextOrLabel();
 
-                #region adds hint to status label if one or more months has passed if status remains pending 
-                if (Company1.CurrentStatus == (int)Status.InProgress && lbl_applicationStatus.Text.ToLower().Contains("pending"))
+            #region Loading Data
+
+            // setting labels
+            switch (Company1.CurrentStatus)
+            {
+                case (int)Status.JobOffer:
+                    lbl_companyName.ForeColor = Color.FromArgb(122, 209, 19); // green
+                    break;
+                case (int)Status.InProgress:
+                    lbl_companyName.ForeColor = Color.FromArgb(51, 153, 255); // vibrant blue
+                    break;
+                case (int)Status.Rejected:
+                    lbl_companyName.ForeColor = Color.Gray;
+                    break;
+            }
+
+            lbl_companyName.Text = Company1.CompanyName;
+            lbl_applicationDate.Text = Company1.ApplicationDate.ToString("dd.M.yyyy");
+            lbl_applicationStatus.Text = Company1.ApplicationStatus;
+            lbl_sourceSite.Text = Company1.SourceSite;
+            DetermineTextOrLabel();
+
+            #region adds hint to status label if one or more months has passed if status remains pending 
+            if (Company1.CurrentStatus == (int)Status.InProgress && lbl_applicationStatus.Text.ToLower().Contains("pending"))
                 {
                     int currentTotalMonths = DateTime.Now.Month + DateTime.Now.Year * 12;
                     int applicationDateTotalMonths = Company1.ApplicationDate.Month + Company1.ApplicationDate.Year * 12;
@@ -194,20 +195,19 @@ namespace JobApplicationLog
                     }
                     else if (currentTotalMonths > applicationDateTotalMonths + 3)
                         lbl_applicationStatus.Text = Company1.ApplicationStatus + " (over three months, you shoud probably dactivate this one)";
-                }
-                #endregion
-
-                if (String.IsNullOrEmpty(Company1.CompanyProfileAppLink))
-                    btn_companyProfileApp.Hide();
-                else
-                    btn_companyProfileApp.Show();
-
-                lbl_pros.Text = Company1.Pros;
-                lbl_cons.Text = Company1.Cons;
-
-                PopulatesJobDesc();
-                #endregion
             }
+            #endregion
+
+            if (String.IsNullOrEmpty(Company1.CompanyProfileAppLink))
+                btn_companyProfileApp.Hide();
+            else
+                btn_companyProfileApp.Show();
+
+            lbl_pros.Text = Company1.Pros;
+            lbl_cons.Text = Company1.Cons;
+
+            PopulatesJobDesc();
+            #endregion
         }
 
         private void DetermineTextOrLabel()
@@ -301,27 +301,16 @@ namespace JobApplicationLog
             Company1.Pros = txtBox_pros.Text;
             Company1.Cons = txtBox_cons.Text;
 
+            Company1.JobDescription = new List<string>();
+            Company1.JobDescription.AddRange(txtBox_jobDesc.Lines);
+
             if (newCompanyForm)
                 Company1.CurrentStatus = (int)Status.InProgress;
-
-            string[] linesToBeSaved = new string[] {
-                Company1.CompanyName,
-                Convert.ToString(Company1.ApplicationDate.ToFileTime()),
-                Company1.SourceSite,
-                Company1.ApplicationStatus,
-                Company1.CompanySiteLink,
-                Company1.CompanyProfileAppLink,
-                Company1.CompanyInfoLink,
-                Company1.Pros,
-                Company1.Cons,
-                Convert.ToString(Company1.CurrentStatus),
-                txtBox_jobDesc.Text
-            };
 
             // Actions if new Company is beeing created
             if (newCompanyForm)
             {
-                Company1.FilePath = @".\..\..\Companies\txtFiles\" + Company1.CompanyName.Replace(" ", "") + ".txt";
+                Company1.FilePath = @".\..\..\Companies\xmlFiles\" + Company1.CompanyName.Replace(" ", "") + ".xml";
 
                 // updating CompaniesList.txt
                 string[] editedCompaniesArray = File.ReadAllLines("CompaniesList.txt");
@@ -352,7 +341,11 @@ namespace JobApplicationLog
                 ReloadRecentList();
             }
 
-            File.WriteAllLines(Company1.FilePath, linesToBeSaved);
+            XmlSerializer CompanyXmlSerializer = new XmlSerializer(typeof(Company));
+            using (FileStream CompanyFileStream = File.Create(Company1.FilePath))
+            {
+                CompanyXmlSerializer.Serialize(CompanyFileStream, Company1);
+            }
 
             newCompanyForm = false;
         }
