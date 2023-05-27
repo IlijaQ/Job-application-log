@@ -5,11 +5,11 @@ Windows form .NET
 
 Project main features:
 - [x] Keeps all necessary information in one place (Company name, application date, application current status, job description, application website, basic feedback about the company - positive and negative).
-- [x] Provides dedicated buttons that open a web browser to visit the company's official site and third-party informative sites for additional information about the company.
-- [x] Saves all data about the company in a dedicated program directory in .xml format.
+- [x] Provides dedicated buttons that open a web browser to visit the company's official site and third-party forums for additional information about the company.
+- [x] Saves all data about the company locally in xml format.
 - [x] Provides a list of saved companies ordered by application date.
 - [x] Selecting an entry from the list opens the stored data of the selected company and displays it in the app window.
-- [x] Provides an option to save company information in a separate independent .txt file.
+- [x] Provides an option to save company information in a separate independent txt file.
 
 Screenshots and manual
 ![Preview](https://github.com/IlijaQ/Job-application-log/blob/main/Screenshots/Example.png)

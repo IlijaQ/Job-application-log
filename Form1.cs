@@ -40,38 +40,35 @@ namespace JobApplicationLog
             listbox_companies.Items.Clear();
             companiesDictionary.Clear();
             
-            if (!File.Exists("CompaniesList.txt"))
+            if (!File.Exists("CompaniesList.xml"))
             {
                 CreateInitialFiles();
             }
 
-            string[] companiesArray = File.ReadAllLines("CompaniesList.txt");
+            XmlDocument companiesListXml = new XmlDocument();
+            companiesListXml.Load("CompaniesList.xml");
+            XmlNodeList companyNodes = companiesListXml.GetElementsByTagName("company");
 
             List<string> companiesList = new List<string>();
+            companiesList.Capacity = companyNodes.Count;
 
-            for(int i = 0; i < companiesArray.Length; i+=2)
+            foreach (XmlNode company in companyNodes)
             {
-                // Cheks for empty entries
-                if (!string.IsNullOrEmpty(companiesArray[i]))
-                {
-                    companiesList.Add(companiesArray[i]);
-                    companiesDictionary.Add(companiesArray[i], companiesArray[i + 1]);
-                }
-                else
-                {
-                    i--;
-                }
-            }
-            companiesList.Reverse();
+                XmlNode nameNode = company.SelectSingleNode("name");
+                XmlNode pathNode = company.SelectSingleNode("path");
 
-            string[] arrayForUi = companiesList.ToArray();
-            listbox_companies.Items.AddRange(arrayForUi);
+                companiesDictionary.Add(nameNode.InnerText, pathNode.InnerText);
+                companiesList.Add(nameNode.InnerText);
+            }
+            
+            companiesList.Reverse();
+            listbox_companies.Items.AddRange(companiesList.ToArray());
         }
 
         // creates initial list and company with dummy data on start. Granst User a first look how files are viewed before entering his own entries.
         private void CreateInitialFiles()
         {
-            // adding dummy data for initial company file
+            #region adding dummy data for initial company file
             Company1.CompanyName = "Test Company";
             Company1.ApplicationDate = DateTime.Now;
             Company1.SourceSite = "NSZ";
@@ -94,7 +91,8 @@ namespace JobApplicationLog
             Company1.JobDescription.Add("");
             Company1.JobDescription.Add("Click on \"New Company\" to get started.");
             Company1.JobDescription.Add("Click on Help / About to open manual.");
-            Company1.JobDescription.Add("Click on \"Company info\" on this entry to view program features with screenshots, and manual.");
+            Company1.JobDescription.Add("Click on \"Company info\" on this entry to view program features with screenshots, and manual."); 
+            #endregion
 
             // creates initial company file
             XmlSerializer CompanyXmlSerializer = new XmlSerializer(typeof(Company));
@@ -103,9 +101,22 @@ namespace JobApplicationLog
                 CompanyXmlSerializer.Serialize(CompanyFileStream, Company1);
             }
 
-            // Creates CompaniesList.txt and ads initial file to the list
-            string[] starterList = new string[] { "GET STARTED", "TestCompany.xml" };
-            File.WriteAllLines("CompaniesList.txt", starterList);
+            // Creates CompaniesList.xml and ads initial file to the list
+            XmlDocument starterList = new XmlDocument();
+            XmlElement root = starterList.CreateElement("CompaniesList");
+            starterList.AppendChild(root);
+            
+            XmlElement company = starterList.CreateElement("company");
+            XmlElement name = starterList.CreateElement("name");
+            XmlElement path = starterList.CreateElement("path");
+            root.AppendChild(company);
+            company.AppendChild(name);
+            company.AppendChild(path);
+
+            name.InnerText = "GET STARTED";
+            path.InnerText = "TestCompany.xml";
+
+            starterList.Save("CompaniesList.xml");
         }
 
         public void btn_edit_Click(object sender, EventArgs e)
@@ -134,7 +145,6 @@ namespace JobApplicationLog
             if (txtBox_companyName.Visible)
                 HidesSingleLineTextboxes();
 
-            Company1.FilePath = (string)listbox_companies.SelectedItem;
             PopulateUi(companiesDictionary[(string)listbox_companies.SelectedItem]);
         }
 
@@ -312,31 +322,51 @@ namespace JobApplicationLog
             {
                 Company1.FilePath = @".\..\..\Companies\xmlFiles\" + Company1.CompanyName.Replace(" ", "") + ".xml";
 
-                // updating CompaniesList.txt
-                string[] editedCompaniesArray = File.ReadAllLines("CompaniesList.txt");
-                List<string> editedCompaniesList = new List<string>();
-                editedCompaniesList.AddRange(editedCompaniesArray);
-                editedCompaniesList.Add(Company1.CompanyName.ToUpper()); // Uppercase name for Companiest with active status(default)
-                editedCompaniesList.Add(Company1.FilePath);
-                File.WriteAllLines("CompaniesList.txt", editedCompaniesList);
+                // updating CompaniesList.xml
+                XmlDocument companiesListXml = new XmlDocument();
+                companiesListXml.Load("CompaniesList.xml");
+
+                XmlElement root = companiesListXml.DocumentElement;
+                XmlElement company = companiesListXml.CreateElement("company");
+                XmlElement name = companiesListXml.CreateElement("name");
+                XmlElement path = companiesListXml.CreateElement("path");
+
+                name.InnerText = Company1.CompanyName.ToUpper(); // Uppercase name for Companiest with active status(default)
+                path.InnerText = Company1.FilePath;
+
+                company.AppendChild(name);
+                company.AppendChild(path);
+                root.AppendChild(company);
+
+                companiesListXml.Save("CompaniesList.xml");
 
                 ReloadRecentList();
             }
 
-            // cheks if Comapany name is changed to update CompaniesList.txt
+            // cheks if Comapany name is changed to update CompaniesList.xml
             if (IfCoNameChangedIndicator != Company1.CompanyName && !newCompanyForm)
             {
-                string[] editedCompaniesArray = File.ReadAllLines("CompaniesList.txt");
+                XmlDocument companiesListXml = new XmlDocument();
+                companiesListXml.Load("CompaniesList.xml");
+                XmlNode nameNode;
 
                 switch (Company1.CurrentStatus)
                 {
                     // applies the change according to how company is displayed on the list (depneding on CurrentStatus)
-                    case (int)Status.Rejected: editedCompaniesArray[Array.IndexOf(editedCompaniesArray, IfCoNameChangedIndicator)] = Company1.CompanyName; break;
-                    case (int)Status.InProgress: editedCompaniesArray[Array.IndexOf(editedCompaniesArray, IfCoNameChangedIndicator.ToUpper())] = Company1.CompanyName.ToUpper(); break;
-                    case (int)Status.JobOffer: editedCompaniesArray[Array.IndexOf(editedCompaniesArray, ($" > > {IfCoNameChangedIndicator}"))] = $" > > {Company1.CompanyName}"; break;
+                    case (int)Status.Rejected:
+                        nameNode = companiesListXml.SelectSingleNode($"//name[Text()='{IfCoNameChangedIndicator}']");
+                        nameNode.InnerText = Company1.CompanyName;
+                        break;
+                    case (int)Status.InProgress:
+                        nameNode = companiesListXml.SelectSingleNode($"//name[Text()='{IfCoNameChangedIndicator.ToUpper()}']");
+                        nameNode.InnerText = Company1.CompanyName.ToUpper();
+                        break;
+                    case (int)Status.JobOffer:
+                        nameNode = companiesListXml.SelectSingleNode($"//name[Text()=' > > {IfCoNameChangedIndicator}']");
+                        nameNode.InnerText = $" > > {Company1.CompanyName}";
+                        break;
                 }
-
-                File.WriteAllLines("CompaniesList.txt", editedCompaniesArray);
+                companiesListXml.Save("CompaniesList.xml");
 
                 ReloadRecentList();
             }
@@ -384,11 +414,13 @@ namespace JobApplicationLog
             Company1.CurrentStatus = (int)Status.Rejected;
             SavesDataToAFile();
 
-            //Companies with active status are written in uppercase in companies list
-            //Deactivating Company status writes Company "normally" in the list.
-            string[] editedCompaniesArray = File.ReadAllLines("CompaniesList.txt");
-            editedCompaniesArray[Array.IndexOf(editedCompaniesArray, Company1.CompanyName.ToUpper())] = Company1.CompanyName;
-            File.WriteAllLines("CompaniesList.txt", editedCompaniesArray);
+            // Companies with active status are written in uppercase in companies list
+            // Deactivating Company status writes Company "normally" in the list.
+            XmlDocument companiesListXml = new XmlDocument();
+            companiesListXml.Load("CompaniesList.xml");
+            XmlNode nameNode = companiesListXml.SelectSingleNode($"//name[text()='{Company1.CompanyName.ToUpper()}']");
+            nameNode.InnerText = Company1.CompanyName;
+            companiesListXml.Save("CompaniesList.xml");
 
             ReloadRecentList();
             PopulateUi(Company1.FilePath);
@@ -400,14 +432,16 @@ namespace JobApplicationLog
         private void btn_jobOffer_Click(object sender, EventArgs e)
         {
             Company1.CurrentStatus = (int)Status.JobOffer;
-            txtBox_applicationStatus.Text = "Job Offer";//compatability with SavesDataToAFile() method
+            txtBox_applicationStatus.Text = "Job Offer"; // compatability with SavesDataToAFile() method
             
             SavesDataToAFile();
 
             //hints out the Company that offered a Job Offer in companies list
-            string[] editedCompaniesArray = File.ReadAllLines("CompaniesList.txt");
-            editedCompaniesArray[Array.IndexOf(editedCompaniesArray, Company1.CompanyName.ToUpper())] = $" > > {Company1.CompanyName}";
-            File.WriteAllLines("CompaniesList.txt", editedCompaniesArray);
+            XmlDocument companiesListXml = new XmlDocument();
+            companiesListXml.Load("CompaniesList.xml");
+            XmlNode nameNode = companiesListXml.SelectSingleNode($"//name[text()='{Company1.CompanyName.ToUpper()}']");
+            nameNode.InnerText = $" > > {Company1.CompanyName}";
+            companiesListXml.Save("CompaniesList.xml");
 
             ReloadRecentList();
             PopulateUi(Company1.FilePath);
@@ -418,17 +452,22 @@ namespace JobApplicationLog
 
         private void btn_restoreStatus_Click(object sender, EventArgs e)
         {
-            string[] editedCompaniesArray = File.ReadAllLines("CompaniesList.txt");
+            XmlDocument companiesListXml = new XmlDocument();
+            companiesListXml.Load("CompaniesList.xml");
+            XmlNode nameNode;
+
             switch (Company1.CurrentStatus)
             {
-                case (int)Status.Rejected:
-                    editedCompaniesArray[Array.IndexOf(editedCompaniesArray, Company1.CompanyName)] = Company1.CompanyName.ToUpper();
+                case (int)Status.Rejected: //      /CompaniesList/company/name
+                    nameNode = companiesListXml.SelectSingleNode($"//name[text()='{Company1.CompanyName}']");
+                    nameNode.InnerText = Company1.CompanyName.ToUpper();
                     break;
                 case (int)Status.JobOffer:
-                    editedCompaniesArray[Array.IndexOf(editedCompaniesArray, $" > > {Company1.CompanyName}")] = Company1.CompanyName.ToUpper();
+                    nameNode = companiesListXml.SelectSingleNode($"//name[text()=' > > {Company1.CompanyName}']");
+                    nameNode.InnerText = Company1.CompanyName.ToUpper();
                     break;
             }
-            File.WriteAllLines("CompaniesList.txt", editedCompaniesArray);
+            companiesListXml.Save("CompaniesList.xml");
 
             Company1.CurrentStatus = (int)Status.InProgress;
             SavesDataToAFile();
